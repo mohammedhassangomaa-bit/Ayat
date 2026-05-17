@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيكشن الثاني — فيورباخ وهيجل</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 16px; line-height: 1.8; padding: 1.5rem 1rem 5rem; max-width: 720px; margin: 0 auto; }
+
+  .part-badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 16px; border-radius: 20px; background: #D6EAF8; color: #1A5276; margin-bottom: 1rem; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+
+  .section { margin-bottom: 2rem; }
+  .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #1A5276; padding: .35rem .9rem; border-radius: 6px; margin-bottom: 1rem; }
+
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+  button.toggle-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.2rem; cursor: pointer; text-align: right; gap: .75rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.toggle-btn:active { background: #f5f3ef; }
+  .btn-title { font-size: 16px; font-weight: 700; color: #1A5276; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #2471A3; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+  .collapsible ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .collapsible li { margin-bottom: .35rem; }
+
+  .hl { color: #1A5276; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-green { color: #0F6E56; font-weight: 700; }
+  .hl-orange { color: #784212; font-weight: 700; }
+
+  button.explain-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: .9rem; padding: 8px 18px; font-size: 14px; font-weight: 700; color: #fff; background: #1D9E75; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.explain-btn:active { background: #0F6E56; }
+  .explain-box { display: none; margin-top: .85rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 12px; padding: .9rem 1.1rem; font-size: 15px; color: #04342C; line-height: 1.85; }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .85rem 1.2rem; cursor: pointer; text-align: right; gap: .5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.term-btn:active { background: #f5f3ef; }
+  .term-name { font-size: 15px; font-weight: 700; color: #1A5276; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #D6EAF844; }
+  .term-body.open { display: block; }
+
+  .q-card { border-right: 4px solid #2471A3; background: #fff; border-radius: 0 14px 14px 0; border-top: 1.5px solid #c8c6be; border-bottom: 1.5px solid #c8c6be; border-left: 1.5px solid #c8c6be; margin-bottom: .9rem; overflow: hidden; }
+  button.q-btn { width: 100%; background: transparent; border: none; padding: .9rem 1.2rem; cursor: pointer; text-align: right; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.q-btn:active { background: #f5f3ef; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #2471A3; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #AED6F1; background: #D6EAF844; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: .75rem 0; }
+  .compare-box { border-radius: 10px; padding: .75rem 1rem; }
+  .compare-box.blue { background: #D6EAF8; }
+  .compare-box.orange { background: #FDEBD0; }
+  .compare-box-title { font-size: 13px; font-weight: 700; margin-bottom: .4rem; }
+  .compare-box.blue .compare-box-title { color: #1A5276; }
+  .compare-box.orange .compare-box-title { color: #784212; }
+  .compare-box-text { font-size: 13px; color: #1a1a18; line-height: 1.65; }
+
+  .quote-box { background: #D6EAF8; border-right: 4px solid #2471A3; border-radius: 0 10px 10px 0; padding: .85rem 1.1rem; margin: .75rem 0; font-size: 15px; color: #1A5276; line-height: 1.8; font-style: italic; }
+
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #1A5276; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.expand-all:active { background: #154360; }
+</style>
+</head>
+<body>
+
+<span class="part-badge">السيكشن الثاني</span>
+<h1>فيورباخ وهيجل</h1>
+<p class="subtitle">الفكرة المحورية: فيورباخ تلميذ هيجل الذي انقلب عليه — وقلب الفلسفة المثالية رأساً على عقب بجعل الإنسان والطبيعة مركزاً بدلاً من الروح المطلقة</p>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- القسم 1: فيورباخ وهيجل - البداية -->
+<div class="section">
+  <div class="section-label">أولاً — فيورباخ وهيجل: من التلمذة إلى النقد</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">كيف خرج فيورباخ من حياة هيجل؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يُعدّ فيورباخ من تلاميذ هيجل المتخصصين — تتلمذ على يديه ثم انتقده بعد ذلك.<br><br>
+      إذا أردنا أن نعبّر عن الفرق بين فلسفة هيجل وفلسفة فيورباخ يمكن القول: إن فيورباخ قاد في فلسفة هيجل ثورةً مثل تلك التي قام بها كوبرنيكوس في علم الفلك البطلمي — حيث قلب فلسفة هيجل رأساً على عقب عندما جعل <span class="hl">الإدراكية والدولوية</span> تحلّ محل ما كان هيجل يرى من أن الروح المطلق هو الأصل.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ كان طالب عند هيجل، بس بعدين انقلب عليه. هيجل كان بيقول "الروح المطلق" هو الأصل في كل حاجة — زي إن في قوة روحانية كونية هي اللي بتحرك التاريخ والوجود. فيورباخ جاي قال: "لأ، الإنسان والطبيعة هما الأصل، مش الروح". زي ما كوبرنيكوس قال "الأرض مش مركز الكون" — فيورباخ قال "الروح المطلق مش مركز الوجود — الإنسان هو المركز".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فلسفته في الدين — المقابل للفلسفة الهيجلية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      فلسفة فيورباخ في الدين هي المقابل للفلسفة الهيجلية — يقرّ فيورباخ أن فلسفته في الدين وفكره عموماً يمكن أن يفهمه ويقيّمه على أنه المقابل للفلسفة الهيجلية.<br><br>
+      <span class="hl">والسؤال الأبرز هو:</span> هل قرّر بالفعل من تأثير أستاذه؟<br><br>
+      <ul>
+        <li><span class="hl">فريق أول</span> — يرى أنه لم يتحرر من تأثير أستاذه وليه</li>
+        <li><span class="hl">فريق ثانٍ</span> — يرى أنه قرّر وقدّر من تأثير أستاذه وليه، ويمثل الفريق الأول</li>
+      </ul>
+      <span class="hl-orange">م - جوستاف:</span> يرعاه وغيره أنه لم يتحرر تماماً من تأثير أستاذه عليه.<br>
+      <span class="hl-green">د - فوهل:</span> يرى أن هيجل كان أمراً آخر، العلاقة بينهما معقدة — لوجود فيورباخ حيث نشر فكره الفلسفي في البداية وأكدّه على دوره في المرحلة الهيجلية إيجاباً وسلباً.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        في نقاش بين الباحثين: هل فيورباخ قدر فعلاً يتخلص من تأثير هيجل أستاذه؟ فريق بيقول "لأ، هيجل فضل مؤثر فيه حتى بعد ما انتقده". وفريق تاني بيقول "أيوه، قدر يتخلص منه وعمل فلسفة مستقلة". الحقيقة إن العلاقة بين الاتنين معقدة — فيورباخ انبنى على هيجل عشان ينقده.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">دليل تأثره بهيجل — كتابه "ماهية المسيحية"</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">م (الفريق الأول):</span> أنه سعى في كتابه <span class="hl">"ماهية المسيحية"</span> وما انتهى إليه من قضايا مثالية لفلسفة هيجل، إلى الكتابات التالية المثالية لفلسفة هيجل.<br><br>
+      يعني: فيورباخ نفسه أقرّ في كتابه "ماهية المسيحية" أنه قد قرّر من تأثير أستاذه عليه، وانتهى إلى ما يقرب القضايا المثالية لفلسفة هيجل.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        في كتابه "ماهية المسيحية" — وده أشهر كتاب لفيورباخ — هو نفسه اعترف إنه لسه متأثر بهيجل. يعني حتى لما كان بينتقد هيجل، الأدوات الفكرية اللي بيستخدمها هيجلية في جوهرها.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 2: رأي هيجل والموقف من المقدس -->
+<div class="section">
+  <div class="section-label">ثانياً — رأي هيجل وموقف فيورباخ من المقدس</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ماذا رأى هيجل أنه يتنافق مع المقدس؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      فيورباخ قد برهن على أن المقدس هو إنتاج وهمي للحقيقة، وما قاله هيجل هو ما يتقدم على الفكر إلى وافي، ليس تأكيداً لأبيه أنه رفض تأثيره الجديد بهيجل — إلا أنه في عام ١٨٢٦ امتدح مضمونه ومنهج فلسفة <span class="hl">ذاتية (رفشته)</span> وفي بنية ثنائية من <span class="hl">ديكارت — كانط</span> التي تعتقد للتأمل.<br><br>
+      ثم عاد عام ١٨٤٧ ليشكك في خلسة فلسفة هيجل في الطبيعة.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ كان رأيه في هيجل بيتغير مع الوقت. في البداية (١٨٢٦) امتدح فلسفته. بعدين بدأ يشكك فيها خصوصاً في موضوع الطبيعة. يعني موقفه من هيجل مش موقف واحد ثابت — كان في تطور مستمر.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">السؤال الأبرز — كيف تنتظم العلاقة بين فيورباخ وهيجل؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">والسؤال الأبرز هو:</span> كيف نستطيع بيان العلاقة بين فيورباخ وهيجل؟ وأين تقف حدود فلسفة كلٍّ منهما؟<br><br>
+      في الإجابة على هذا السؤال — عند فيورباخ تقوم على نقد <span class="hl">فلسفة المستقبل</span> لتحقيق فلسفة هيجل، فالنقد ضروري، ويرى فيورباخ أن <span class="hl">النزعة الطبيعية</span> والنزعة الإنسانية قائمة على الجمع بين النزعة الإنسانية، أمام النزعة الطبيعية — مطلقها هيجل — وأن النزعة الطبيعية يجب إزالة <span class="hl">(إله المسيحية)</span> وبذلك تفتح الطريق أمام الإنسانية.<br><br>
+      القطيعة بين هيجل وفيورباخ — حيث نقد فيورباخ الروح المطلق إلى الإنسان الحقيقي.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: عشان الفلسفة تكتمل وتبقى حقيقية، لازم ننتقد هيجل. هيجل حط "الروح المطلق" أو "الله" في المركز. فيورباخ بيقول: لأ، لازم نشيل الإله من المركز ونحط الإنسان والطبيعة بدله. وبكده تبقى الفلسفة إنسانية حقيقية بدل ما تبقى لاهوتية متخفية.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 3: انقسام المدرسة الهيجلية -->
+<div class="section">
+  <div class="section-label">ثالثاً — انقسام المدرسة الهيجلية</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">بداية الانقسام — قبل وفاة هيجل ١٨٣١</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      بدأت الانقسامات بين تلاميذ هيجل في الظهور قبل وفاته عام ١٨٣١، وكان سبب الاختلاف <span class="hl">"مسألة الدين"</span>.<br><br>
+      انقسمت المدرسة إلى جناحين يمينيًا وآخر يساريًا، حاولوا قراءة فلسفة هيجل من خلال توجيه النقد للدولة البروسية — لأنه أقل تضرراً من الهجوم على الدين — ثم وجهوا هجومهم على الدين إلى الدولة.<br><br>
+      <span class="hl-green">د - نشر فيورباخ كتابه الهام</span> "خواطر حول الموت والخلود" حيث اشتغل فيه بوحدة الوجود وأنكر خلود النفس — المثل لخلود النفس عند هيجل في المشكلات اللاهوتية الأساسية.<br><br>
+      <span class="hl">خلود النفس عند هيجل:</span> كان هيجل غامضاً في تناوله لهذه المسألة — من الإدراكية فيقول (للفكر المطلق) وأحياناً يضمر حين يتحدث في المعرفة فيقول (الإنسان أبدى فيما يتعلق بالمعرفة والمعرفة والخلود هما جذور صيانته وجذور خلوده) وهو هنا يربط بين هو إنسان خالد؟ وما يعني قول هيجل "خلود النفس".
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بعد ما هيجل مات، تلاميذه اختلفوا على تفسير فلسفته خصوصاً في موضوع الدين. المحافظون (اليمين) قالوا: هيجل كان بيدعم الدين. التقدميون (اليسار) قالوا: لأ، فلسفة هيجل بتتجاوز الدين. فيورباخ كتب كتاباً قال فيه إن النفس مش خالدة — ده كان ضربة للفكر الديني التقليدي وعمل جدل كبير.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الهيجليون اليمين مقابل اليسار — الفرق الجوهري</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      انقسم الهيجليون الشباب إلى قسمين:
+
+      <div class="compare-grid" style="margin-top:.75rem">
+        <div class="compare-box blue">
+          <div class="compare-box-title">م — اليسار الهيجلي (اليبرالي)</div>
+          <div class="compare-box-text">أقاموا راديكالياً ليبرالياً: شتراوس — باور — فيورباخ — ماركس — إنجلز — الجيل الذي يبحث عن الربط بالواقع</div>
+        </div>
+        <div class="compare-box orange">
+          <div class="compare-box-title">د — الهيجليون شيوخ (اليمين)</div>
+          <div class="compare-box-text">دافعوا عن فكرة خلود النفس عند هيجل</div>
+        </div>
+      </div>
+
+      <span class="hl">انقسم الهيجليون الشباب لا قاسمين:</span>
+      <ul style="margin-top:.5rem">
+        <li><span class="hl">م — راديكاليون ليبراليون:</span> شتراوس — باور — فيورباخ — ماركس وإنجلز — الجيل الذي يبحث عن ربط الفكر بالواقع</li>
+        <li><span class="hl">د — الهيجليون اليمين:</span> دافعوا عن فكرة خلود النفس الهيجلية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        تلاميذ هيجل انقسموا لفريقين: اليمين (المحافظون) اللي قالوا "هيجل كان مع الدين والنظام القائم"، واليسار (التقدميون) اللي قالوا "لأ، فلسفة هيجل تقود لنقد الدين والمجتمع والسياسة". فيورباخ وماركس وإنجلز كانوا في اليسار.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 4: موقف الشباب الهيجليين من فيورباخ -->
+<div class="section">
+  <div class="section-label">رابعاً — موقف الشباب الهيجليين من فيورباخ وهيجل</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">شتراوس — البداية والتأسيس</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">شتراوس:</span> كان كتابه <span class="hl">"حياة يسوع"</span> هو السبب في انتظام المدرسة الهيجلية وانطلق في كتابه من مقولة هيجل في روح الشعب الألماني وانتقد الأناجيل وقال إن الأصل الإسلامي للمسيحية هي ابتداءات الجماعات لمجهل هيجل، وقولنا أنه انطلق من مقولة هيجل أنه لم يكن يعارض لانتقاد الأناجيل.<br><br>
+      <span class="hl">الفرق بين هيجل وشتراوس:</span>
+      <div class="compare-grid" style="margin-top:.5rem">
+        <div class="compare-box blue">
+          <div class="compare-box-title">هيجل</div>
+          <div class="compare-box-text">يسمو بالخيال الديني إلى درجة الفكر</div>
+        </div>
+        <div class="compare-box orange">
+          <div class="compare-box-title">شتراوس</div>
+          <div class="compare-box-text">يرى أن الخيال الديني أسطوري ويتفق مع فيورباخ — المعجزة ليس لها علاقة بالواقع، والإيمان بالمعجزة هو إيمان بالأساطير وضعها العقل البالغ</div>
+        </div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        شتراوس كتب كتاب "حياة يسوع" وقال إن قصص الإنجيل أساطير مش حقائق تاريخية. ده عمل ضجة كبيرة. هيجل كان بيقول إن الدين "خيال" بيوصل لحقيقة فلسفية، بس شتراوس قال: لأ، ده مجرد أسطورة وخلاص. ده كان أول خطوة في نقد الدين من داخل المدرسة الهيجلية.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">برونو باور — النقد الديني المسيحي انطلاقاً من هيجل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">برونو باور:</span> نقد الدين المسيحي انطلاقاً من آراء هيجل في الوضع الذاتي الذي يخلق الواقع الروحي.<br><br>
+      وينفي باور الوجود المتعالي المسيحي ويرى أن المسمعية والدين نتاجاً ضرورياً للبشرية.<br><br>
+      <span class="hl">الفرق بين باور وشتراوس وفيورباخ:</span>
+      <ul>
+        <li><span class="hl">باور:</span> لم يقدم تناولاً للجوهر الحقيقي للدين (لا من أنثروبولوجيا الدين كفيورباخ)</li>
+        <li><span class="hl">ما يميزه من شتراوس وباور:</span> تناوله الكفيدة المسيحية دون العقيدة الروحية (شتراوس) أو الكفيدة المسيحية دون وجها التقيقي ومعنى باور أيضاً بالعقيدة المسيحية في حين أن فيورباخ ركّز على الدين المسيحي بأهمية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        برونو باور كان الأجرأ — قال إن المسيحية كلها من صنع الإنسان مش وحي إلهي. بس الفرق بينه وبين فيورباخ إن فيورباخ راح أعمق — هو مش بس قال "الدين من صنع الإنسان"، لكن شرح ليه الإنسان يحتاج الدين ويصنعه نفسياً واجتماعياً.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ماركس وإنجلز — الرد على الشباب الهيجليين</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">ماركس وإنجلز</span> قالوا إن فيورباخ قال في كتابه عن ماهية المسيحية إن <span class="hl-red">الانتصار المادية أنقص للمادية المسيحية</span> التي كانت أيام اليسار الهيجلي الذي قطعت صلتها بـ<span class="hl">(الأيديولوجيا اليسارية)</span> وما اختلف في هذا عن قراءته من أن اليسار الهيجلي كان يستند القضايا السياسية والاجتماعية للاهتمام بالدين للقيام به في مجال الاهتمام بالدين بينما كان عليه رد عليه والقبيل من المشكلات الاجتماعية والسياسية أنقص للمادية.<br><br>
+      <span class="hl">الخلاصة عند ماركس وإنجلز:</span> يرى فيورباخ أن فلسفته هي فلسفة نفسه — ادعاءاتها المطلقة نقل ما قاله هيجل من قبل ومن كل التجربة الحسية والدليل أنه يقول (كأمثلة) لاشتغاله مع الأنثروبولوجيا في الفصل الأول من كتابه رفض أنه يكون الإدراك من مراحل المعرفة اليقينية.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        ماركس وإنجلز انتقدوا فيورباخ من جهة تانية — قالوا له: إنت نقدت الدين كويس، بس مش كفاية. المشكلة مش بس في الأفكار الدينية — المشكلة في الواقع الاقتصادي والاجتماعي اللي بينتج الدين. فيورباخ وقف عند نقد الأفكار، بينما ماركس قال لازم تغير الواقع المادي نفسه.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 5: فيورباخ والقطيعة مع هيجل -->
+<div class="section">
+  <div class="section-label">خامساً — فيورباخ والقطيعة الفعلية مع هيجل</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فيورباخ — أول من أكمل هيجل ونقده من وجهة نظر هيجلية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">فيورباخ</span> هو أول من أكمل هيجل ونقده من وجهة نظر هيجلية، ونقد باور لفيورباخ الروح المطلق إلى الإنسان الحقيقي.<br><br>
+      <span class="hl">نقد باور لفيورباخ:</span> وهو باور اتهاماته ملفقة لفيورباخ واقتصر نقده على عرض نقده على أعتبارها ما أفذ باور، ولذلك يصعب أفكار فيورباخ بصورة مشوهة أو يستخدم لانتقاد الآخرين.<br><br>
+      والأكثر غرابة أنه يستقدم قضايا فيورباخ ويشبهها لنفسه — بعد أن اتخذ الفكرة نفسه ثم كيّرسه الآخر "عقلانية" وهذه الفكرة تقول إن <span class="hl">مبادئ فلسفة المستقبل</span>.<br><br>
+      اختلاف موقف فيورباخ في الدين في كتاب <span class="hl">شتراوس</span> — إن كتاب فيورباخ "ماهية المسيحية" لم يكن نقداً هادماً للاهوت بـ<span class="hl">(الأنثروبولوجيا الدين)</span>، بل ما يتميزه من شتراوس وباور هو الكفيدة المسيحية حيث اهتمامه أيضاً بالكفيدة المسيحية.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ هو الوحيد اللي انتقد هيجل بأدواته هو — يعني استخدم المنطق الهيجلي نفسه عشان يثبت إن هيجل غلطان! وده أصعب نوع من النقد. كتابه "ماهية المسيحية" مش بس بيقول "الدين غلط" — بيشرح ليه الإنسان بيصنع الإله في خياله، وده تحليل نفسي واجتماعي عميق جداً.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">في الواقع — نقاط القطيعة بين فيورباخ وهيجل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      في الواقع، إن فيورباخ انقطع عن هيجل في عدة نقاط، وأي حديث من المعادل يتحدث عن قطيعة مع الفلسفة الهيجلية — والدليل أن فيورباخ نفسه يرى أن <span class="hl">الفكر الذي جعله يقول بـ"تقدم الوعي"</span>.<br><br>
+      وهكذا تكون القطيعة مع هيجل هي قطيعة مع <span class="hl">الافتراضات السابقة — المثالية — الشكل الثابت للمنطق الهيجلي</span> — هي فوق كل شيء فلسفة هيجلية.<br><br>
+      <span class="hl-green">ولقد ظهر سلب فيورباخ الهيجل ونقده</span> عام ١٨٢٩ عندما جاء بنشر نقده في صورة سمة تاريخية، حيث بدأ نقده بتأكيد أن نقده فلسفة التاريخ يجب تجاورها.<br><br>
+      ومن هنا يمكن القول أن فيورباخ أعاد تصحيح الفلسفة الهيجلية وجعلها واقفة على ما قد صبها مرة أخرى لا <span class="hl">(التوسير)</span> — لا التوسير — بل أمثالها الأكثر مثلها الأكثر.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ قطع مع هيجل في نقطة جوهرية: هيجل قال "الفكر والروح هو الأصل والطبيعة نتيجة". فيورباخ قلب الكلام وقال "الطبيعة والإنسان هما الأصل والفكر نتيجة". زي ما تاخد صورة مقلوبة وتعدّلها — فيورباخ "صحّح" فلسفة هيجل وحطها على قدميها الحقيقيين اللي هما الإنسان والطبيعة مش الروح المطلقة.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 6: أرنولد روجيه وأقرب الهيجليين لفيورباخ -->
+<div class="section">
+  <div class="section-label">سادساً — أرنولد روجيه وأقرب الهيجليين لفيورباخ</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أرنولد روجيه — كان أكثر الهيجليين الشباب قرباً لفيورباخ</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">أرنولد روجيه:</span> كان أكثر الهيجليين قرباً لفيورباخ، ويرجع له الفضل فيما قدّمته بـ<span class="hl">"حوليات هالا"</span> للتصدي للـ<span class="hl">"حوليات برلين"</span> التي قدمتها فلسفة <span class="hl">الهيجليون اليمينيون</span> وكان أهم فلسفة هيجل.<br><br>
+      دعى روجيه فيورباخ للمشاركة في الهجوم الذي كان يستند القضايا السياسية والاجتماعية للقيام به في مجال الاهتمام بالدين.<br><br>
+      <span class="hl">ماركس وإنجلز</span> قالوا إن فيورباخ قال في كتابه أن الانتصار الاجتماعية والسياسية أنقص للمادية المسيحية التي كانت أيام اليسار الهيجلي.<br><br>
+      <span class="hl">شتراوس:</span> يؤكد كتابه <span class="hl">"الواحد والأحد"</span> من وجهة أسبينوزا إلى ما من وجهة نظر باور بينما شركة باور الذي ينظر فيه في مجال اللاهوت والوثي — وكلاهما استقدما هيجل في جانب وأفادمن مذهبه.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        أرنولد روجيه كان زي "المحرر" اللي نشر أفكار اليسار الهيجلي — أسس مجلة "حوليات هالا" وكان بيدعو فيورباخ وغيره يكتبوا فيها. وده خلق منبراً لنقد الدين والسياسة والمجتمع. روجيه كان الوسيط اللي جمع فيورباخ وماركس وباقي اليسار الهيجلي في مشروع واحد.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 7: نقد باور لفيورباخ -->
+<div class="section">
+  <div class="section-label">سابعاً — نقد باور لفيورباخ ونقد فيورباخ لباور</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فيورباخ — أول من أكمل هيجل ونقده من الداخل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">فيورباخ</span> هو أول من أكمل هيجل ونقده من وجهة نظر هيجلية من خلال نقد قولب الروح المطلق إلى الإنسان الحقيقي.<br><br>
+      <span class="hl">نقد باور لفيورباخ:</span> وهو باور اتهاماته ملفقة لفيورباخ، واقتصر نقده بأعتبارها ما أفذ باور، لذلك يصعب أفكار فيورباخ بصورة مشوهة أو يستخدم لانتقاد الآخرين.<br><br>
+      <span class="hl">والأكثر غرابة</span> أنه يستقدم قضايا فيورباخ ويشبهها لنفسه بعد أن اتخذ الفكرة — ثم كيّرسه الآخر "عقلانية" — وهذه الفكرة تقول إن الفلسفة لم تكن الفلسفة قط شيئاً سوى اللاهوت وتكييسه الآخر عقلانية وهذه التي تقول إن <span class="hl">مبادئ فلسفة المستقبل</span>.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        باور انتقد فيورباخ بس نقده كان "مزيف" — أخد أفكار فيورباخ نفسها وادعى إنها أفكاره. فيورباخ رد وقال إن باور بيقول إن الفلسفة ماهي إلا لاهوت متنكر في هيئة عقلانية. وده في الحقيقة كان انتقاد للفلسفة المثالية كلها بما فيها هيجل.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الخلاصة — المعركة بين شتراوس وفيورباخ وباور</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      كانت المعركة بين شتراوس وفيورباخ من أهم القضايا التي أنث فيها اليسار الهيجلي وهي فيها تطور الانقسام المدرسة الهيجلية، ودخلت فيها أطراف كثيرة برفضها دعم موقف فيورباخ.<br><br>
+      والبعض الآخر دعّم موقف شتراوس.<br><br>
+      <span class="hl">٢- أرنولد روجيه</span> كأهم الهيجليين الشباب الأكثر قرباً لفيورباخ ويرجع له الفضل فيما قدمته الـ<span class="hl">"حوليات هالا"</span> للتصدي لـ"حوليات برلين".<br><br>
+      دعى روجيه فيورباخ للمشاركة في الهجوم الذي كان يستند القضايا السياسية والاجتماعية للقيام به في مجال الاهتمام بالدين.<br><br>
+      <span class="hl">الخلاصة:</span> يرى فيورباخ أن فلسفته هي فلسفة نفسه — ادعاءاتها المطلقة نقل ما قاله هيجل من قبل ومن كل التجربة الحسية — والدليل أنه يقول (كأمثلة) لاشتغاله مع الأنثروبولوجيا في الفصل الأول من كتابه — رفض أنه يكون الإدراك من مراحل المعرفة اليقينية.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الخلاصة الكبيرة: فيورباخ بيقول إن فلسفته مش مجرد نقد لهيجل — هي "تصحيح" للفلسفة كلها. هيجل بدأ من الفكر المجرد ووصل للواقع. فيورباخ عكس الاتجاه: نبدأ من الواقع الإنساني المحسوس ونفهم الفكر من خلاله. ده هو الإنجاز الأساسي لفيورباخ اللي خلّى ماركس يقول إنه "قلب هيجل على قدميه".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الروح المطلق (Absolute Spirit)</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">مفهوم هيجلي مركزي — العقل الكوني أو الوعي الإلهي الذي يتجلى في التاريخ والفكر والدولة. هو الأصل عند هيجل وكل شيء آخر نتيجة له. فيورباخ انقلب على هذا وجعل الإنسان هو الأصل.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الثورة الكوبرنيكية (فيورباخ)</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">تشبيه يُستخدم لوصف ما فعله فيورباخ بفلسفة هيجل — كما قلب كوبرنيكوس الفهم الفلكي (الأرض تدور حول الشمس لا العكس)، قلب فيورباخ الفلسفة (الإنسان هو مركز الوجود لا الروح المطلق).</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">ماهية المسيحية</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">أشهر كتب فيورباخ (١٨٤١) — يقول فيه إن الله ليس موجوداً مستقلاً بل هو انعكاس لجوهر الإنسان في الخيال. الإنسان يُسقط صفاته الأفضل على كيان خيالي اسمه "الله"، فالدين هو علم الإنسان بنفسه بطريقة غير مباشرة.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">اليسار الهيجلي</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">التيار التقدمي من تلاميذ هيجل الذي استخدم فلسفته لنقد الدين والسياسة والمجتمع. أبرز أعضائه: فيورباخ، شتراوس، برونو باور، ماركس، إنجلز، أرنولد روجيه. يقابله اليمين الهيجلي المحافظ.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">اليمين الهيجلي</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">التيار المحافظ من تلاميذ هيجل الذي رأى أن فلسفته تدعم الدين المسيحي والنظام السياسي القائم. دافعوا عن فكرة خلود النفس الهيجلية وتوافق الفلسفة مع اللاهوت.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">فلسفة المستقبل (فيورباخ)</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">كتاب فيورباخ الذي وضع فيه مبادئ فلسفته الإنسانية الجديدة كبديل عن الفلسفة الهيجلية المثالية. يؤسس فيه لفلسفة قائمة على الإنسان الحسي الملموس لا على الروح المجردة.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">خواطر حول الموت والخلود</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">أول كتاب مثير للجدل لفيورباخ — أنكر فيه خلود النفس الفردية، وقال إن الخلود يكمن في الفكر والمعرفة الإنسانية لا في الفرد. أحدث جدلاً واسعاً داخل المدرسة الهيجلية.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">حوليات هالا / حوليات برلين</span>
+        <span class="chevron" style="color:#2471A3">+</span>
+      </button>
+      <div class="term-body">مجلتان فكريتان متنافستان: "حوليات هالا" أسسها أرنولد روجيه وكانت منبراً لليسار الهيجلي، و"حوليات برلين" كانت منبراً لليمين الهيجلي المحافظ. المعركة بينهما عكست الانقسام داخل المدرسة الهيجلية.</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة المتوقعة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تعريف — محتمل جداً</div>
+      <div class="q-text">كيف خرج فيورباخ من عباءة هيجل وما الفرق الجوهري بين فلسفتيهما؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">تتلمذ فيورباخ على هيجل ثم انتقده انتقاداً جذرياً. الفرق الجوهري: هيجل يجعل الروح المطلق هو الأصل الذي يتجلى في الطبيعة والتاريخ والدولة، أما فيورباخ فقلب هذه المعادلة وجعل الإنسان والطبيعة الملموسة هما الأصل، والفكر والروح نتيجة لهما. يشبَّه هذا بثورة كوبرنيكوس في الفلك — قلب المركز من الروح المطلق إلى الإنسان الحسي.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تحليل — محتمل جداً</div>
+      <div class="q-text">ما أسباب انقسام المدرسة الهيجلية إلى يمين ويسار؟ وما أبرز ممثلي كل تيار؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">بدأ الانقسام قبل وفاة هيجل عام ١٨٣١ بسبب "مسألة الدين" — كيف نفسر موقف هيجل من الدين والخلود والسياسة؟ اليمين الهيجلي: رأى أن هيجل يدعم الدين المسيحي والنظام البروسي القائم، وأبرز ممثليه شيوخ المدرسة المحافظون. اليسار الهيجلي: رأى أن فلسفة هيجل تقود إلى نقد الدين والسياسة والمجتمع، وأبرز ممثليه: فيورباخ، شتراوس، برونو باور، ماركس، إنجلز، أرنولد روجيه.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقارنة</div>
+      <div class="q-text">قارن بين موقف شتراوس وباور وفيورباخ من الدين المسيحي. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">الثلاثة ينتقدون الدين المسيحي لكن من زوايا مختلفة: شتراوس في كتاب "حياة يسوع" يرى أن قصص الإنجيل أساطير لا حقائق تاريخية، وأن الخيال الديني أسطوري لا علاقة له بالواقع. برونو باور ينقد الدين من منطلق فلسفي هيجلي ويرى أن المسيحية من صنع الإنسان، لكنه لا يتناول الجوهر النفسي للتدين. فيورباخ هو الأعمق — يشرح لماذا يصنع الإنسان الدين: الإنسان يُسقط جوهره الأفضل على كيان خيالي يسميه "الله"، فالله صورة الإنسان المثالية معكوسة في مرآة الخيال.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">ما النقد الذي وجّهه ماركس وإنجلز لفيورباخ رغم تأثرهما به؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">رغم أن ماركس وإنجلز أثنيا على فيورباخ في نقده للدين والمثالية الهيجلية، إلا أنهما وجّها له نقداً جوهرياً: فيورباخ وقف عند نقد الأفكار الدينية والفلسفية فحسب، ولم يصل إلى فهم أن الدين والأفكار المثالية ليست مشكلة فكرية بل هي نتاج الواقع المادي والاقتصادي والاجتماعي. لذا قال ماركس المشهورة: "الفلاسفة فسّروا العالم بطرق شتى، المهم تغييره" — أي التحول من نقد الأفكار إلى تغيير الواقع المادي.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال شامل</div>
+      <div class="q-text">اشرح في مقال موجز علاقة فيورباخ بهيجل من التلمذة إلى القطيعة، وكيف أثّر ذلك على انقسام المدرسة الهيجلية. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية الشاملة</div>
+      <div class="q-ans-text">
+        بدأت علاقة فيورباخ بهيجل بالتلمذة — فقد تتلمذ على يديه وتأثر بفلسفته المثالية. غير أنه سرعان ما شرع في نقد أستاذه، وبلغ هذا النقد ذروته في كتابه "ماهية المسيحية" (١٨٤١) الذي قلب فيه الفلسفة الهيجلية رأساً على عقب: بدلاً من الروح المطلق كأصل لكل شيء، جعل فيورباخ الإنسان والطبيعة الملموسة هما الأصل، والفكر والروح نتيجة لهما. وقد أنتج هذا النقد انقساماً في المدرسة الهيجلية بين يمين محافظ يرى في هيجل مدافعاً عن الدين والنظام، ويسار تقدمي يستخدم أدواته لنقد الدين والمجتمع والسياسة. وكان أبرز ممثلي هذا اليسار فيورباخ وشتراوس وبرونو باور وأرنولد روجيه، ثم ماركس وإنجلز اللذان أخذا بنقد فيورباخ للمثالية ونقلاه إلى مستوى المادية التاريخية.
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه مهم:</strong> فيورباخ لم يرفض هيجل رفضاً كاملاً — هو انتقده من الداخل بأدواته. الجدل حول مدى تأثره بهيجل لا يزال قائماً بين الباحثين. لا تقل في إجاباتك إنه "قطع مع هيجل تماماً" — بل قل إنه "أعاد توجيه الفلسفة الهيجلية نحو الإنسان والطبيعة".
+  </div>
+</div>
+
+<script>
+  function toggle(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleTerm(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleQ(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleExplain(btn) { var b=btn.nextElementSibling,o=b.classList.contains('open'); b.classList.toggle('open',!o); btn.textContent=o?'💬 اشرحلي بالعامية':'💬 إخفاء الشرح'; }
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.term-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.q-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+  }
+</script>
+</body>
+</html>
