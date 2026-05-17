@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هيجل والدولة القومية — الجزء الأول</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #f0eeea;
+    color: #1a1a18;
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 1.5rem 1rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .part-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 16px;
+    border-radius: 20px;
+    background: #CECBF6;
+    color: #26215C;
+    margin-bottom: 1rem;
+  }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+  .section { margin-bottom: 2rem; }
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: #EEEDFE;
+    background: #26215C;
+    padding: .35rem .9rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+
+  /* البطاقة */
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+
+  /* كل العناصر القابلة للضغط تبقى button */
+  button.toggle-btn {
+    width: 100%;
+    background: #fff;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .95rem 1.2rem;
+    cursor: pointer;
+    text-align: right;
+    gap: .75rem;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.toggle-btn:hover, button.toggle-btn:active { background: #f5f3ef; }
+
+  .btn-title { font-size: 16px; font-weight: 700; color: #26215C; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #534AB7; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+  .collapsible ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .collapsible li { margin-bottom: .3rem; }
+
+  /* ألوان */
+  .hl { color: #26215C; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-green { color: #0F6E56; font-weight: 700; }
+
+  /* زرار اشرحلي */
+  button.explain-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: .9rem;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background: #1D9E75;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.explain-btn:hover, button.explain-btn:active { background: #0F6E56; }
+
+  .explain-box {
+    display: none;
+    margin-top: .85rem;
+    background: #E1F5EE;
+    border: 1.5px solid #5DCAA5;
+    border-radius: 12px;
+    padding: .9rem 1.1rem;
+    font-size: 15px;
+    color: #04342C;
+    line-height: 1.85;
+  }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+
+  /* المصطلحات */
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn {
+    width: 100%;
+    background: #fff;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .85rem 1.2rem;
+    cursor: pointer;
+    text-align: right;
+    gap: .5rem;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.term-btn:hover, button.term-btn:active { background: #f5f3ef; }
+  .term-name { font-size: 15px; font-weight: 700; color: #185FA5; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #E6F1FB44; }
+  .term-body.open { display: block; }
+
+  /* الأسئلة */
+  .q-card {
+    border-right: 4px solid #534AB7;
+    background: #fff;
+    border-radius: 0 14px 14px 0;
+    border-top: 1.5px solid #c8c6be;
+    border-bottom: 1.5px solid #c8c6be;
+    border-left: 1.5px solid #c8c6be;
+    margin-bottom: .9rem;
+    overflow: hidden;
+  }
+  button.q-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: .9rem 1.2rem;
+    cursor: pointer;
+    text-align: right;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.q-btn:hover, button.q-btn:active { background: #f5f3ef; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #534AB7; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #CECBF6; background: #EEEDFE44; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+
+  /* تنبيه */
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+
+  /* فتح الكل */
+  button.expand-all {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background: #534AB7;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button.expand-all:hover { background: #3C3489; }
+</style>
+</head>
+<body>
+
+<span class="part-badge">الجزء الأول — المقدمة · ص٢–٥</span>
+<h1>بويرين وفكرة الشتات اليهودي</h1>
+<p class="subtitle">الفكرة المحورية: الشتات ليس مرضاً — بل نموذج بديل ومستدام للوجود اليهودي</p>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- القسم 1 -->
+<div class="section">
+  <div class="section-label">من هو بويرين وماذا يريد؟</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">جوناثان آرون بويرين — من هو؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      مفكر وأنثروبولوجي يهودي أمريكي مناهض للصهيونية. يتناول في هذا المقال العلاقة بين فلسفة هيجل والحركة الصهيونية، ساعياً إلى الكشف عن الصلات المحتملة بينهما.<br><br>
+      <span class="hl-red">موقفه الأساسي:</span> الصهيونية استوعبت أفكاراً هيجلية عن الدولة مما أدى إلى تصور مشوّه للوجود اليهودي. ويستخدم تحليله لهيجل للبحث عن طرق بديلة لفهم الذاكرة والهوية اليهودية بعيداً عن قيود الدولة الحديثة.
+      <br>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        تخيل حد بيقولك "أنا يهودي بس مش مؤيد لإسرائيل كدولة" — ده بالظبط بويرين. هو مش بيكره اليهود خالص، هو بيقول إن فكرة إن اليهودي لازم يبقى له دولة وأرض عشان هويته تكتمل — دي فكرة مش يهودية أصلاً، دي فكرة أوروبية حديثة استعارها الصهاينة. وهو بيحاول يثبت إن هيجل الفيلسوف الألماني هو اللي زرع الأساس الفكري اللي بنت عليه الصهيونية.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ماذا يقصد بـ "أمة الشتات"؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      جماعة بشرية تمتلك هوية قومية أو ثقافية مشتركة، لكنها <span class="hl">غير متمركزة في إقليم واحد</span>، بل موزعة عبر بلدان عدة.<br><br>
+      الفكرة الجوهرية: <span class="hl">يغيب الإقليم دون أن تغيب الأمة</span> — تستمر في إنتاج معنى جماعي وهوية مشتركة من خلال هذا التوزع ذاته.
+      <br>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        تخيل إن في ناس من نفس الأصل منتشرين في أمريكا وفرنسا وروسيا، بيتكلموا نفس اللغة، بيعملوا نفس التقاليد، بيحسوا إنهم أمة واحدة — من غير ما يبقى فيه بلد اسمه "بلدهم". ده اللي حصل مع اليهود لآلاف السنين. بويرين بيقول ده مش عيب — ده نموذج ناجح للحفاظ على الهوية من غير أرض ولا دولة.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 2 -->
+<div class="section">
+  <div class="section-label">موقف بويرين من الصهيونية</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ما الخطأ في تصور الصهيونية للشتات؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      الصهيونية اعتبرت وجود اليهود في الشتات <span class="hl-red">حالة مرضية أو نفياً يجب التغلب عليه</span> من خلال إقامة دولة خاصة بهم. هذا التصور مشتق من المنطق الهيجلي الذي يرى أن:
+      <ul>
+        <li>الروح لا تتحقق إلا عبر الدولة</li>
+        <li>الدولة لا تكون واقعية إلا عبر جغرافيا وسيادة</li>
+        <li>الشعب بدون دولة هو شعب <span class="hl-red">"غير مكتمل أو خارج التاريخ"</span></li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الصهيونية قالت: "إننا منتشرين في العالم ده مشكلة، لازم نتجمع في بلد واحد". كأنهم شايفين الشتات مرض لازم يتعالج. بس بويرين بيقول: ليه؟ اليهودية عاشت وازدهرت من غير دولة لآلاف السنين. الفكرة إن لازم عندك أرض وحكومة عشان تبقى "شعب حقيقي" — دي فكرة أوروبية من القرن التاسع عشر، مش من التراث اليهودي نفسه.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">موقفه البديل — كتاب "قوى الشتات"</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يرفض بويرين فكرة الدولة القومية اليهودية ويؤكد أن:
+      <ul>
+        <li>الشتات <span class="hl-green">ليس عيباً</span>، بل مصدر قوة إبداعية ووسيلة بديلة للوجود اليهودي</li>
+        <li>اليهود حافظوا على هويتهم وثقافتهم عبر القرون <span class="hl-green">دون الحاجة إلى سلطة سياسية على أرض معينة</span></li>
+        <li>هذا يعارض المبدأ الهيجلي القائل بضرورة الدولة القومية</li>
+        <li>بديله: <span class="hl">يهودية ثقافية منتشرة في الشتات</span> — لا دولة قومية ذات سيادة إقليمية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين بيقول: الحل مش إنك تعمل دولة. الحل إنك تحافظ على ثقافتك وهويتك من خلال المجتمع واللغة والتقاليد — زي ما اليهود عملوا لآلاف السنين. اللي اتغير إنهم تأثروا بالفكر الأوروبي وبدأوا يفكروا إن من غير دولة "مش شعب". هو بيرفض الفكرة دي من أساسها.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 3 -->
+<div class="section">
+  <div class="section-label">الصهيونية والهيجلية — أين الارتباط؟</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">التثبيت الجغرافي كمطلب هيجلي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      عند هيجل: لا توجد هوية حقيقية دون تجسد سياسي جغرافي. الشعب بدون دولة هو شعب <span class="hl-red">"غير مكتمل أو خارج التاريخ"</span>.<br><br>
+      الصهيونية اتبعت نفس المنطق: بعد أن <span class="hl-red">فقدت الهوية اليهودية جذورها المادية</span> في العالم الحديث الذي لا يعترف إلا بما هو سياسي وجغرافي — قررت أن تخلق لنفسها وجوداً أرضياً ثابتاً.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل كان بيقول: أي شعب عايز يبقى موجود في التاريخ لازم يبقى له دولة وأرض. من غير ده هو "خارج التاريخ" — يعني كأنه مش موجود بشكل حقيقي. الصهيونية سمعت الكلام ده وقالت: "احنا يهود ومالناش أرض، يبقى لازم نعمل دولة". بويرين بيقول ده غلط لأنهم استعاروا منطق أوروبي مش من تراثهم.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الصهيونية ليست ديناً — دليل هرتزل وأوغندا</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يرى بويرين أن الصهيونية مشروع قومي حديث استعار أدوات القومية الأوروبية — وليست استمراراً طبيعياً لليهودية الدينية.<br><br>
+      <span class="hl">الدليل الأول:</span> هرتزل كان يفكر في إقامة الدولة في <span class="hl">أوغندا أولاً</span> (عرض بريطاني)، ثم استقر الأمر على فلسطين للارتباط بالماضي. الهدف الأصلي: مجرد أرض تجمع الشتات — لا وعد توراتي.<br><br>
+      <span class="hl">الدليل الثاني:</span> الحاخامات في أوروبا هاجموا الصهيونية في بدايتها لأن العودة كانت ممنوعة دينياً إلا مع ظهور المسيح.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        لو الصهيونية كانت حركة دينية حقيقية، هرتزل مكانش هيفكر في أوغندا. أوغندا في أفريقيا — مالهاش علاقة بالتوراة. هرتزل كان عايز أي أرض تجمع اليهود — زي أي قومية أوروبية تانية. ده يثبت إن الصهيونية كانت في الأصل فكرة سياسية علمانية. الدين اتحط عليها بعد كده.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 4 -->
+<div class="section">
+  <div class="section-label">التشوهات التي حدثت للصهيونية لاحقاً</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">من علمانية أوروبية إلى فوضى أيديولوجية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      الصهيونية في جوهرها قامت على النمط العلماني الأوروبي ← لكن رجال الدين اليهود أسقطوا عليها لاحقاً عناصر من الفكر الديني الرجعي.<br><br>
+      <span class="hl">النتيجة اليوم:</span>
+      <ul>
+        <li>صهيونية دينية + يمينية + يسارية في تعارض حاد</li>
+        <li>تمييز عنصري بين يهود الأشكيناز (الأوروبيين) والمزراحيين (الشرقيين)</li>
+        <li>سيطرة الصهيونية الدينية المتطرفة على مفاصل الدولة</li>
+      </ul>
+      <br><span class="hl-red">خلاصة بويرين: الصهيونية تمثل الفكر الغربي التقدمي الذي ينظر للعرب نظرة دونية بوصفهم "البربري المتخلف".</span>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هرتزل حلم بدولة علمانية حديثة زي فرنسا. بس اللي حصل إن المتدينين المتطرفين دخلوا عليها وحطوا فيها أفكار دينية. النتيجة: دلوقتي في إسرائيل يمين ديني متطرف وعلمانيين ويسار — وكلهم بيختلفوا. زيادة على كده، اليهودي الجاي من المغرب أو مصر اتعامل بدونية من اليهودي الأوروبي — وده تناقض صريح مع فكرة "دولة كل اليهود".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">أمة الشتات (الدياسبورا)</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">جماعة ذات هوية مشتركة موزعة عبر بلدان عدة بلا إقليم مركزي واحد. الهوية تُنتج من خلال التوزع ذاته لا رغماً عنه. بويرين يراها نموذجاً قابلاً للحياة لا نقيصة يجب علاجها.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">التثبيت الجغرافي</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">ربط الهوية القومية بأرض وسيادة سياسية — وهو المطلب الهيجلي الذي تبنته الصهيونية. بويرين يرى أن هذا الربط ليس حتمياً بل هو اختيار حداثي أوروبي فُرض على اليهودية من الخارج.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الوطن الرمزي</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">النصوص الدينية والذاكرة الجماعية بوصفها "وطناً محمولاً" يحمله اليهود معهم أينما ذهبوا. اليهود فقدوا هذا الوطن الرمزي حين تأثروا بالحداثة الأوروبية فراحوا يبحثون عن وطن جغرافي مادي بديل.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الصهيونية العلمانية</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">الصهيونية في شكلها الأصلي كمشروع قومي أوروبي علماني لا ديني. هرتزل نفسه كان علمانياً وكان يفكر في أوغندا قبل فلسطين، مما يثبت أن الهدف الأصلي كان سياسياً لا دينياً.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">المزراحيون / الأشكيناز</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">الأشكيناز: يهود أوروبا (ألمانيا، بولندا، روسيا) وهم مؤسسو الصهيونية. المزراحيون: يهود الشرق الأوسط وشمال أفريقيا (مصر، المغرب، العراق). التمييز بينهما داخل إسرائيل يكشف التناقض الداخلي في فكرة "دولة كل اليهود".</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تعريف — محتمل جداً</div>
+      <div class="q-text">ما المقصود بـ"أمة الشتات" عند بويرين؟ وكيف تختلف عن مفهوم الدولة القومية؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">أمة الشتات عند بويرين هي جماعة تمتلك هوية ثقافية وقومية مشتركة دون الاستناد إلى إقليم جغرافي واحد، وتستمر في إنتاج المعنى الجماعي من خلال التوزع ذاته. وتختلف عن الدولة القومية — التي تشترط في النموذج الهيجلي وجود أرض وسيادة وحدود — في أنها لا تحتاج إلى هذه المكونات لتحافظ على وجودها. اليهود نموذجاً: حافظوا على هويتهم قروناً بلا دولة ولا أرض.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقالي — محتمل جداً</div>
+      <div class="q-text">كيف يرى بويرين العلاقة بين الصهيونية والفكر الهيجلي؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يرى بويرين أن الصهيونية، وإن لم تكن نتاجاً مباشراً لفلسفة هيجل، إلا أنها تبنّت نفس منطقه القائل بأن الهوية لا تكتمل دون تجسد سياسي جغرافي. هيجل يرى الشعب بلا دولة "خارج التاريخ" — والصهيونية تبنّت هذا التصور باعتبار الشتات "حالة مرضية" يجب تجاوزها بإقامة دولة. يسمي بويرين هذا التوجه "المحاولة الهيجلية للصهيونية"، وهي صلة اشتراك في البنية الفكرية لا علاقة سببية مباشرة.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقارنة</div>
+      <div class="q-text">قارن بين موقف بويرين من الشتات وموقف الصهيونية منه. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">الصهيونية ترى الشتات حالة مرضية يجب علاجها بإقامة الدولة، إذ لا وجود جماعي حقيقي إلا عبر الأرض والسيادة. بويرين على النقيض يرى الشتات نموذجاً بديلاً ومستداماً: مصدر إبداع وقوة، وتجربة أثبتت قدرتها على إنتاج الهوية والثقافة عبر القرون بلا دولة. الشتات عنده ليس انتظاراً للعودة، بل وجود قائم بذاته وله قيمته.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">ما الفرق بين الصهيونية كما أرادها مؤسسوها وما آلت إليه؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">أراد مؤسسو الصهيونية وهرتزل في مقدمتهم إقامة دولة علمانية على النمط الأوروبي الحديث، هدفها تجميع اليهود في إطار قومي دون أبعاد دينية. غير أن الفكر الديني المتطرف أسقط لاحقاً عناصر توراتية على المشروع، حتى باتت الصهيونية الدينية تسيطر على مفاصل الدولة. النتيجة: تشوّه التصور الأصلي وتعارضت الاتجاهات — علمانيون ومتدينون وأشكيناز ومزراحيون — في تناقض صريح مع الحلم الأصلي.</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه مهم:</strong> بويرين لا ينكر حق اليهود في الوجود، ولا يرفض أي شكل من أشكال التجمع اليهودي — هو فقط يرفض ربط الهوية اليهودية حصراً بنموذج الدولة القومية ذات السيادة الإقليمية. كن دقيقاً في صياغة إجاباتك.
+  </div>
+</div>
+
+<script>
+  function toggle(btn) {
+    var body = btn.nextElementSibling;
+    var icon = btn.querySelector('.chevron');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    icon.classList.toggle('open', !isOpen);
+    icon.textContent = isOpen ? '+' : '×';
+  }
+
+  function toggleTerm(btn) {
+    var body = btn.nextElementSibling;
+    var icon = btn.querySelector('.chevron');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    icon.classList.toggle('open', !isOpen);
+    icon.textContent = isOpen ? '+' : '×';
+  }
+
+  function toggleQ(btn) {
+    var body = btn.nextElementSibling;
+    var icon = btn.querySelector('.chevron');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    icon.classList.toggle('open', !isOpen);
+    icon.textContent = isOpen ? '+' : '×';
+  }
+
+  function toggleExplain(btn) {
+    var box = btn.nextElementSibling;
+    var isOpen = box.classList.contains('open');
+    box.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '💬 اشرحلي بالعامية' : '💬 إخفاء الشرح';
+  }
+
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b) { b.classList.add('open'); });
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i) { i.classList.add('open'); i.textContent = '×'; });
+    document.querySelectorAll('.term-body').forEach(function(b) { b.classList.add('open'); });
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i) { i.classList.add('open'); i.textContent = '×'; });
+    document.querySelectorAll('.q-body').forEach(function(b) { b.classList.add('open'); });
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i) { i.classList.add('open'); i.textContent = '×'; });
+  }
+</script>
+</body>
+</html>
