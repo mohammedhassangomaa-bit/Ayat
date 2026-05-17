@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مراجعة سريعة — هيجل والدولة القومية</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 15px; line-height: 1.75; padding: 1.25rem 1rem 4rem; max-width: 720px; margin: 0 auto; }
+
+  .top-bar { background: #26215C; border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  .top-bar-title { font-size: 18px; font-weight: 700; color: #fff; }
+  .top-bar-sub { font-size: 13px; color: #CECBF6; }
+
+  .nav-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .nav-btn { padding: 6px 13px; font-size: 12px; font-weight: 700; border-radius: 7px; border: 1.5px solid #c8c6be; background: #fff; color: #26215C; text-decoration: none; display: inline-block; }
+  .nav-btn.active { background: #26215C; color: #fff; border-color: #26215C; }
+
+  /* بطاقة القسم */
+  .section { margin-bottom: 1.25rem; }
+  .section-btn { width: 100%; background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; padding: .85rem 1.1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; gap: .75rem; }
+  .section-btn:active { background: #f5f3ef; }
+  .section-left { display: flex; align-items: center; gap: .75rem; }
+  .section-num { font-size: 11px; font-weight: 700; color: #fff; background: #534AB7; padding: 3px 10px; border-radius: 20px; }
+  .section-name { font-size: 15px; font-weight: 700; color: #26215C; text-align: right; }
+  .section-chevron { font-size: 20px; font-weight: 700; color: #534AB7; flex-shrink: 0; transition: transform .2s; }
+  .section-chevron.open { transform: rotate(45deg); }
+
+  .section-body { display: none; margin-top: .5rem; }
+  .section-body.open { display: block; }
+
+  /* بطاقة نقطة واحدة */
+  .point { background: #fff; border: 1.5px solid #e0dfd8; border-radius: 11px; padding: .75rem 1rem; margin-bottom: .5rem; display: flex; gap: .75rem; align-items: flex-start; }
+  .point-dot { font-size: 18px; flex-shrink: 0; margin-top: .1rem; }
+  .point-text { font-size: 14px; color: #1a1a18; line-height: 1.7; flex: 1; }
+  .point-text strong { color: #26215C; }
+  .point-text .warn { color: #712B13; font-weight: 700; }
+  .point-text .ok { color: #0F6E56; font-weight: 700; }
+
+  /* المصطلحات */
+  .terms-grid { display: flex; flex-direction: column; gap: .45rem; }
+  .term { background: #EEEDFE; border-radius: 9px; padding: .6rem .9rem; display: flex; gap: .6rem; align-items: flex-start; }
+  .term-name { font-size: 13px; font-weight: 700; color: #26215C; min-width: 140px; flex-shrink: 0; }
+  .term-def { font-size: 13px; color: #1a1a18; line-height: 1.6; }
+
+  /* الأطروحات */
+  .theses { display: flex; flex-direction: column; gap: .5rem; }
+  .thesis { border-radius: 10px; padding: .75rem 1rem; display: flex; gap: .75rem; align-items: flex-start; }
+  .thesis-1 { background: #E6F1FB; }
+  .thesis-2 { background: #E1F5EE; }
+  .thesis-3 { background: #FAEEDA; }
+  .thesis-4 { background: #FAECE7; }
+  .thesis-num { font-size: 12px; font-weight: 700; min-width: 28px; margin-top: .15rem; }
+  .thesis-1 .thesis-num { color: #0C447C; }
+  .thesis-2 .thesis-num { color: #0F6E56; }
+  .thesis-3 .thesis-num { color: #633806; }
+  .thesis-4 .thesis-num { color: #712B13; }
+  .thesis-text { font-size: 14px; color: #1a1a18; line-height: 1.65; }
+
+  /* تذكيرات خطر */
+  .danger-box { background: #FAECE7; border: 1.5px solid #E07060; border-radius: 10px; padding: .75rem 1rem; margin-bottom: .5rem; font-size: 14px; color: #712B13; line-height: 1.7; }
+  .danger-box strong { display: block; margin-bottom: .2rem; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* فاصل */
+  .divider { height: 1px; background: #e0dfd8; margin: .75rem 0; }
+
+  /* كل شيء */
+  button.expand-all { display: inline-block; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 7px; background: #534AB7; color: #fff; cursor: pointer; border: none; margin-bottom: 1.25rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div>
+    <div class="top-bar-title">🧠 مراجعة سريعة</div>
+    <div class="top-bar-sub">هيجل والدولة القومية — بويرين · للي ذاكر وعايز يلم الدنيا</div>
+  </div>
+</div>
+
+<div class="nav-row">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء1.html">ج١</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء2.html">ج٢</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء3.html">ج٣</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء4.html">ج٤</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء5.html">ج٥</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_امتحان.html">الامتحان</a>
+</div>
+
+<button class="expand-all" onclick="expandAll()">فتح الكل</button>
+
+<!-- ===== الجزء 1 ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">ج١</span>
+      <span class="section-name">بويرين وفكرة الشتات</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">💡</span><div class="point-text"><strong>الفكرة المحورية:</strong> الشتات ليس مرضاً — بل نموذج بديل ومستدام للوجود اليهودي يُنتج هوية حية بلا أرض ولا دولة.</div></div>
+    <div class="point"><span class="point-dot">⚠️</span><div class="point-text"><span class="warn">الصهيونية</span> رأت الشتات "حالة مرضية" لازم تُعالَج بدولة. <span class="ok">بويرين</span> يرفض هذا ويقلبه رأساً على عقب.</div></div>
+    <div class="point"><span class="point-dot">🗺️</span><div class="point-text"><strong>التثبيت الجغرافي:</strong> هيجل يقول لا هوية حقيقية بدون أرض ودولة — الصهيونية أخدت هذا المنطق بالكامل.</div></div>
+    <div class="point"><span class="point-dot">🕍</span><div class="point-text"><strong>دليل أوغندا:</strong> هرتزل فكّر في أوغندا قبل فلسطين ← يثبت أن الصهيونية الأصلية كانت علمانية سياسية لا دينية.</div></div>
+    <div class="point"><span class="point-dot">🔀</span><div class="point-text"><strong>التشوه اللاحق:</strong> رجال الدين أضافوا عناصر توراتية على مشروع علماني ← نتج عنه فوضى أيديولوجية (ديني + يميني + يساري + تمييز ضد المزراحيين).</div></div>
+  </div>
+</div>
+
+<!-- ===== الجزء 2 ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">ج٢</span>
+      <span class="section-name">بويرين والأطروحات الأربع</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">💡</span><div class="point-text"><strong>هدف المقال:</strong> كشف الافتراضات المشتركة بين الهيجلية والصهيونية — لا إثبات أن الصهاينة قرأوا هيجل.</div></div>
+    <div class="theses">
+      <div class="thesis thesis-1"><span class="thesis-num">١</span><span class="thesis-text">هيجل يُصدّر التاريخ كتجلٍّ متدرج للروح في الدولة.</span></div>
+      <div class="thesis thesis-2"><span class="thesis-num">٢</span><span class="thesis-text">النموذج الهيجلي يُلغي "اللازمنية" — أي الهوية القائمة على التماهي مع الأجيال السابقة بلا قيد زمني.</span></div>
+      <div class="thesis thesis-3"><span class="thesis-num">٣</span><span class="thesis-text">الصهيونية محاولة لتطبيق المثال الهيجلي للدولة — وإن كان بشكل مفارق.</span></div>
+      <div class="thesis thesis-4"><span class="thesis-num">٤</span><span class="thesis-text">الهيجلية تختلط بتناقض بنيوي: نموذج الدولة الليبرالية مسيحي ضمنياً لا يناسب دولة يهودية.</span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="point"><span class="point-dot">🎯</span><div class="point-text"><strong>موقف بويرين من هيجل:</strong> يتبنى الموقف الرابع — هيجل <em>مثال استثنائي في الوضوح</em> على بنية تفكير سائدة، لا سبباً مباشراً للصهيونية.</div></div>
+  </div>
+</div>
+
+<!-- ===== الجزء 3 ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">ج٣</span>
+      <span class="section-name">هيجل: التاريخ والدولة</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">💡</span><div class="point-text"><strong>الدولة = حامل التاريخ:</strong> التذكارات العائلية والتقاليد مجرد "ذكريات محلية" — التاريخ الحقيقي تصنعه الدولة فقط.</div></div>
+    <div class="point"><span class="point-dot">⚠️</span><div class="point-text"><span class="warn">شوفينية الحاضر</span> (الأخطر في هيجل): الماضي يُرمى في سلة مهملات التاريخ بمجرد انتهاء دوره ← اليهود "بقايا حضارة تجاوزها التاريخ".</div></div>
+    <div class="point"><span class="point-dot">🦉</span><div class="point-text"><strong>"بومة مينيرفا تطير عند الغسق":</strong> الفلسفة لا تفهم الأحداث إلا بعد اكتمالها — الحكمة تأتي بعد فوات الأوان.</div></div>
+    <div class="point"><span class="point-dot">🗣️</span><div class="point-text"><strong>شاهد سارتر:</strong> في حواره مع بيني ليفي — اعترف أن النموذج الهيجلي "أراد التخلص من اليهود" بجعلهم خارج التاريخ. سارتر قال: "تماماً".</div></div>
+    <div class="point"><span class="point-dot">📖</span><div class="point-text"><strong>فاكنهايم — التناقض المرعب:</strong> "العودة اليهودية إلى التاريخ" عبر الدولة ← يعني بالمنطق الهيجلي: لولا إسرائيل لما كانت الإبادة النازية "تاريخية" حتى بالنسبة للضحايا!</div></div>
+  </div>
+</div>
+
+<!-- ===== الجزء 4 ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">ج٤</span>
+      <span class="section-name">الصهيونية والدولة</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">💡</span><div class="point-text"><strong>الصهيونية ليست واحدة:</strong> دينية + ليبرالية + ماركسية + مراجعة — كلها تشترك في: الوجود الجماعي الحقيقي لا يكون إلا بدولة إقليمية.</div></div>
+    <div class="point"><span class="point-dot">🔄</span><div class="point-text"><strong>نوردو المفارقة:</strong> هاجم هيجل بشدة ووصفه بـ"الفظيع" — لكنه قال إن الصهيونية "أيقظت اليهود على حياة جديدة" = نفس المنطق الهيجلي حرفياً!</div></div>
+    <div class="point"><span class="point-dot">🚧</span><div class="point-text"><strong>مشكلتان في تطبيق هيجل على الصهيونية:</strong><br>١) لا أرض غير متنازع عليها ← استبعاد الفلسطينيين أيديولوجياً ثم فعلياً.<br>٢) لا بروتستانتية يهودية ← استعارة رموز أوروبية (هرتزل استمع لفاغنر!).</div></div>
+    <div class="point"><span class="point-dot">⚡</span><div class="point-text"><strong>والزر وإشكالية النشيد:</strong> كيف يغني العربي نشيداً وطنياً يعبّر عن "حلم اليهودي في فلسطين"؟ والزر لا يجيب — وهذا يكشف حدود النموذج الهيجلي.</div></div>
+    <div class="point"><span class="point-dot">🏘️</span><div class="point-text"><strong>المزراحيون:</strong> اليهود الشرقيون هُمّشوا داخل "دولة كل اليهود" ← نتيجة: مالوا للليكود وشاس لا لحزب العمال.</div></div>
+  </div>
+</div>
+
+<!-- ===== الجزء 5 ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">ج٥</span>
+      <span class="section-name">التنوير والاستنتاجات</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">💡</span><div class="point-text"><strong>اليهود في التنوير:</strong> بين مطرقة القبول بشرط التخلي عن هويتهم، وسندان الإقصاء والاضطهاد.</div></div>
+    <div class="point"><span class="point-dot">🔗</span><div class="point-text"><strong>كانط وهيجل:</strong> ربطا الحداثة بالمسيحية البروتستانتية ← اليهودية "مرحلة ما قبل النضج" ← اليهود خارج إطار الحداثة.</div></div>
+    <div class="point"><span class="point-dot">🏠</span><div class="point-text"><strong>الوطن الرمزي:</strong> النصوص والذاكرة والتقاليد كانت "وطناً محمولاً". الحداثة فككته ← الصهيونية عوّضت بوطن جغرافي مادي.</div></div>
+    <div class="point"><span class="point-dot">🔁</span><div class="point-text"><strong>الاستنتاج الكبير:</strong> الأرض أصبحت بديلاً عن النص والذاكرة والتقليد. الرغبة الصهيونية في الأرض = استجابة لأزمة هوية حداثية عميقة، لا مجرد رغبة سياسية.</div></div>
+    <div class="point"><span class="point-dot">❌</span><div class="point-text"><strong>ما لم تحله الصهيونية:</strong> التوتر بين التقليد والتنوير، بين الجوهري والعرضي، بين الأحياء والأموات ← الإشكاليات الهيجلية لا تختفي بإقامة دولة.</div></div>
+  </div>
+</div>
+
+<!-- ===== المصطلحات ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">📚</span>
+      <span class="section-name">المصطلحات — دفعة واحدة</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="terms-grid">
+      <div class="term"><span class="term-name">أمة الشتات</span><span class="term-def">هوية مشتركة بلا إقليم — تُنتج معنى جماعي من خلال التوزع ذاته</span></div>
+      <div class="term"><span class="term-name">اللازمنية</span><span class="term-def">التماهي مع الأجيال السابقة بلا قيد زمني — أساس الهوية اليهودية التقليدية التي يهددها هيجل</span></div>
+      <div class="term"><span class="term-name">الروح (Geist)</span><span class="term-def">العقل الكوني الذي يتطور عبر التاريخ ويتجلى أعلى تجلياته في الدولة</span></div>
+      <div class="term"><span class="term-name">التثبيت الجغرافي</span><span class="term-def">ربط الهوية بأرض وسيادة — المطلب الهيجلي الذي تبنته الصهيونية</span></div>
+      <div class="term"><span class="term-name">الوطن الرمزي</span><span class="term-def">النصوص والذاكرة كـ"وطن محمول" — فقده اليهود العلمانيون فبحثوا عن بديل جغرافي</span></div>
+      <div class="term"><span class="term-name">شوفينية الحاضر</span><span class="term-def">إرجاع الماضي لسلة المهملات بمجرد انتهاء دوره — الجانب الأخطر في هيجل</span></div>
+      <div class="term"><span class="term-name">التاريخ الغائي</span><span class="term-def">تاريخ يسير نحو هدف محدد مسبقاً — لا مصادفات، كل شيء يخدم الغاية الكبرى</span></div>
+      <div class="term"><span class="term-name">التزامن الوطني</span><span class="term-def">وعي السكان بأنفسهم كجماعة تعمل في وقت واحد — صُنع عبر الصحافة والتعليم الموحد</span></div>
+      <div class="term"><span class="term-name">الصهيونية العلمانية</span><span class="term-def">الصهيونية الأصلية: مشروع قومي أوروبي علماني لا ديني — هرتزل نموذجاً</span></div>
+      <div class="term"><span class="term-name">المزراحيون / الأشكيناز</span><span class="term-def">يهود الشرق مقابل يهود أوروبا — التمييز بينهم يكشف تناقض "دولة كل اليهود"</span></div>
+      <div class="term"><span class="term-name">غوش إيمونيم</span><span class="term-def">حركة استيطانية دينية-قومية بعد 1967 — خلطت الصهيونية العلمانية بالتوراة</span></div>
+      <div class="term"><span class="term-name">الغوييم</span><span class="term-def">كلمة عبرية لغير اليهود — استخدمها الصهاينة المراجعون لتبرير الانفصال عنهم</span></div>
+      <div class="term"><span class="term-name">بومة مينيرفا</span><span class="term-def">"تطير عند الغسق" — الفلسفة لا تفهم إلا بعد اكتمال الأحداث، الحكمة دائماً متأخرة</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== تحذيرات الامتحان ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">🚨</span>
+      <span class="section-name">احذر هذه الأخطاء في الامتحان</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="danger-box"><strong>خطأ شائع ١</strong>لا تقل إن هيجل "سبب" الصهيونية مباشرة — بويرين يقول اشتراك في بنية فكرية، لا تأثير مباشر. علامة الاستفهام في العنوان مقصودة.</div>
+    <div class="danger-box"><strong>خطأ شائع ٢</strong>لا تقل إن بويرين "يكره اليهود" أو "يرفض وجودهم" — هو فقط يرفض ربط الهوية اليهودية حصراً بنموذج الدولة القومية.</div>
+    <div class="danger-box"><strong>خطأ شائع ٣</strong>لا تخلط بين الصهيونية العلمانية الأصلية (هرتزل) والصهيونية الدينية اللاحقة — بويرين يفرق بينهما بوضوح.</div>
+    <div class="danger-box"><strong>خطأ شائع ٤</strong>لا تصف هيجل بـ"العنصري" البيولوجي — تمجيده للعالم الجرماني كان فلسفياً تاريخياً وهذا ما جعل فكره متاحاً لأي مشروع قومي.</div>
+    <div class="danger-box"><strong>خطأ شائع ٥</strong>الشتات عند بويرين ليس "انتظاراً للعودة" — هو وجود قائم بذاته وله قيمته، لا مرحلة مؤقتة.</div>
+  </div>
+</div>
+
+<!-- ===== خلاصة الخلاصة ===== -->
+<div class="section">
+  <button class="section-btn" onclick="toggleSection(this)">
+    <div class="section-left">
+      <span class="section-num">✨</span>
+      <span class="section-name">جملة واحدة تلخص كل شيء</span>
+    </div>
+    <span class="section-chevron">+</span>
+  </button>
+  <div class="section-body">
+    <div class="point"><span class="point-dot">🎯</span><div class="point-text">
+      بويرين يقول: <strong>الصهيونية استخدمت المنطق الهيجلي</strong> — الذي يجعل الهوية مستحيلة بدون دولة وأرض — <strong>لتحل أزمة هوية أوجدتها الحداثة الأوروبية</strong> في وعي اليهود، <strong>فاستبدلت الوطن الرمزي (النص والذاكرة) بوطن جغرافي (الأرض)</strong> — وهو حل أنتج إشكاليات جديدة لا حصر لها.
+    </div></div>
+  </div>
+</div>
+
+<script>
+  function toggleSection(btn) {
+    var body = btn.nextElementSibling;
+    var icon = btn.querySelector('.section-chevron');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    icon.classList.toggle('open', !isOpen);
+    icon.textContent = isOpen ? '+' : '×';
+  }
+  function expandAll() {
+    document.querySelectorAll('.section-body').forEach(function(b){ b.classList.add('open'); });
+    document.querySelectorAll('.section-chevron').forEach(function(i){ i.classList.add('open'); i.textContent = '×'; });
+  }
+</script>
+</body>
+</html>
