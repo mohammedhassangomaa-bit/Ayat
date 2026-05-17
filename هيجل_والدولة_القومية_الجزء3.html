@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هيجل والدولة القومية — الجزء الثالث</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 16px; line-height: 1.8; padding: 1.5rem 1rem 4rem; max-width: 720px; margin: 0 auto; }
+  .part-badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 16px; border-radius: 20px; background: #CECBF6; color: #26215C; margin-bottom: 1rem; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+  .section { margin-bottom: 2rem; }
+  .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #EEEDFE; background: #26215C; padding: .35rem .9rem; border-radius: 6px; margin-bottom: 1rem; }
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+  button.toggle-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.2rem; cursor: pointer; text-align: right; gap: .75rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.toggle-btn:hover, button.toggle-btn:active { background: #f5f3ef; }
+  .btn-title { font-size: 16px; font-weight: 700; color: #26215C; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #534AB7; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+  .collapsible ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .collapsible li { margin-bottom: .3rem; }
+  .hl { color: #26215C; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-green { color: #0F6E56; font-weight: 700; }
+  .hl-blue { color: #0C447C; font-weight: 700; }
+  button.explain-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: .9rem; padding: 8px 18px; font-size: 14px; font-weight: 700; color: #fff; background: #1D9E75; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.explain-btn:hover, button.explain-btn:active { background: #0F6E56; }
+  .explain-box { display: none; margin-top: .85rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 12px; padding: .9rem 1.1rem; font-size: 15px; color: #04342C; line-height: 1.85; }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .85rem 1.2rem; cursor: pointer; text-align: right; gap: .5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.term-btn:hover, button.term-btn:active { background: #f5f3ef; }
+  .term-name { font-size: 15px; font-weight: 700; color: #185FA5; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #E6F1FB44; }
+  .term-body.open { display: block; }
+  .q-card { border-right: 4px solid #534AB7; background: #fff; border-radius: 0 14px 14px 0; border-top: 1.5px solid #c8c6be; border-bottom: 1.5px solid #c8c6be; border-left: 1.5px solid #c8c6be; margin-bottom: .9rem; overflow: hidden; }
+  button.q-btn { width: 100%; background: transparent; border: none; padding: .9rem 1.2rem; cursor: pointer; text-align: right; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.q-btn:hover, button.q-btn:active { background: #f5f3ef; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #534AB7; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #CECBF6; background: #EEEDFE44; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+  .quote-box { background: #EEEDFE; border-right: 4px solid #534AB7; border-radius: 0 10px 10px 0; padding: .85rem 1.1rem; margin: .75rem 0; font-size: 15px; color: #26215C; line-height: 1.8; font-style: italic; }
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #534AB7; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.expand-all:hover { background: #3C3489; }
+  .nav-bar { display: flex; justify-content: space-between; margin-bottom: 1.5rem; gap: .5rem; }
+  .nav-btn { flex: 1; padding: 8px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #c8c6be; background: #fff; color: #26215C; cursor: pointer; font-family: inherit; text-align: center; text-decoration: none; display: block; }
+  .nav-btn:hover { background: #EEEDFE; }
+</style>
+</head>
+<body>
+
+<span class="part-badge">الجزء الثالث — هيجل: التاريخ والدولة · ص٨–١٣</span>
+<h1>هيجل: التاريخ والدولة</h1>
+<p class="subtitle">الفكرة المحورية: هيجل يجعل الدولة الحاملة الأعلى للتاريخ — ومن بلا دولة فهو خارج التاريخ</p>
+
+<div class="nav-bar">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء2.html">→ الجزء الثاني</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء4.html">الجزء الرابع ←</a>
+</div>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- القسم 1: خصوصية هيجل -->
+<div class="section">
+  <div class="section-label">لماذا هيجل تحديداً؟</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ما الذي يجعل هيجل شخصية محورية؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      هيجل شخصية هامة وكاشفة لأنه <span class="hl">صاغ مبدأ الدولة القومية بحد ذاته</span>، بدلاً من كونه مجرد شخصية تنويرية أو قومياً محدداً.<br><br>
+      يشكّل هيجل حلقة وصل حيوية بين:
+      <ul>
+        <li><span class="hl">التقدمية التنويرية</span> — الإيمان بالعقل والتقدم الإنساني</li>
+        <li><span class="hl">القومية الرومانسية</span> — الإيمان بأن لكل أمة روحاً خاصة تتجسد في الدولة</li>
+      </ul>
+      أدى الجمع بين ايديولوجية التقدم والرأي القائل بأن ذروة هذا التقدم تتجسد في الدول الأوروبية المختلفة إلى خدمة رؤى سياسية متعددة — من اليمين ومن اليسار.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل مش مجرد فيلسوف درس التاريخ — هو اللي وضع الإطار الفكري اللي بيقول إن الدولة القومية هي "تاج" التطور البشري. قبله كان في أفكار تنويرية عن العقل والتقدم، وفي أفكار رومانسية عن روح الأمة. هيجل لحمهم مع بعض وقال: العقل بيتطور في التاريخ وأعلى تعبير عنه هو الدولة الأوروبية الحديثة. ده اللي خلّى فكره قابل للاستخدام من أي حد عايز يبني دولة قومية.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">تركيبة فلسفة التاريخ — لماذا كانت متاحة لكل المشاريع؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      تمجيد هيجل للعالم الجرماني لم يكن مؤسساً على أساس عرقي بيولوجي — بل كان على أساس <span class="hl">فلسفي تاريخي</span>. وهذا جعل تركيبة فلسفته متاحة لأي عدد من المشاريع القومية:<br><br>
+      <ul>
+        <li>من <span class="hl">اليمين:</span> القوميون المؤيدون لدولة يهودية (مثل ما أشار اللورد بلفور)</li>
+        <li>من <span class="hl">اليسار:</span> عبر ماركس، يمكن تطبيق المنطق الهيجلي على رؤية يسارية للصهيونية أيضاً</li>
+      </ul>
+      ما يجعل الصلة بين هيجل والصهيونية العلمانية مهمة على نحو خاص: كلاهما يشتركان في <span class="hl">تصور إقليمي ودولاتي للهوية القومية</span>، وفي رؤية استبدالية للتاريخ.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل ما قالش "الألمان أحسن عرقياً" — قال "الألمان وصلوا لأعلى مرحلة في تطور الروح". الفرق مهم: لأن المنطق ده قابل للتطبيق على أي شعب عايز يقول "احنا وصلنا لأعلى مرحلة دلوقتي". ومن هنا قدرت الصهيونية تاخد نفس المنطق وتقول "اليهود لازم يبقى ليهم دولة عشان يدخلوا في مسيرة التاريخ".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 2: سارتر وهيجل -->
+<div class="section">
+  <div class="section-label">سارتر وهيجل — شاهد مهم</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">حوار سارتر وبيني ليفي — ماذا يكشف؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يستشهد بويرين بحوار متأخر بين الفيلسوف الفرنسي سارتر ومحاوره بيني ليفي ليوضح كيف يصبح هيجل المصدر الرئيسي لتعريف التاريخ من خلال تاريخ الدولة:<br><br>
+      <div class="quote-box">
+        سارتر: "عندما قلت أنه لا يوجد تاريخ يهودي، كنت أفكر في التاريخ بصورته المحددة جيداً: تاريخ ألمانيا، تاريخ أمريكا... أي تاريخ واقع سياسي ذو سيادة، له وطن، في مقابلة دول أخرى مشابهة."
+      </div>
+      <div class="quote-box">
+        ليفي: "بمعنى آخر أن التاريخ الذي رسمه هيجل أراد التخلص من اليهود، وأنهم وحدهم اليهود هم من سيسمحون لنا بالخروج من هذا التاريخ الذي أراد هيجل أن يفرضه علينا."<br>
+        سارتر: "تماماً."
+      </div>
+      <span class="hl-red">الدلالة:</span> سارتر نفسه — الذي كان يؤيد الصهيونية في شبابه — أدرك في آخر حياته أن النموذج الهيجلي للتاريخ يُقصي اليهود ويجبرهم على التكيف معه بإقامة دولة.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        سارتر كان فيلسوف فرنسي عظيم، وكان في شبابه مؤيد للصهيونية. بس في آخر حياته غيّر رأيه. المحاور بيني ليفي قاله: هيجل بنظامه للتاريخ كأنه "طرد" اليهود من التاريخ — لأنهم بلا دولة. وده خلّى الصهيونية تيجي كحل: "يبقى لازم نعمل دولة عشان ندخل في التاريخ تاني". سارتر وافق على التحليل ده. بويرين بيستخدم الحوار ده كدليل على فكرته.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فاكنهايم — "العودة اليهودية إلى التاريخ"</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يستشهد بويرين بعنوان كتاب عالم اللاهوت إميل فاكنهايم: <span class="hl">"العودة اليهودية إلى التاريخ: تأملات عصر أوشفيتز وأورشليم الجديدة"</span> (1978).<br><br>
+      العنوان يكشف تصوراً واضحاً: <span class="hl">التاريخ كمسرح يمكن لأمة أن تكون عليه أو خارجه</span>. والعودة إليه تتم عبر إقامة دولة يهودية — وهو ما يتوافق تماماً مع معايير هيجل للوجود التاريخي.<br><br>
+      <span class="hl-red">الاستنتاج المنطقي الصارم:</span> لو طبّقنا هيجل بدقة — لولا إقامة دولة إسرائيل، لما كانت الإبادة النازية "تاريخية" إلا بالنسبة للدول التي ارتكبتها، لا للشعب الذي عانى منها!
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فاكنهايم بيقول إن اليهود بعد الهولوكوست "عادوا للتاريخ" بإقامة دولة إسرائيل. الجملة دي مبنية على منطق هيجلي خالص: إن اليهود كانوا "خارج التاريخ" قبل كده. بويرين بيلفت نظرنا لنتيجة مرعبة من هذا المنطق: لو الشعب بلا دولة خارج التاريخ — يبقى حتى إبادته مش "حدث تاريخي" بالنسبة له! ده بيكشف إلى أي حد المنطق الهيجلي خطير.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 3: الدولة والتاريخ عند هيجل -->
+<div class="section">
+  <div class="section-label">الدولة والتاريخ — صميم فلسفة هيجل</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الدولة وإنتاج التاريخ — ماذا يقول هيجل بالضبط؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يرى هيجل أن التذكارات العائلية والتقاليد الأبوية لا يكون لها معنى إلا داخل الأسرة أو القبيلة نفسها. أما <span class="hl">الدولة</span> فهي التي تُقدّم للمرة الأولى محتوى قابلاً للتدوين التاريخي وللإنتاج الفعلي للتاريخ.<br><br>
+      الدولة تخلق:
+      <ul>
+        <li>سجلاً لتطورها الخاص</li>
+        <li>اهتماماً بالأفعال والأحداث المفهومة والمحددة</li>
+        <li>ذاكرة دائمة تحفظ التاريخ وتجعله مفهوماً وقابلاً للرواية</li>
+      </ul>
+      <span class="hl-red">النتيجة:</span> ما لا تصنعه الدولة — لا يُعدّ تاريخاً حقيقياً في هذا النظام.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول: حكايات العيلة والقبيلة دي مش "تاريخ حقيقي" — دي مجرد ذكريات محلية. التاريخ الحقيقي بيتصنعه الدولة فقط. لأن الدولة عندها جيش وقانون وحدود وسجلات رسمية. من غير دولة — أنت مش عندك "تاريخ"، عندك بس قصص. وعلى أساس ده، اليهود اللي عاشوا آلاف السنين بلا دولة — عندهم قصص وتقاليد بس مش "تاريخ" بالمعنى الهيجلي.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">شوفينية الحاضر — الجانب الأخطر في هيجل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      كثيرون ينتقدون هيجل على <span class="hl">الشوفينية العرقية</span> (تمجيد الجرمان). لكن بويرين يلفت إلى جانب أشد خطورة وأقل تعليقاً: <span class="hl-red">شوفينية الحاضر</span>.<br><br>
+      يعني: إرجاع الماضي — مهما كانت فضائله في زمانه — إلى <span class="hl-red">"سلة مهملات التاريخ"</span>.<br><br>
+      عند هيجل: بمجرد أن تنجز أمة ما دورها التاريخي العالمي، لا تعود لها أهمية إلا في عملية إعادة البناء المتأن للتاريخ العالمي. اليهود — في نظره — أنجزوا دورهم قديماً وانتهى.<br><br>
+      هيجل أيضاً ليس رومانسياً — فالتراث القديم لأمة ما ليس ذا أهمية خاصة قبل أن تمارس الأمة دورها التاريخي. لا تمجيد للماضي — فقط ما يخدم الحاضر.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الناس بتنتقد هيجل إنه "عنصري" لأنه قال الألمان أحسن. بس بويرين بيقول في حاجة أخطر — هيجل كمان بيقول إن الماضي مش مهم، المهم هو الحاضر. يعني أي حضارة عملت حاجة عظيمة من زمان — خلاص عملت دورها وانتهت. ده بيعمل مشكلة كبيرة مع اليهود اللي هويتهم مبنية أساساً على الماضي والذاكرة والنصوص. في نظر هيجل، ده كله "بايخ" لأنه مش ماشي مع "روح الحاضر".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فاينمان — التاريخ الهيجلي "خارج الزمن"</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يرى الناقد جويل فاينمان أن المخطط الكبير لتاريخ العالم عند هيجل لا يترك مجالاً للحوادث العرضية أو المصادفات — كل شيء في التاريخ له غاية ومعنى محدد سلفاً.<br><br>
+      النتيجة المفارقة: هذا المنطق المحكم للتاريخ يصبح عملياً <span class="hl-red">خارج التاريخ وخارج الزمن</span>، لأن كل لحظة فيه مبرمجة مسبقاً نحو نهاية حتمية.<br><br>
+      فلسفة هيجل للتاريخ محكومة بـ<span class="hl">انكشاف غائي مطلق وحتمي</span> — لا مكان فيه للصدفة، وكل لحظة تصبح "ذات طابع أبدي" لأنها جزء من قصة كتبت نهايتها مسبقاً.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الناقد فاينمان بيلاحظ حاجة طريفة: هيجل بيقول إن التاريخ بيتطور نحو هدف محدد — يعني مش في صدفة ولا حادثة عرضية، كل حاجة ليها معنى وغاية. بس لو كل حاجة مبرمجة مسبقاً — إيه الفرق بين التاريخ والقدر؟ بيبقى في الحقيقة مفيش "تاريخ حقيقي" لأن كل حاجة محددة من الأول. ده تناقض في صميم الفكر الهيجلي.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 4: خصوصية هيجل والعالم الجرماني -->
+<div class="section">
+  <div class="section-label">هيجل والعالم الجرماني — ذروة التاريخ</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الأمة الجرمانية كقمة التاريخ</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يشير هيجل إلى الأمة الجرمانية (ويبدو أنه ضمّ إليها جميع أوروبا الغربية) باعتبارها <span class="hl">قمة التاريخ والوعي</span>.<br><br>
+      لكن هذا التمجيد لم يكن عرقياً بيولوجياً — بل فلسفياً. ومن هنا أصبحت تركيبة فلسفته متاحة لأي مشروع قومي — بما في ذلك مشاريع القوميين المؤيدين لدولة يهودية.<br><br>
+      <span class="hl">كيف استفادت الصهيونية من هذا؟</span> ما طبّقه هيجل على ألمانيا بوصفها ذروة تاريخ العالم، طبّقه الصهاينة الأوائل على التاريخ اليهودي ومشروع الاستيطان في فلسطين.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل قال إن الألمان (وأوروبا الغربية عموماً) هم "قمة التاريخ" — يعني هم اللي وصلوا لأعلى مرحلة في تطور الوعي البشري. الصهيونية أخدت نفس المنطق وقالت: "طب إحنا كمان قادرين نكون في المسيرة دي — لكن لازم يبقى لينا دولة زيهم". زي ما تقول "لو قواعد اللعبة بتقول إن اللي عنده فريق يفوز — يبقى لازم أعمل فريق."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">اليهود في فلسفة هيجل — موقعهم من التاريخ</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      في فلسفة هيجل، لكل شعب تاريخي لحظته القصوى من الإبداع على المسرح العالمي. <span class="hl-red">أما اللحظة اليهودية فقد ولت منذ زمن طويل</span>.<br><br>
+      اليهود — بقدر ما نجحوا — هم مجرد <span class="hl-red">بقايا، آثار لحضارة كانت حيوية يوماً ولكنها أُزيحت وتجاوزها التاريخ</span>.<br><br>
+      ليس هناك مكان في هذا التصور التاريخي لإحساس بالهوية قائم على المجتمعات اليهودية التي لم تعتمد سيادة الدولة من أجل هويتها الجماعية. هذا النوع من الهوية يعتمد على <span class="hl">تصادف الارتباطات السردية بين الأجيال القادمة والماضية</span> — وهو ما لا يعترف به هيجل تاريخاً.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول كل شعب عنده لحظة عظيمة في التاريخ — بعد ما تخلص اللحظة دي هو بقى "بقايا". اليهود عملوا دورهم في التاريخ القديم وخلاص — دلوقتي هم في نظر هيجل زي مشكوش قديم، موجود بس مش فاعل في التاريخ. الفكرة دي هي بالظبط اللي خلّت الصهيونية تقول "لازم نرجع للتاريخ بإقامة دولة".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 5: السياق الاجتماعي -->
+<div class="section">
+  <div class="section-label">السياق الاجتماعي الذي أنتج هذه الأفكار</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">لماذا ظهرت هذه الأفكار في هذا الوقت؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      بويرين يؤكد أن الوعي ليس وحده ما يحدد التاريخ — فالسياقات الاجتماعية في أوروبا شكّلت أرضاً خصبة لهذه الأفكار:<br><br>
+      <ul>
+        <li><span class="hl">الثورة الفرنسية</span> — غيّرت مفهوم الدولة والمواطنة</li>
+        <li><span class="hl">قضية دريفوس في فرنسا</span> — كشفت معاداة السامية حتى في أكثر الدول تنويراً</li>
+        <li><span class="hl">مذابح 1881 في روسيا</span> — أجبرت اليهود على البحث عن أمان جماعي</li>
+      </ul>
+      هيجل سعى إلى التوفيق بين الفكر المثالي وواقع الدولة البروسية البيروقراطية، بينما سعى الصهاينة إلى تعزيز أمن اليهود في مواجهة كراهية أوروبا المسيحية للأجانب وإعادة ابتكار الوجود الجماعي اليهودي على أسس جديدة.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين بيقول إن الأفكار مش بتيجي من فراغ. هيجل كتب في زمن كانت فيه أوروبا بتتغير بسرعة — ثورات وحروب ودول قومية بتنشأ. الصهيونية كمان نشأت في وقت كانت فيه المذابح ضد اليهود. يعني الفكر الهيجلي والمشروع الصهيوني نشأوا في نفس المناخ التاريخي — وده بيفسر ليه فيه تشابه كبير في المنطق حتى من غير تأثير مباشر.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الروح (Geist) عند هيجل</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">العقل الكوني أو الوعي الجمعي للبشرية الذي يتطور عبر التاريخ ويتجلّى في الدولة. الدولة هي أعلى تجليات هذه الروح — بلا دولة لا تجلّي حقيقي للروح.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">شوفينية الحاضر</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">مصطلح يستخدمه بويرين لوصف جانب خطير في فكر هيجل: اعتبار الماضي — مهما كانت عظمته — مجرد مرحلة انتهت وألقيت في "سلة مهملات التاريخ". ما يهم هو الحاضر والمستقبل فقط.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">التاريخ الغائي</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">تصور التاريخ كمسيرة نحو هدف محدد مسبقاً — لا مصادفات ولا أحداث عرضية، كل شيء يخدم الغاية الكبرى. هيجل يرى التاريخ غائياً: يسير نحو تحقق الروح الكامل في الدولة.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">بومة مينيرفا</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">مثل هيجلي شهير: "بومة مينيرفا تطير عند الغسق" — تعني أن الفلسفة لا تفهم الأشياء إلا بعد أن تكتمل، لا تستطيع التنبؤ بما سيحدث. الحكمة تأتي دائماً بعد فوات الأوان.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الرؤية الاستبدالية للتاريخ</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">الفكرة القائلة بأن القيود الفكرية للماضي يمكن تجاوزها دائماً مع مرور الزمن — أي أن كل مرحلة تستبدل السابقة وتتجاوزها. هيجل والصهيونية يشتركان في هذه الرؤية الاستبدالية.</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تعريف — محتمل جداً</div>
+      <div class="q-text">ما المقصود بـ"شوفينية الحاضر" في فلسفة هيجل وما علاقتها بالهوية اليهودية؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">شوفينية الحاضر عند هيجل تعني إرجاع الماضي — مهما كانت فضائله — إلى سلة مهملات التاريخ بمجرد انتهاء دوره. فبمجرد أن تنجز أمة دورها التاريخي لا تعود لها أهمية. وهذا يمثّل تهديداً جوهرياً للهوية اليهودية التي تقوم أساساً على الذاكرة والنصوص والارتباط بالماضي (اللازمنية). في نظر هيجل، اليهود أنجزوا دورهم في التاريخ القديم وأصبحوا مجرد بقايا لحضارة تجاوزها الزمن.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقالي — محتمل جداً</div>
+      <div class="q-text">كيف يجعل هيجل الدولة الحاملة الأساسية للتاريخ؟ وما النتائج المترتبة على ذلك بالنسبة لليهود؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يرى هيجل أن الدولة هي الحامل الأعلى للتاريخ وتجسيده الفعلي، إذ تخلق سجلاً لتطورها وتمنح الأحداث معنى دائماً وقابلاً للرواية. التذكارات والتقاليد العائلية مجرد ذكريات محلية لا ترقى لمستوى التاريخ الحقيقي. النتائج على اليهود: طالما لم يكن لهم دولة، فهم "خارج التاريخ" بالمعنى الهيجلي، أي لا وجود تاريخي حقيقي لهم. هذا هو المنطق الذي تبنّته الصهيونية لتبرير ضرورة إقامة الدولة.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تحليل</div>
+      <div class="q-text">ما دلالة استشهاد بويرين بحوار سارتر وبيني ليفي في سياق نقده للهيجلية والصهيونية؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يستشهد بويرين بهذا الحوار لأنه يأتي من مصدر غير متوقع: سارتر كان فيلسوفاً فرنسياً كبيراً، ومؤيداً للصهيونية في شبابه. أن يعترف في آخر حياته بأن النموذج الهيجلي للتاريخ يُقصي اليهود ويجبرهم على إقامة دولة للعودة إليه — هذا يمنح بويرين شاهداً داخلياً من قلب الفكر الغربي نفسه. كما يثبت أن الصلة بين هيجل والصهيونية ليست مجرد فرضية نقدية بل اعتراف من الداخل.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">ما التناقض الذي يكشفه بويرين في قول فاكنهايم بـ"العودة اليهودية إلى التاريخ"؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يكشف بويرين أن عنوان كتاب فاكنهايم ينطوي على منطق هيجلي خالص — إذ يفترض أن اليهود كانوا "خارج التاريخ" قبل إقامة الدولة. والنتيجة المنطقية الصارمة لهذا المنطق مرعبة: لولا إقامة دولة إسرائيل، لما كانت الإبادة النازية "تاريخية" إلا بالنسبة للدول التي ارتكبتها، لا للشعب الذي عانى منها! هذا التناقض يكشف مدى خطورة تبنّي المنطق الهيجلي في فهم الهوية والتاريخ.</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه للمراجعة:</strong> هيجل لم يكن عنصرياً بالمعنى البيولوجي — تمجيده للعالم الجرماني كان فلسفياً تاريخياً. هذا ما جعل فكره قابلاً للاستخدام من أطراف مختلفة بما فيها الصهيونية. لا تصفه بالعنصرية في إجاباتك دون تحديد دقيق.
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-top:1rem">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء2.html">→ الجزء الثاني</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء4.html">الجزء الرابع ←</a>
+</div>
+
+<script>
+  function toggle(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleTerm(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleQ(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleExplain(btn) { var b=btn.nextElementSibling,o=b.classList.contains('open'); b.classList.toggle('open',!o); btn.textContent=o?'💬 اشرحلي بالعامية':'💬 إخفاء الشرح'; }
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.term-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.q-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+  }
+</script>
+</body>
+</html>
