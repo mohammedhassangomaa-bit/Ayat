@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هيجل والدولة القومية — الجزء الثاني</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    background: #f0eeea;
+    color: #1a1a18;
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 1.5rem 1rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .part-badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 16px; border-radius: 20px; background: #CECBF6; color: #26215C; margin-bottom: 1rem; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+  .section { margin-bottom: 2rem; }
+  .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #EEEDFE; background: #26215C; padding: .35rem .9rem; border-radius: 6px; margin-bottom: 1rem; }
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+  button.toggle-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.2rem; cursor: pointer; text-align: right; gap: .75rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.toggle-btn:hover, button.toggle-btn:active { background: #f5f3ef; }
+  .btn-title { font-size: 16px; font-weight: 700; color: #26215C; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #534AB7; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+  .collapsible ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .collapsible li { margin-bottom: .3rem; }
+  .hl { color: #26215C; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-green { color: #0F6E56; font-weight: 700; }
+  .hl-blue { color: #0C447C; font-weight: 700; }
+  button.explain-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: .9rem; padding: 8px 18px; font-size: 14px; font-weight: 700; color: #fff; background: #1D9E75; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.explain-btn:hover, button.explain-btn:active { background: #0F6E56; }
+  .explain-box { display: none; margin-top: .85rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 12px; padding: .9rem 1.1rem; font-size: 15px; color: #04342C; line-height: 1.85; }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .85rem 1.2rem; cursor: pointer; text-align: right; gap: .5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.term-btn:hover, button.term-btn:active { background: #f5f3ef; }
+  .term-name { font-size: 15px; font-weight: 700; color: #185FA5; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #E6F1FB44; }
+  .term-body.open { display: block; }
+  .q-card { border-right: 4px solid #534AB7; background: #fff; border-radius: 0 14px 14px 0; border-top: 1.5px solid #c8c6be; border-bottom: 1.5px solid #c8c6be; border-left: 1.5px solid #c8c6be; margin-bottom: .9rem; overflow: hidden; }
+  button.q-btn { width: 100%; background: transparent; border: none; padding: .9rem 1.2rem; cursor: pointer; text-align: right; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.q-btn:hover, button.q-btn:active { background: #f5f3ef; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #534AB7; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #CECBF6; background: #EEEDFE44; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #534AB7; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.expand-all:hover { background: #3C3489; }
+  .four-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+  .thesis-box { background: #fff; border: 1.5px solid #c8c6be; border-radius: 12px; padding: .85rem 1rem; }
+  .thesis-num { font-size: 12px; font-weight: 700; color: #534AB7; margin-bottom: .3rem; }
+  .thesis-text { font-size: 14px; color: #1a1a18; line-height: 1.7; }
+  .nav-bar { display: flex; justify-content: space-between; margin-bottom: 1.5rem; gap: .5rem; }
+  .nav-btn { flex: 1; padding: 8px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #c8c6be; background: #fff; color: #26215C; cursor: pointer; font-family: inherit; text-align: center; text-decoration: none; display: block; }
+  .nav-btn:hover { background: #EEEDFE; }
+</style>
+</head>
+<body>
+
+<span class="part-badge">الجزء الثاني — التعريف بالمؤلف · ص٦–٧</span>
+<h1>بويرين والأطروحات الأربع</h1>
+<p class="subtitle">الفكرة المحورية: المقال يقوم على أربع أطروحات تربط فلسفة هيجل بالمشروع الصهيوني</p>
+
+<div class="nav-bar">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء1.html">→ الجزء الأول</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء3.html">الجزء الثالث ←</a>
+</div>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- القسم 1: التعريف بالمؤلف -->
+<div class="section">
+  <div class="section-label">التعريف بالمؤلف</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">من هو بويرين؟ — السيرة الأكاديمية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      مفكر وأنثروبولوجي يهودي أمريكي بارز، من أهم الأصوات النقدية في الدراسات اليهودية الحديثة، وخصوصاً في نقد الصهيونية وإعادة التفكير في التاريخ اليهودي واليهودية كهوية ثقافية غير قومية.<br><br>
+      <span class="hl">أستاذ في جامعة كورنيل</span> — وشقيق المفكر اليهودي الشهير دانيال بويرين.<br><br>
+      يتميز نهجه بالجمع بين التخصصات المتعددة والدراسات الأدبية والثقافية لدراسة وتحليل التجارب اليهودية في سياقات عالمية متنوعة.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين أستاذ جامعي يهودي أمريكي، بس مش زي أي أستاذ — هو بيدرس اليهودية مش من جوا الدين بس، بيدرسها من الأنثروبولوجيا يعني من الناحية الاجتماعية والثقافية. وهو معروف إنه بيانتقد إسرائيل كدولة — وده موقف جريء جداً من يهودي. أخوه دانيال برضه مفكر كبير في نفس الاتجاه.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">لماذا هو مهم؟ — مجالات تأثيره</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      دراساته تساعد على فتح نقاشات حول:
+      <ul>
+        <li>الشتات اليهودي (الدياسبورا) وديناميكياته</li>
+        <li>العلاقة بين اليهود والمجتمعات الأخرى</li>
+        <li>الصهيونية وعلاقتها بالهوية والقومية اليهودية</li>
+        <li>دور النص الديني في الحفاظ على الثقافة</li>
+        <li>الممارسات اليومية: القراءة الجماعية، التفاعل مع النصوص الدينية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين مش بس بيكتب نظريات — هو بيتساءل: إزاي اليهود محافظين على هويتهم لآلاف السنين وهم مش عايشين في بلد واحد؟ الإجابة عنده إن الكتب والتقاليد والجماعة هي اللي عملت ده. وده مهم جداً لأنه بيثبت إن الهوية ممكن تعيش من غير دولة.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أهم مؤلفاته</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul>
+        <li><span class="hl">قوى الشتات</span> (بالاشتراك مع دانيال بويرين) — تحليل فكرة الشتات اليهودي وديناميكيات الهوية خارج الوطن</li>
+        <li><span class="hl">فلسطين والتاريخ اليهودي: نقد على حدود الإثنوغرافيا</span> (1996) — أكثر أعماله نقدية وجرأة في موقفه من الصهيونية وفلسطين</li>
+        <li><span class="hl">عاصفة من الفردوس: سياسة الذاكرة اليهودية</span> — يحلل كيفية تشكّل الذاكرة اليهودية في التاريخ والسياسة</li>
+        <li><span class="hl">يهود بولندا في باريس</span> — دراسة أنثروبولوجية حول الذاكرة والهوية لدى اليهود البولنديين في باريس</li>
+        <li><span class="hl">الذات غير المحوّلة</span> — قراءة أنثروبولوجية لليهودية خارج السردية الأوروبية المسيحية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        أهم كتابين لازم تعرفهم: الأول "قوى الشتات" وده بيقول إن إن اليهود في الشتات مش ضعفاء — العكس، التشتت ده مصدر قوتهم الثقافية. والتاني "فلسطين والتاريخ اليهودي" وده الأجرأ لأنه بيقول صراحة إن الصهيونية ظلمت الفلسطينيين وإنها مشروع استعماري.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 2: هدف المقال -->
+<div class="section">
+  <div class="section-label">هدف المقال وموضوعه</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ما الذي يسعى المقال إلى إثباته؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      المقال محاولة لتوضيح الافتراضات الأوروبية الحديثة حول التاريخ والوجود الوطني التي شكّلت الأساس في فكر الصهيونية العلمانية المبكرة.<br><br>
+      <span class="hl">الهدف الرئيسي:</span> التدقيق في الافتراضات المشتركة بين الشوفينيين والليبراليين، ومن ثم تأسيس مساحة للنقاش تتجاوز الأسئلة الاستراتيجية أو محاولات التسوية بين دولتين.<br><br>
+      <span class="hl-red">تنبيه مهم:</span> بويرين لا يدّعي أن هيجل هو السبب المباشر للصهيونية — بل يقول إنهما يشتركان في نفس البنية الفكرية. علامة الاستفهام في عنوان المقال "صهيونية هيجل؟" مقصودة.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين مش بيقول إن الصهاينة قرأوا هيجل وقرروا يعملوا دولة. هو بيقول إن في أفكار مشتركة بينهم من غير ما حد يكون أخد من التاني. زي اتنين طبخوا نفس الأكلة من غير ما يتكلموا — الجو العام في أوروبا وقتها كان بيفرز نفس المنطق: "الشعب بدون دولة ناقص".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 3: الأطروحات الأربع -->
+<div class="section">
+  <div class="section-label">الأطروحات الأربع — قلب المقال</div>
+
+  <div class="four-grid">
+    <div class="thesis-box">
+      <div class="thesis-num">أطروحة ١</div>
+      <div class="thesis-text">هيجل يُصدّر التاريخ بوصفه التجلّي المتدرج للروح في الدولة</div>
+    </div>
+    <div class="thesis-box">
+      <div class="thesis-num">أطروحة ٢</div>
+      <div class="thesis-text">النموذج الهيجلي يُلغي إمكانية "اللازمنية" — أي الهوية القائمة على التماهي مع الأجيال السابقة بلا قيد زمني</div>
+    </div>
+    <div class="thesis-box">
+      <div class="thesis-num">أطروحة ٣</div>
+      <div class="thesis-text">الصهيونية محاولة للعمل وفق نبوءة المثال الهيجلي التقدمي للدولة</div>
+    </div>
+    <div class="thesis-box">
+      <div class="thesis-num">أطروحة ٤</div>
+      <div class="thesis-text">الهيجلية تختلط بالتداخل بين "الدولة الليبرالية الكونية" (المسيحية ضمناً) وبين "الدولة اليهودية الليبرالية"</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أطروحة ١ — هيجل والتاريخ كتجلٍّ للروح في الدولة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      هيجل يرى أن التاريخ ليس مجرد أحداث متتالية، بل هو <span class="hl">التجلّي المتدرج للروح</span> (أي العقل الكوني أو الوعي الإنساني) في العالم. وهذا التجلّي يتحقق بشكل أساسي من خلال <span class="hl">الدولة</span>.<br><br>
+      يعني: الدولة ليست مجرد تنظيم سياسي — هي <span class="hl-red">الحامل الأساسي للتاريخ</span> وتجسيده الأعلى. بلا دولة، لا تاريخ حقيقي.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول إن التاريخ مش بس أحداث — هو العقل البشري بيتطور ويتجلى في العالم. وأعلى تجلي ليه هو الدولة. يعني الدولة مش مجرد حكومة وبوليس — هي التعبير الأعلى عن وعي الشعب ووجوده. من غير دولة: الشعب موجود بس مش "موجود تاريخياً". ده اللي خلّى الصهيونية تقول "لازم يبقى لينا دولة".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أطروحة ٢ — إلغاء "اللازمنية" اليهودية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">اللازمنية</span> تعني: القدرة على التماهي مع الأجيال السابقة والمستقبلية كأساس للهوية الجماعية — بطريقة تتجاوز حدود الزمن، بحيث الماضي والحاضر والمستقبل مترابطون في وعي الجماعة.<br><br>
+      هذا هو بالضبط ما كانت تفعله اليهودية تقليدياً: اليهودي يحس أنه شخصياً خرج من مصر وشخصياً تلقّى التوراة في سيناء — بلا فصل صارم بين الأزمنة.<br><br>
+      <span class="hl-red">المشكلة:</span> النموذج الهيجلي التقدمي للتاريخ يُلغي هذه اللازمنية — لأنه يرى التاريخ كتقدم خطي نحو الأمام، والماضي "يُرمى في سلة مهملات التاريخ" بمجرد انتهاء دوره.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        اليهودي التقليدي لما بيقرأ في الكنيس "احنا خرجنا من مصر" — مش بيقول "أجدادنا خرجوا"، هو بيحس إنه هو شخصياً خرج. ده اللي بنسميه لازمنية — مفيش فاصل بين الأجيال. التاريخ عنده مش خط من الماضي للمستقبل — هو دايرة مستمرة. هيجل جاي بيقول لأ — التاريخ خط رأسي للأمام وكل لحظة بتتجاوز اللي قبلها. ده بيكسر الطريقة اليهودية التقليدية في فهم الهوية.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أطروحة ٣ — الصهيونية كتطبيق للمثال الهيجلي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      الصهيونية هي محاولة للعمل وفق المثال الهيجلي التقدمي للدولة — وبشكل مفارق تستخدم التفكير الهيجلي نفسه في التاريخ والهوية والدولة.<br><br>
+      <span class="hl">المفارقة:</span> اليهود عند هيجل قد "تجاوزهم التاريخ" — لكن الصهيونية أخذت منطق هيجل نفسه (ضرورة الدولة) وطبّقته على اليهود لتعيدهم إلى "التاريخ".<br><br>
+      <span class="hl-green">الصلة ليست مباشرة:</span> لم يكن الصهاينة تلاميذ هيجل — لكنهم نشأوا في نفس المناخ الفكري الأوروبي الذي صاغه هيجل.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل قال إن الشعب بدون دولة "خارج التاريخ". الصهيونية قالت: "طب إحنا خارج التاريخ يبقى لازم نعمل دولة". المضحك إنهم استخدموا نفس منطق الراجل اللي كان شايف اليهود متخلفين عن التاريخ — عشان يثبتوا إنهم داخل التاريخ! زي ما تيجي حد بيحط فيك وتستخدم كلامه عشان تثبت إنه غلطان.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أطروحة ٤ — اختلاط الهيجلية بإشكالية الدولة اليهودية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      في قضية الصهيونية، تختلط الهيجلية بوجوه عدة، أبرزها: <span class="hl-red">التداخل غير المفحوص</span> بين إمكانية تطور دولة "ليبرالية كونية" — وهي في الحقيقة دولة مسيحية على نحو مضمر — وبين تصوّر قيام "دولة يهودية ليبرالية".<br><br>
+      المشكلة: النموذج الهيجلي للدولة الليبرالية قائم على أسس بروتستانتية مسيحية بشكل مضمر. فحين تحاول الصهيونية تطبيق هذا النموذج على الدولة اليهودية، تقع في <span class="hl-red">تناقض بنيوي</span>: تريد دولة على النمط الأوروبي الليبرالي لكن لشعب ذي خصوصية دينية مختلفة جوهرياً.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل لما بيتكلم عن الدولة الليبرالية المثالية، هو في الواقع بيتكلم عن دولة أوروبية بروتستانتية. الصهيونية جت وقالت "احنا عايزين دولة زي دي بس يهودية". المشكلة إن التصميم الأصلي للدولة الليبرالية عند هيجل مش محايد — هو بيفترض قيم مسيحية أوروبية. لما تحاول تحط فيه هوية يهودية، بيبدأ في التناقض. وده اللي بيفسر الفوضى الأيديولوجية اللي في إسرائيل دلوقتي.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 4: أقسام الدراسة -->
+<div class="section">
+  <div class="section-label">أقسام الدراسة</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">كيف قسّم بويرين مقاله؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      تنقسم الدراسة إلى أربعة أقسام رئيسية:
+      <ul>
+        <li><span class="hl">خصوصية هيجل</span> — ما الذي يجعل هيجل تحديداً مهماً في هذا النقاش؟ (يرتبط بالأطروحتين ١ و٢)</li>
+        <li><span class="hl">هيجل والتاريخ والدولة</span> — شرح فلسفة هيجل في التاريخ وعلاقتها بالدولة (يرتبط بالأطروحتين ١ و٢)</li>
+        <li><span class="hl">إشكاليات الهوية اليهودية الحديثة</span> — كيف أوجدت الحداثة أزمة هوية عند اليهود جاءت الصهيونية لتحلّها (يرتبط بالأطروحة ٣)</li>
+        <li><span class="hl">الصهيونيات والدولة</span> — تطبيق التحليل على الحركة الصهيونية بأشكالها المختلفة (يرتبط بالأطروحتين ٣ و٤)</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين رتّب مقاله بذكاء: الأول شرح هيجل كويس عشان تفهم الأساس، بعدين وضّح إن اليهود المتحدثين عندهم أزمة هوية في العالم الحديث، وأخيراً بيّن إزاي الصهيونية جاءت كحل "هيجلي" لهذه الأزمة — حتى لو ما كانوش عارفين إنهم بيفكروا بالطريقة دي.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">موقف بويرين من هيجل — أيهما يتبنى؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      بويرين يحدد أربع طرق للتعامل مع هيجل في سياق نقد الصهيونية:
+      <ul>
+        <li>اعتباره <span class="hl">مبشراً</span> — نبياً سبق زمانه فكرياً</li>
+        <li>اعتباره <span class="hl">سلفاً فكرياً</span> غير معترف به للصهيونية</li>
+        <li>اعتباره <span class="hl">كبش فداء</span> — مصدر كل الشرور الفكرية</li>
+        <li>التعرض لفكره بوصفه <span class="hl">مثالاً استثنائياً</span> في وضوح الصياغة لبنية شعورية محددة — دون ادعاء استمرارية مباشرة</li>
+      </ul>
+      <span class="hl-green">بويرين يتبنى الموقف الرابع</span> — يستخدم هيجل كمثال واضح على نمط التفكير السائد دون أن يحمّله مسؤولية مباشرة عن الصهيونية.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين بيقول: أنا مش بيّن إن هيجل "الجاني" أو إنه "النبي العظيم". أنا بستخدمه كمثال واضح على نوع تفكير معين كان سايد في أوروبا. هيجل عبّر عن هذا التفكير بوضوح أكتر من غيره — فأنا بستخدمه زي ما البيولوجي بيستخدم حيوان معمل كنموذج للدراسة، مش عشان هو الوحيد.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">اللازمنية (Atemporality)</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">القدرة على التماهي مع الأجيال السابقة والمستقبلية كأساس للهوية الجماعية، بطريقة تتجاوز حدود الزمن. في اليهودية التقليدية: اليهودي يحس أنه شخصياً عاش أحداث التوراة. النموذج الهيجلي يلغي هذه اللازمنية ويفرض تاريخاً خطياً تقدمياً.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الروح (Geist)</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">مفهوم هيجلي أساسي — يعني العقل الكوني أو الوعي الإنساني الجمعي الذي يتطور عبر التاريخ ويتجلّى في مراحله المختلفة. الدولة عند هيجل هي أعلى تجليات هذه الروح في العالم المادي.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الأنثروبولوجيا</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">علم دراسة الإنسان من خلال ثقافاته وتقاليده وممارساته اليومية والاجتماعية. بويرين أنثروبولوجي — يعني هو يدرس اليهودية من خلال كيف يعيشها اليهود في حياتهم اليومية، لا من خلال النصوص الدينية وحدها.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الصهيونية العلمانية المبكرة</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">الشكل الأول للصهيونية كما أسسها هرتزل وغيره: حركة قومية علمانية على النمط الأوروبي، هدفها الجمع السياسي لليهود في دولة حديثة بلا ارتباط ديني ضروري. تمييزها عن الصهيونية الدينية التي جاءت لاحقاً مهم جداً.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الشوفينية</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">التعصب المفرط لمجموعة ما (أمة، عرق، دين) والاعتقاد بتفوقها على غيرها. بويرين يستخدمها في سياق الحديث عن الشوفينية القومية الأوروبية التي أثّرت على الصهيونية، والشوفينية الهيجلية في تمجيد العالم الجرماني.</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تعريف — محتمل جداً</div>
+      <div class="q-text">ما المقصود بـ"اللازمنية" وما علاقتها بالهوية اليهودية عند بويرين؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">اللازمنية هي القدرة على التماهي مع الأجيال السابقة والمستقبلية بوصفها أساساً للهوية الجماعية، بطريقة تتجاوز الحدود الزمنية الصارمة. في التقليد اليهودي، يحس اليهودي أنه شخصياً شارك في الأحداث التأسيسية كالخروج من مصر وتلقي التوراة. يرى بويرين أن النموذج الهيجلي للتاريخ يُلغي هذه اللازمنية بفرضه تاريخاً تقدمياً خطياً يرمي الماضي في "سلة مهملات التاريخ"، مما يهدد هذا الأساس للهوية اليهودية.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقالي — محتمل جداً</div>
+      <div class="q-text">اشرح الأطروحات الأربع التي يقوم عليها مقال بويرين "صهيونية هيجل؟" <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">
+        يقوم مقال بويرين على أربع أطروحات متتالية:<br><br>
+        الأولى: هيجل يُصدّر التاريخ بوصفه تجلياً متدرجاً للروح في الدولة، مما يجعل الدولة الحامل الأساسي للتاريخ والوجود الجماعي.<br><br>
+        الثانية: هذا النموذج يُلغي إمكانية "اللازمنية" — أي الهوية القائمة على التماهي مع الأجيال السابقة — وهو ما كانت عليه الهوية اليهودية التقليدية.<br><br>
+        الثالثة: الصهيونية هي محاولة للعمل وفق هذا المثال الهيجلي التقدمي بتطبيق منطق الدولة القومية على اليهود.<br><br>
+        الرابعة: في هذه العملية تختلط الهيجلية بتناقض بنيوي بين نموذج الدولة الليبرالية (المسيحي ضمناً) وبين فكرة الدولة اليهودية الليبرالية.
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">لماذا يضع بويرين علامة استفهام في عنوان مقاله "صهيونية هيجل؟" <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">علامة الاستفهام مقصودة ودالة — بويرين لا يدّعي وجود علاقة سببية مباشرة بين هيجل والصهيونية، ولا يزعم أن الصهاينة كانوا تلاميذ هيجل. ما يسعى إليه هو إثبات أن الاثنين يشتركان في نفس البنية الفكرية والافتراضات المتعلقة بالتاريخ والهوية والدولة، وأن هذه الاشتراكات نشأت في نفس المناخ الفكري الأوروبي في القرن التاسع عشر. الصلة هي اشتراك في بنية تفكير، لا تأثير مباشر.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تحليل</div>
+      <div class="q-text">ما الموقف الذي يتبناه بويرين من هيجل من بين المواقف الأربعة التي يذكرها، وما مبرره؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يتبنى بويرين الموقف الرابع: التعرض لفكر هيجل بوصفه مثالاً استثنائياً في وضوح الصياغة لبنية شعورية محددة، دون ادعاء استمرارية مباشرة. مبرره أن هذا الموقف يجنبه تبسيط المسألة: فهو لا يجعل هيجل "بطلاً" ولا "شريراً"، ولا يدّعي أن الصهاينة تأثروا به مباشرة. يستخدم هيجل كنموذج تحليلي كاشف لبنية التفكير السائدة في عصره، وهو ما يتيح له نقد الصهيونية نقداً أعمق من مجرد نقد شخص أو مصدر بعينه.</div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه للمراجعة:</strong> الفرق بين "هيجل سبب الصهيونية" و"هيجل مثال على نفس البنية الفكرية" — فرق جوهري عند بويرين. لا تخلط بينهما في إجاباتك.
+  </div>
+</div>
+
+<div class="nav-bar" style="margin-top:1rem">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء1.html">→ الجزء الأول</a>
+  <a class="nav-btn" href="هيجل_والدولة_القومية_الجزء3.html">الجزء الثالث ←</a>
+</div>
+
+<script>
+  function toggle(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleTerm(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleQ(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleExplain(btn) { var b=btn.nextElementSibling,o=b.classList.contains('open'); b.classList.toggle('open',!o); btn.textContent=o?'💬 اشرحلي بالعامية':'💬 إخفاء الشرح'; }
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.term-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.q-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+  }
+</script>
+</body>
+</html>
