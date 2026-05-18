@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>امتحان — السيكشن الأول والثاني</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 16px; line-height: 1.8; padding: 1.5rem 1rem 5rem; max-width: 720px; margin: 0 auto; }
+
+  .exam-header { background: #26215C; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; }
+  .exam-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: .4rem; }
+  .exam-sub { font-size: 14px; color: #CECBF6; margin-bottom: 1rem; }
+  .exam-meta { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .meta-chip { font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; background: #3C3489; color: #CECBF6; }
+
+  .score-bar { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .score-label { font-size: 14px; color: #3d3d3a; }
+  .score-num { font-size: 28px; font-weight: 700; color: #26215C; }
+  button.check-all-btn { padding: 9px 22px; font-size: 14px; font-weight: 700; background: #534AB7; color: #fff; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.check-all-btn:active { background: #3C3489; }
+  button.reset-btn { padding: 9px 18px; font-size: 14px; font-weight: 700; background: #fff; color: #712B13; border: 1.5px solid #712B13; border-radius: 10px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+
+  .section-head { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; margin-top: 2rem; }
+  .section-icon { font-size: 20px; }
+  .section-title { font-size: 14px; font-weight: 700; color: #fff; background: #26215C; padding: .3rem .9rem; border-radius: 6px; }
+  .section-source { font-size: 12px; font-weight: 700; padding: .3rem .75rem; border-radius: 6px; }
+  .sec1 { background: #EEEDFE; color: #26215C; }
+  .sec2 { background: #D6EAF8; color: #1A5276; }
+  .section-count { font-size: 13px; color: #6b6b67; }
+
+  .q-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: 1rem; overflow: hidden; transition: border-color .2s; }
+  .q-card.correct { border-color: #1D9E75; }
+  .q-card.wrong { border-color: #C0392B; }
+
+  .q-top { padding: .9rem 1.2rem; }
+  .q-num { font-size: 11px; font-weight: 700; color: #534AB7; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .35rem; }
+  .q-text { font-size: 15px; font-weight: 700; color: #1a1a18; line-height: 1.55; }
+
+  .tf-row { display: flex; gap: .75rem; padding: .75rem 1.2rem 1rem; }
+  button.tf-btn { flex: 1; padding: 10px; font-size: 15px; font-weight: 700; border-radius: 10px; border: 1.5px solid #c8c6be; background: #fff; color: #1a1a18; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; transition: all .15s; }
+  button.tf-btn.selected { border-color: #534AB7; background: #EEEDFE; color: #26215C; }
+  button.tf-btn.correct-ans { border-color: #1D9E75; background: #E1F5EE; color: #0F6E56; }
+  button.tf-btn.wrong-ans { border-color: #C0392B; background: #FDECEA; color: #C0392B; }
+
+  .mcq-list { padding: .5rem 1.2rem 1rem; display: flex; flex-direction: column; gap: .5rem; }
+  button.mcq-btn { width: 100%; text-align: right; padding: .75rem 1rem; font-size: 15px; border-radius: 10px; border: 1.5px solid #c8c6be; background: #fff; color: #1a1a18; cursor: pointer; font-family: inherit; line-height: 1.5; -webkit-tap-highlight-color: transparent; }
+  button.mcq-btn.selected { border-color: #534AB7; background: #EEEDFE; color: #26215C; }
+  button.mcq-btn.correct-ans { border-color: #1D9E75; background: #E1F5EE; color: #0F6E56; font-weight: 700; }
+  button.mcq-btn.wrong-ans { border-color: #C0392B; background: #FDECEA; color: #C0392B; }
+
+  .essay-area { padding: .5rem 1.2rem 1rem; }
+  textarea.essay-input { width: 100%; min-height: 100px; padding: .75rem 1rem; font-size: 15px; font-family: inherit; border: 1.5px solid #c8c6be; border-radius: 10px; background: #f9f8f5; color: #1a1a18; resize: vertical; line-height: 1.7; }
+  textarea.essay-input:focus { outline: none; border-color: #534AB7; }
+
+  button.reveal-btn { display: inline-flex; align-items: center; gap: 6px; margin: 0 1.2rem .9rem; padding: 7px 16px; font-size: 13px; font-weight: 700; color: #534AB7; background: #EEEDFE; border: 1.5px solid #CECBF6; border-radius: 8px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.reveal-btn:active { background: #CECBF6; }
+
+  .answer-box { display: none; margin: 0 1.2rem .9rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 10px; padding: .85rem 1rem; font-size: 14px; color: #04342C; line-height: 1.8; }
+  .answer-box.open { display: block; }
+  .ans-label { font-size: 11px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .4rem; }
+
+  .feedback { display: none; padding: .5rem 1.2rem .75rem; font-size: 13px; font-weight: 700; }
+  .feedback.show { display: block; }
+  .feedback.ok { color: #0F6E56; }
+  .feedback.bad { color: #C0392B; }
+
+  .nav-bar { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .nav-btn { padding: 7px 14px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #c8c6be; background: #fff; color: #26215C; text-decoration: none; display: inline-block; }
+
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #534AB7; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; }
+</style>
+</head>
+<body>
+
+<div class="exam-header">
+  <div class="exam-title">امتحان شامل</div>
+  <div class="exam-sub">السيكشن الأول: هيجل والدولة القومية · السيكشن الثاني: فيورباخ وهيجل</div>
+  <div class="exam-meta">
+    <span class="meta-chip">٣٠ سؤالاً</span>
+    <span class="meta-chip">صح وخطأ · اختيار من متعدد · مقالي</span>
+    <span class="meta-chip">كلية الآداب — قسم الفلسفة</span>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <a class="nav-btn" href="هيجل_والدولة_القومية_السيكشن_الاول_محسن.html">السيكشن الأول</a>
+  <a class="nav-btn" href="فيورباخ_وهيجل_السيكشن_الثاني.html">السيكشن الثاني</a>
+</div>
+
+<div class="score-bar">
+  <div>
+    <div class="score-label">درجتك حتى الآن</div>
+    <div class="score-num" id="score">٠ / ٠</div>
+  </div>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+    <button class="check-all-btn" onclick="checkAll()">تصحيح الكل</button>
+    <button class="reset-btn" onclick="resetAll()">إعادة</button>
+  </div>
+</div>
+
+<!-- ===== القسم 1: صح وخطأ ===== -->
+<div class="section-head">
+  <span class="section-icon">✓</span>
+  <span class="section-title">القسم الأول — صح وخطأ</span>
+  <span class="section-count">(١٢ سؤالاً)</span>
+</div>
+
+<!-- س1 -->
+<div class="q-card" id="q1" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ١ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">يرى بويرين أن الشتات اليهودي حالة مرضية يجب التغلب عليها بإقامة دولة قومية.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb1"></div>
+  <div class="answer-box" id="ans1"><div class="ans-label">الإجابة: خطأ</div>هذا هو موقف الصهيونية لا موقف بويرين. بويرين على العكس تماماً يرى أن الشتات مصدر قوة إبداعية ونموذج بديل ومستدام للوجود اليهودي، ويدافع عنه في كتابه "قوى الشتات".</div>
+  <button class="reveal-btn" onclick="revealAns('ans1')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س2 -->
+<div class="q-card" id="q2" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">فكّر هرتزل في البداية في إقامة الدولة اليهودية في أوغندا وليس في فلسطين.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+  <div class="answer-box" id="ans2"><div class="ans-label">الإجابة: صح</div>هرتزل عُرض عليه من الحكومة البريطانية إقامة الدولة في أوغندا (مستعمرة بريطانية في أفريقيا)، وبعد مشاورات استقرت الرغبة على فلسطين. وهذا يثبت أن الصهيونية في أصلها كانت مشروعاً سياسياً علمانياً لا دينياً.</div>
+  <button class="reveal-btn" onclick="revealAns('ans2')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س3 -->
+<div class="q-card" id="q3" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ٣ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">يرى هيجل أن الشعب الذي لا تكون له دولة هو شعب "غير مكتمل أو خارج التاريخ".</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+  <div class="answer-box" id="ans3"><div class="ans-label">الإجابة: صح</div>هذا صميم فلسفة هيجل للتاريخ — الدولة هي الحامل الأعلى للتاريخ وتجسيده. الروح لا تتحقق إلا عبر الدولة، والدولة لا تكون واقعية إلا عبر جغرافيا وسيادة. وهو المنطق الذي تبنّته الصهيونية.</div>
+  <button class="reveal-btn" onclick="revealAns('ans3')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س4 -->
+<div class="q-card" id="q4" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ٤ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">يدّعي بويرين أن هيجل هو السبب المباشر لنشأة الصهيونية.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+  <div class="answer-box" id="ans4"><div class="ans-label">الإجابة: خطأ</div>بويرين يؤكد صراحةً أن الصلة ليست علاقة سببية مباشرة — وعلامة الاستفهام في العنوان "صهيونية هيجل؟" مقصودة. ما يقوله هو أن كليهما يشتركان في نفس البنية الفكرية التي أفرزها المناخ الأوروبي في القرن التاسع عشر.</div>
+  <button class="reveal-btn" onclick="revealAns('ans4')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س5 -->
+<div class="q-card" id="q5" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ٥ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">اليهودية الإصلاحية كانت من أقوى المؤيدين للمشروع الصهيوني منذ بدايته.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+  <div class="answer-box" id="ans5"><div class="ans-label">الإجابة: خطأ</div>العكس صحيح — اليهودية الإصلاحية كانت معادية للصهيونية في بدايتها لأنها ترى اليهودية ديناً لا قومية. وهذا يفسر لماذا اضطرت الصهيونية إلى استعارة رموز القومية الأوروبية بدلاً من التراث اليهودي الأصيل.</div>
+  <button class="reveal-btn" onclick="revealAns('ans5')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س6 -->
+<div class="q-card" id="q6" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ٦ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">يُعدّ فيورباخ من تلاميذ هيجل المتخصصين الذين تتلمذوا على يديه ثم انتقدوه.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+  <div class="answer-box" id="ans6"><div class="ans-label">الإجابة: صح</div>فيورباخ تتلمذ على هيجل مباشرةً ثم انتقده انتقاداً جذرياً. العلاقة بينهما علاقة تلميذ انقلب على أستاذه، وقلب معادلته الفلسفية من "الروح تنتج الطبيعة" إلى "الطبيعة والإنسان هما الأصل".</div>
+  <button class="reveal-btn" onclick="revealAns('ans6')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س7 -->
+<div class="q-card" id="q7" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ٧ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">اليسار الهيجلي كان يضم: هيجل، فيورباخ، شتراوس، وبرونو باور.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+  <div class="answer-box" id="ans7"><div class="ans-label">الإجابة: خطأ</div>هيجل نفسه ليس من اليسار الهيجلي — هو الأستاذ الذي انقسم تلاميذه بعد وفاته. اليسار الهيجلي يضم: فيورباخ، شتراوس، برونو باور، ماركس، إنجلز، وأرنولد روجيه.</div>
+  <button class="reveal-btn" onclick="revealAns('ans7')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س8 -->
+<div class="q-card" id="q8" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ٨ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">كان سبب انقسام المدرسة الهيجلية إلى يمين ويسار هو "مسألة الدين".</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+  <div class="answer-box" id="ans8"><div class="ans-label">الإجابة: صح</div>بدأ الانقسام قبل وفاة هيجل عام ١٨٣١ بسبب تفسير موقفه من الدين — هل فلسفته تدعم الدين المسيحي (اليمين) أم تقود إلى نقده (اليسار)؟ وكان كتاب فيورباخ "خواطر حول الموت والخلود" من أوائل الشرارات.</div>
+  <button class="reveal-btn" onclick="revealAns('ans8')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س9 -->
+<div class="q-card" id="q9" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ٩ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ماكس نوردو في كتابه "ماهية المسيحية" قال إن الله مرآة للإنسان.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+  <div class="answer-box" id="ans9"><div class="ans-label">الإجابة: خطأ</div>"ماهية المسيحية" هو كتاب فيورباخ لا نوردو. فيورباخ هو من قال إن الله انعكاس لجوهر الإنسان في مرآة الخيال — الإنسان يُسقط صفاته الأفضل على كيان خيالي يسميه "الله". نوردو كان أحد مؤسسي الصهيونية.</div>
+  <button class="reveal-btn" onclick="revealAns('ans9')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س10 -->
+<div class="q-card" id="q10" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٠ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">قال سارتر في حواره مع بيني ليفي "تماماً" موافقاً على أن هيجل أراد التخلص من اليهود بجعلهم خارج التاريخ.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb10"></div>
+  <div class="answer-box" id="ans10"><div class="ans-label">الإجابة: صح</div>في الحوار المتأخر بين سارتر وبيني ليفي، قال ليفي إن "التاريخ الذي رسمه هيجل أراد التخلص من اليهود" فأجاب سارتر "تماماً". بويرين يستشهد بهذا الحوار لأنه يأتي من مفكر غربي كبير كان مؤيداً للصهيونية في شبابه.</div>
+  <button class="reveal-btn" onclick="revealAns('ans10')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س11 -->
+<div class="q-card" id="q11" data-type="tf" data-correct="خطأ">
+  <div class="q-top">
+    <div class="q-num">سؤال ١١ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">يرى ماركس أن نقد فيورباخ للدين كافٍ لتحقيق التغيير الاجتماعي الحقيقي.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb11"></div>
+  <div class="answer-box" id="ans11"><div class="ans-label">الإجابة: خطأ</div>ماركس انتقد فيورباخ بالتحديد لأن نقده للدين وقف عند نقد الأفكار ولم يصل إلى نقد الواقع المادي والاقتصادي والاجتماعي الذي ينتج الدين. وقال ماركس جملته الشهيرة: "الفلاسفة فسّروا العالم بطرق شتى، المهم تغييره".</div>
+  <button class="reveal-btn" onclick="revealAns('ans11')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س12 -->
+<div class="q-card" id="q12" data-type="tf" data-correct="صح">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٢ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">يرى بويرين أن الأرض أصبحت في المشروع الصهيوني بديلاً عن النص الديني والذاكرة الجماعية كمصدر للهوية اليهودية.</div>
+  </div>
+  <div class="tf-row">
+    <button class="tf-btn" onclick="selectTF(this,'صح')">✓ صح</button>
+    <button class="tf-btn" onclick="selectTF(this,'خطأ')">✗ خطأ</button>
+  </div>
+  <div class="feedback" id="fb12"></div>
+  <div class="answer-box" id="ans12"><div class="ans-label">الإجابة: صح</div>هذا أحد أهم استنتاجات بويرين — الرغبة الصهيونية في الأرض ليست مجرد رغبة سياسية، بل استجابة لأزمة هوية حداثية عميقة. اليهود العلمانيون فقدوا "الوطن الرمزي" المحمول في النصوص والتقاليد، فراحوا يبحثون عن وطن جغرافي مادي بديل. كما يقول المقال: "فقدان الوطن الرمزي يولّد الحاجة إلى وطن جغرافي".</div>
+  <button class="reveal-btn" onclick="revealAns('ans12')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- ===== القسم 2: اختيار من متعدد ===== -->
+<div class="section-head">
+  <span class="section-icon">◉</span>
+  <span class="section-title">القسم الثاني — اختيار من متعدد</span>
+  <span class="section-count">(١٢ سؤالاً)</span>
+</div>
+
+<!-- س13 -->
+<div class="q-card" id="q13" data-type="mcq" data-correct="ب">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٣ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما المقصود بمصطلح "اللازمنية" في سياق الهوية اليهودية عند بويرين؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) رفض الاعتراف بالتاريخ والزمن كلياً</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) القدرة على التماهي مع الأجيال السابقة كأساس للهوية بطريقة تتجاوز حدود الزمن</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) الإيمان بأن التاريخ يسير بشكل دائري لا خطي</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) رفض فلسفة هيجل للتاريخ</button>
+  </div>
+  <div class="feedback" id="fb13"></div>
+  <div class="answer-box" id="ans13"><div class="ans-label">الإجابة: ب</div>اللازمنية هي القدرة التعاطفية على التماهي مع الأجيال السابقة — كأن يحس اليهودي أنه شخصياً خرج من مصر وتلقّى التوراة. النموذج الهيجلي يلغي هذه اللازمنية بفرضه تاريخاً خطياً تقدمياً يرمي الماضي في "سلة مهملات التاريخ".</div>
+  <button class="reveal-btn" onclick="revealAns('ans13')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س14 -->
+<div class="q-card" id="q14" data-type="mcq" data-correct="ج">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٤ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">أيّ الموقف الأربعة من هيجل يتبنّاه بويرين في مقاله؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) اعتباره مبشراً فكرياً نبياً سبق زمانه</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) اعتباره سلفاً فكرياً غير معترف به للصهيونية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) اعتباره مثالاً استثنائياً في وضوح الصياغة لبنية شعورية محددة دون ادعاء استمرارية مباشرة</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) اعتباره كبش فداء مسؤولاً عن كل شرور القومية</button>
+  </div>
+  <div class="feedback" id="fb14"></div>
+  <div class="answer-box" id="ans14"><div class="ans-label">الإجابة: ج</div>بويرين يتبنى الموقف الرابع — يستخدم هيجل كنموذج تحليلي كاشف لبنية التفكير السائدة في عصره، دون أن يحمّله مسؤولية مباشرة عن الصهيونية أو يجعله "بطلاً" أو "شريراً".</div>
+  <button class="reveal-btn" onclick="revealAns('ans14')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س15 -->
+<div class="q-card" id="q15" data-type="mcq" data-correct="د">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٥ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما الذي يجعل الصلة بين هيجل والصهيونية العلمانية مهمة على نحو خاص وفق بويرين؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) أن الصهاينة الأوائل كانوا تلاميذ مباشرين لهيجل</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) أن هيجل كان يهودياً في الأصل</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) أن كليهما رفض الديمقراطية الليبرالية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) اشتراكهما في تصور إقليمي ودولاتي للهوية القومية ورؤية استبدالية للتاريخ</button>
+  </div>
+  <div class="feedback" id="fb15"></div>
+  <div class="answer-box" id="ans15"><div class="ans-label">الإجابة: د</div>بويرين يؤكد أن ما يجعل الصلة مهمة هو أن كليهما يشتركان في تصور إقليمي ودولاتي للهوية القومية — أي أن الهوية لا تكتمل إلا بأرض ودولة — إضافةً إلى الرؤية الاستبدالية للتاريخ القائلة بأن الماضي يمكن دائماً تجاوزه.</div>
+  <button class="reveal-btn" onclick="revealAns('ans15')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س16 -->
+<div class="q-card" id="q16" data-type="mcq" data-correct="ب">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٦ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما الذي قلبه فيورباخ في فلسفة هيجل؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) رفض وجود الله كلياً</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) جعل الإنسان والطبيعة المحسوسة هما الأصل بدلاً من الروح المطلق</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) رفض وجود الدولة القومية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) رفض منهج الجدل الهيجلي</button>
+  </div>
+  <div class="feedback" id="fb16"></div>
+  <div class="answer-box" id="ans16"><div class="ans-label">الإجابة: ب</div>فيورباخ قلب المعادلة الهيجلية تماماً: هيجل يبدأ من الروح المطلق وينتهي إلى الطبيعة والإنسان، أما فيورباخ فيبدأ من الإنسان والطبيعة الملموسة وينتهي إلى الفكر. يشبَّه هذا بثورة كوبرنيكوس في الفلك.</div>
+  <button class="reveal-btn" onclick="revealAns('ans16')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س17 -->
+<div class="q-card" id="q17" data-type="mcq" data-correct="أ">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٧ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما أشهر كتب فيورباخ الذي يقول فيه إن الله انعكاس لجوهر الإنسان في الخيال؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) ماهية المسيحية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) ماهية الدين</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) خواطر حول الموت والخلود</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) الثيوجونيا</button>
+  </div>
+  <div class="feedback" id="fb17"></div>
+  <div class="answer-box" id="ans17"><div class="ans-label">الإجابة: أ</div>"ماهية المسيحية" (١٨٤١) هو أشهر كتب فيورباخ — وهي المرحلة الأولى في تفكيره الديني. يقول فيه إن الإنسان حين يتصوّر الله إنما يُسقط جوهره الأفضل وصفاته المثالية على كيان خيالي. الله عنده "مرآة الإنسان".</div>
+  <button class="reveal-btn" onclick="revealAns('ans17')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س18 -->
+<div class="q-card" id="q18" data-type="mcq" data-correct="ج">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٨ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">من كان أكثر الهيجليين الشباب قرباً لفيورباخ وأسّس "حوليات هالا"؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) برونو باور</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) داود شتراوس</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) أرنولد روجيه</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) كارل ماركس</button>
+  </div>
+  <div class="feedback" id="fb18"></div>
+  <div class="answer-box" id="ans18"><div class="ans-label">الإجابة: ج</div>أرنولد روجيه هو أكثر الهيجليين الشباب قرباً لفيورباخ، ويرجع له الفضل في تأسيس "حوليات هالا" — المجلة التي كانت منبراً لليسار الهيجلي في مواجهة "حوليات برلين" التي تمثّل اليمين الهيجلي.</div>
+  <button class="reveal-btn" onclick="revealAns('ans18')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س19 -->
+<div class="q-card" id="q19" data-type="mcq" data-correct="ب">
+  <div class="q-top">
+    <div class="q-num">سؤال ١٩ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما المشكلة التي يكشفها بويرين في إشكالية "الدولة اليهودية الليبرالية" عبر مثال النشيد الوطني الإسرائيلي؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) أن النشيد ليس جميلاً موسيقياً</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) أن صياغة النشيد تعبّر عن طموح يهودي قومي يتعارض مع مصالح المواطنين العرب</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) أن النشيد مكتوب بالعبرية لا العربية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) أن النشيد يحتوي على مقاطع دينية</button>
+  </div>
+  <div class="feedback" id="fb19"></div>
+  <div class="answer-box" id="ans19"><div class="ans-label">الإجابة: ب</div>يستشهد بويرين بقول والزر إن الصعوبة التي تواجه العرب في غناء نشيد "الأمل" لا تنبع من جذوره الدينية، بل من أن صياغة الحنين فيه تعبّر عن طموح يهودي قومي محدد يتعارض مع مصالحهم الجماعية. وهذا يكشف التناقض البنيوي في فكرة "الدولة الليبرالية" ذات الهوية القومية الواحدة.</div>
+  <button class="reveal-btn" onclick="revealAns('ans19')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س20 -->
+<div class="q-card" id="q20" data-type="mcq" data-correct="د">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٠ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما الفرق الجوهري بين شتراوس وفيورباخ في تناولهما للدين المسيحي؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) شتراوس مؤمن وفيورباخ ملحد</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) شتراوس يدرس الإسلام وفيورباخ يدرس المسيحية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) شتراوس يوافق على المعجزات وفيورباخ يرفضها</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) شتراوس يرى الأناجيل أساطير، بينما فيورباخ يذهب أعمق ويشرح لماذا يصنع الإنسان الدين نفسياً واجتماعياً</button>
+  </div>
+  <div class="feedback" id="fb20"></div>
+  <div class="answer-box" id="ans20"><div class="ans-label">الإجابة: د</div>شتراوس في "حياة يسوع" يرى قصص الإنجيل أساطير لا حقائق تاريخية. أما فيورباخ فذهب أعمق — لم يكتفِ بقول "الدين غلط"، بل شرح لماذا يصنع الإنسان الدين: الإنسان يُسقط جوهره الأفضل على كيان خيالي يسميه "الله". هذا التحليل النفسي والأنثروبولوجي هو ما يميّز فيورباخ.</div>
+  <button class="reveal-btn" onclick="revealAns('ans20')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س21 -->
+<div class="q-card" id="q21" data-type="mcq" data-correct="ب">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢١ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما الدليل على أن إلهام هرتزل القومي لم يكن يهودياً؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) أنه كتب بالألمانية لا العبرية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) أنه كان يستمع لموسيقى فاغنر الألمانية أثناء كتابة "الدولة اليهودية"</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) أنه كان يعيش في فيينا</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) أنه كان يدرس القانون</button>
+  </div>
+  <div class="feedback" id="fb21"></div>
+  <div class="answer-box" id="ans21"><div class="ans-label">الإجابة: ب</div>يستشهد بويرين بقول هرتزل نفسه: "لم يكن لي من تسلية سوى الاستماع إلى موسيقى فاغنر في المساء... ولم يكن يساورني الشك في صحة أفكاري إلا في الأمسيات التي لم تكن فيها أوبرا." فاغنر موسيقار ألماني قومي — وهذا يثبت أن مصدر إلهام هرتزل كان أوروبياً لا يهودياً.</div>
+  <button class="reveal-btn" onclick="revealAns('ans21')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س22 -->
+<div class="q-card" id="q22" data-type="mcq" data-correct="ج">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٢ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما المرحلة الأخيرة في تفكير فيورباخ الديني؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) ماهية المسيحية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) ماهية الإيمان</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) الثيوجونيا</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) ماهية الدين</button>
+  </div>
+  <div class="feedback" id="fb22"></div>
+  <div class="answer-box" id="ans22"><div class="ans-label">الإجابة: ج</div>الثيوجونيا (نشأة الآلهة) هي المرحلة الرابعة والأخيرة في تفكير فيورباخ الديني. ربط فيها بين الدين والأخلاق، وقال إن الدين نشأ من ضعف الإنسان وحاجته لقوة مطلقة تحقق ما يعجز عنه بمفرده. الترتيب: ماهية المسيحية ← ماهية الإيمان ← ماهية الدين ← الثيوجونيا.</div>
+  <button class="reveal-btn" onclick="revealAns('ans22')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س23 -->
+<div class="q-card" id="q23" data-type="mcq" data-correct="أ">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٣ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما مفهوم "شوفينية الحاضر" عند بويرين في سياق نقده لهيجل؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) إرجاع الماضي إلى سلة مهملات التاريخ بمجرد انتهاء دوره — وهو أخطر من الشوفينية العرقية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) الاعتقاد بتفوق الشعب الألماني عرقياً</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) رفض التقاليد الدينية والاهتمام بالحاضر فقط</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) التحيز لصالح الدول الأوروبية في السياسة الدولية</button>
+  </div>
+  <div class="feedback" id="fb23"></div>
+  <div class="answer-box" id="ans23"><div class="ans-label">الإجابة: أ</div>بويرين يرى أن "شوفينية الحاضر" هي الجانب الأخطر في هيجل — وهي إرجاع الماضي مهما كانت فضائله إلى سلة مهملات التاريخ بمجرد انتهاء دوره. فبمجرد أن تنجز أمة دورها التاريخي لا تعود لها أهمية. وهذا ما يهدد الهوية اليهودية المبنية أساساً على الماضي والذاكرة.</div>
+  <button class="reveal-btn" onclick="revealAns('ans23')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- س24 -->
+<div class="q-card" id="q24" data-type="mcq" data-correct="د">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٤ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما الذي كتبه فيورباخ عام ١٨٣١ فأحدث جدلاً واسعاً داخل المدرسة الهيجلية؟</div>
+  </div>
+  <div class="mcq-list">
+    <button class="mcq-btn" onclick="selectMCQ(this,'أ')">أ) ماهية المسيحية</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ب')">ب) مبادئ فلسفة المستقبل</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'ج')">ج) الثيوجونيا</button>
+    <button class="mcq-btn" onclick="selectMCQ(this,'د')">د) خواطر حول الموت والخلود</button>
+  </div>
+  <div class="feedback" id="fb24"></div>
+  <div class="answer-box" id="ans24"><div class="ans-label">الإجابة: د</div>"خواطر حول الموت والخلود" هو الكتاب المثير للجدل الأول لفيورباخ — أنكر فيه خلود النفس الفردية وقال إن الخلود يكمن في الفكر والمعرفة الإنسانية لا في الفرد. أحدث جدلاً واسعاً داخل المدرسة الهيجلية لأنه مسّ قضية جوهرية كانت تفرّق اليمين واليسار الهيجليين.</div>
+  <button class="reveal-btn" onclick="revealAns('ans24')">👁 رؤية الإجابة</button>
+</div>
+
+<!-- ===== القسم 3: مقالي ===== -->
+<div class="section-head">
+  <span class="section-icon">✍</span>
+  <span class="section-title">القسم الثالث — أسئلة مقالية</span>
+  <span class="section-count">(٦ أسئلة)</span>
+</div>
+
+<!-- س25 -->
+<div class="q-card" id="q25" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٥ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما المقصود بـ"أمة الشتات" عند بويرين؟ وكيف تختلف عن مفهوم الدولة القومية في الفكر الهيجلي؟</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans25">
+    <div class="ans-label">الإجابة النموذجية</div>
+    أمة الشتات عند بويرين هي جماعة تمتلك هوية قومية أو ثقافية مشتركة دون الاستناد إلى إقليم جغرافي واحد، بل موزّعة عبر بلدان عدة — يغيب الإقليم دون أن تغيب الأمة، إذ تستمر في إنتاج معنى جماعي من خلال هذا التوزع ذاته.<br><br>
+    وتختلف عن الدولة القومية الهيجلية في ثلاثة محاور: أولاً من حيث أساس الهوية — في أمة الشتات تقوم الهوية على النصوص والذاكرة والتقاليد، بينما تقوم في الدولة القومية على الأرض والسيادة والمؤسسات. ثانياً من حيث الموقف من الإقليم — أمة الشتات لا تحتاجه، أما الدولة القومية فتعتبره شرطاً ضرورياً للوجود الحقيقي. ثالثاً من حيث النظرة للوجود الجماعي — بويرين يرى الشتات نموذجاً قابلاً للحياة، بينما يرى هيجل الشعب بلا دولة "خارج التاريخ" وغير مكتمل.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans25')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<!-- س26 -->
+<div class="q-card" id="q26" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٦ — السيكشن الأول <span class="section-source sec1">س١</span></div>
+    <div class="q-text">ما المشكلات الثلاث التي واجهت الصهيونية في محاولة تطبيق النموذج الهيجلي للدولة القومية؟</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans26">
+    <div class="ans-label">الإجابة النموذجية</div>
+    المشكلة الأولى — غياب الأرض غير المتنازع عليها: القوميات الأوروبية قامت على أراضٍ يسكنها أهلها أصلاً، أما الصهيونية فاحتاجت إلى استبعاد السكان الفلسطينيين الأصليين — استبعاداً بدا أيديولوجياً ثم تحوّل إلى استبعاد مادي فعلي.<br><br>
+    المشكلة الثانية — غياب ما يوازي البروتستانتية: البروتستانتية وفّرت للقومية الألمانية تبريراً دينياً شاملاً. أما اليهودية الإصلاحية (أقرب نظير) فكانت معادية للصهيونية في بدايتها، فاضطرت الصهيونية إلى استعارة رموز القومية الأوروبية (أغاني وطنية، مسيرات) بدلاً من التراث اليهودي الأصيل.<br><br>
+    المشكلة الثالثة — التناقض البنيوي: النموذج الهيجلي للدولة الليبرالية مبني ضمنياً على أسس مسيحية بروتستانتية، مما يُنتج تناقضاً حين تحاول الصهيونية تطبيقه على دولة يهودية — كما يظهر في إشكالية مشاركة المواطنين العرب في الهوية الوطنية الإسرائيلية.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans26')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<!-- س27 -->
+<div class="q-card" id="q27" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٧ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">ما أسباب انقسام المدرسة الهيجلية إلى يمين ويسار؟ وما أبرز ممثلي كل تيار؟</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans27">
+    <div class="ans-label">الإجابة النموذجية</div>
+    بدأ الانقسام قبل وفاة هيجل عام ١٨٣١ حول "مسألة الدين" — كيف نفسّر موقف هيجل من الدين والخلود والسياسة؟<br><br>
+    اليمين الهيجلي: رأى أن هيجل يدعم الدين المسيحي والنظام البروسي القائم، وحاول قراءة فلسفته باعتبارها مسانِدة للمؤسسة الدينية والدولة. أبرز ممثليه: شيوخ المدرسة المحافظون الذين دافعوا عن فكرة خلود النفس الهيجلية.<br><br>
+    اليسار الهيجلي: رأى أن فلسفة هيجل تقود إلى نقد الدين والمجتمع والسياسة، واستخدموا أدواته لتفكيك المؤسسات القائمة. أبرز ممثليه: فيورباخ، داود شتراوس، برونو باور، أرنولد روجيه، ثم ماركس وإنجلز. وكان كتاب فيورباخ "خواطر حول الموت والخلود" الذي أنكر فيه خلود النفس الفردية من أوائل الشرارات التي أشعلت الانقسام.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans27')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<!-- س28 -->
+<div class="q-card" id="q28" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٨ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">كيف يكشف بويرين أن ماكس نوردو يفكر بمنطق هيجلي رغم رفضه الصريح له؟</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans28">
+    <div class="ans-label">الإجابة النموذجية</div>
+    رغم أن ماكس نوردو هاجم هيجل بشدة ووصفه بأنه "واحد من أكثر الشخصيات فظاعة في تاريخ الفكر البشري"، إلا أن بويرين يلاحظ مفارقة جوهرية: نوردو حين يقول إن الصهيونية "أيقظت الشعب اليهودي على حياة جديدة" — يفترض ضمنياً أن اليهود في الشتات كانوا في حالة سبات أو موت، وأن الوجود الحقيقي لا يكون إلا في سياق الوجود الوطني على الأرض.<br><br>
+    وهذا بالضبط هو المنطق الهيجلي الذي يقول إن الشعب بلا دولة "خارج التاريخ". الدلالة عند بويرين: الصلة بين هيجل والصهيونية ليست علاقة تأثير مباشر أو قراءة، بل هي اشتراك في نفس المناخ الفكري الذي أنتج هذا المنطق في أوروبا القرن التاسع عشر. حتى من رفض هيجل صراحةً وقع في نفس منطقه.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans28')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<!-- س29 -->
+<div class="q-card" id="q29" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٢٩ — السيكشن الثاني <span class="section-source sec2">س٢</span></div>
+    <div class="q-text">قارن بين موقف شتراوس وفيورباخ وبرونو باور من الدين المسيحي موضحاً وجه التمييز بينهم.</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans29">
+    <div class="ans-label">الإجابة النموذجية</div>
+    شتراوس في كتاب "حياة يسوع": يرى أن قصص الأناجيل أساطير لا حقائق تاريخية، وأن الخيال الديني أسطوري لا علاقة له بالواقع — وهو يختلف عن هيجل في أنه يرى الخيال الديني أسطورياً وليس تجلياً للروح.<br><br>
+    برونو باور: ينتقد الدين المسيحي من منطلق فلسفي هيجلي ويرى أن المسيحية من صنع الإنسان، لكنه لم يُقدّم تناولاً للجوهر النفسي للتدين — أي لم يشرح لماذا يصنع الإنسان الدين أصلاً.<br><br>
+    فيورباخ هو الأعمق والأشمل: لم يكتفِ بقول "الدين غلط أو أسطوري"، بل شرح الآلية النفسية والأنثروبولوجية لنشوء الدين — الإنسان يُسقط جوهره الأفضل على كيان خيالي يسميه "الله". الدين عنده انعكاس لجوهر الإنسان في مرآة الخيال. هذا التحليل الأنثروبولوجي هو ما يميّز فيورباخ ويجعله الأكثر تأثيراً في الفكر اللاحق.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans29')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<!-- س30 -->
+<div class="q-card" id="q30" data-type="essay">
+  <div class="q-top">
+    <div class="q-num">سؤال ٣٠ — السيكشنان معاً</div>
+    <div class="q-text">اكتب مقالاً موجزاً يشرح كيف أن كلاً من بويرين وفيورباخ يمثّلان موقفاً نقدياً من الفكر الهيجلي — مع إبراز أوجه الشبه والاختلاف في نقد كل منهما.</div>
+  </div>
+  <div class="essay-area"><textarea class="essay-input" style="min-height:140px" placeholder="اكتب إجابتك هنا..."></textarea></div>
+  <div class="answer-box" id="ans30">
+    <div class="ans-label">الإجابة النموذجية الشاملة</div>
+    يمثّل كل من فيورباخ وبويرين موقفاً نقدياً من الفكر الهيجلي، غير أنهما يختلفان في منطلقاتهما وأهدافهما:<br><br>
+    <strong>أوجه الشبه:</strong> كلاهما يرفض المركزية الهيجلية للدولة أو الروح المطلق. وكلاهما ينطلق من داخل المنظومة الهيجلية ليفككها — فيورباخ تتلمذ على هيجل ثم انقلب عليه، وبويرين يستخدم أدوات التحليل الفلسفي ليكشف تناقضات المنطق الهيجلي. وكلاهما يقدّم بديلاً إنسانياً — فيورباخ يضع الإنسان في المركز بدل الروح، وبويرين يضع الجماعة الإنسانية في الشتات بديلاً عن الدولة.<br><br>
+    <strong>أوجه الاختلاف:</strong> فيورباخ يشتغل على إشكالية الطبيعة والدين والوعي، ويقلب المعادلة الهيجلية من الداخل في مستوى فلسفي نظري بحت. أما بويرين فيشتغل على إشكالية الهوية والقومية والدولة، ويستخدم النقد الهيجلي لتشريح مشروع سياسي محدد هو الصهيونية. كما أن فيورباخ كان تلميذاً مباشراً لهيجل، بينما بويرين يعيش بعده بأكثر من قرن ويستخدمه كنموذج تحليلي لا كخصم مباشر.
+  </div>
+  <button class="reveal-btn" onclick="revealAns('ans30')">👁 رؤية الإجابة النموذجية</button>
+</div>
+
+<script>
+  function selectTF(btn, val) {
+    var card = btn.closest('.q-card');
+    card.querySelectorAll('.tf-btn').forEach(function(b){ b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    card.dataset.selected = val;
+  }
+  function selectMCQ(btn, val) {
+    var card = btn.closest('.q-card');
+    card.querySelectorAll('.mcq-btn').forEach(function(b){ b.classList.remove('selected'); });
+    btn.classList.add('selected');
+    card.dataset.selected = val;
+  }
+  function revealAns(id) {
+    var box = document.getElementById(id);
+    var btn = box.previousElementSibling;
+    var isOpen = box.classList.contains('open');
+    box.classList.toggle('open', !isOpen);
+    btn.textContent = isOpen ? '👁 رؤية الإجابة' : '🙈 إخفاء الإجابة';
+  }
+  function checkCard(card) {
+    var type = card.dataset.type;
+    var correct = card.dataset.correct;
+    var selected = card.dataset.selected;
+    var id = card.id;
+    var fb = document.getElementById('fb' + id.replace('q',''));
+    if (type === 'tf' || type === 'mcq') {
+      if (!selected) return null;
+      var isCorrect = selected === correct;
+      card.classList.toggle('correct', isCorrect);
+      card.classList.toggle('wrong', !isCorrect);
+      fb.textContent = isCorrect ? '✓ إجابة صحيحة!' : '✗ إجابة خاطئة. راجع الشرح أدناه.';
+      fb.className = 'feedback show ' + (isCorrect ? 'ok' : 'bad');
+      if (type === 'tf') {
+        card.querySelectorAll('.tf-btn').forEach(function(b){
+          var v = b.textContent.includes('صح') ? 'صح' : 'خطأ';
+          b.classList.remove('selected');
+          if (v === correct) b.classList.add('correct-ans');
+          if (selected !== correct && v === selected) b.classList.add('wrong-ans');
+        });
+      } else {
+        card.querySelectorAll('.mcq-btn').forEach(function(b){
+          b.classList.remove('selected');
+          var m = b.getAttribute('onclick').match(/'([^']+)'\)/);
+          if (!m) return;
+          var v = m[1];
+          if (v === correct) b.classList.add('correct-ans');
+          if (selected !== correct && v === selected) b.classList.add('wrong-ans');
+        });
+      }
+      return isCorrect;
+    }
+    return null;
+  }
+  function checkAll() {
+    var total = 0, correct = 0;
+    document.querySelectorAll('.q-card[data-type="tf"], .q-card[data-type="mcq"]').forEach(function(card){
+      var r = checkCard(card);
+      if (r !== null) { total++; if(r) correct++; }
+    });
+    var arNums = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    function toAr(n){ return String(n).split('').map(function(d){ return arNums[d]||d; }).join(''); }
+    document.getElementById('score').textContent = toAr(correct) + ' / ' + toAr(total);
+  }
+  function resetAll() {
+    document.querySelectorAll('.q-card').forEach(function(card){
+      card.classList.remove('correct','wrong');
+      card.removeAttribute('data-selected');
+      card.querySelectorAll('.tf-btn,.mcq-btn').forEach(function(b){ b.classList.remove('selected','correct-ans','wrong-ans'); });
+      card.querySelectorAll('.feedback').forEach(function(f){ f.className='feedback'; f.textContent=''; });
+      card.querySelectorAll('.answer-box').forEach(function(a){ a.classList.remove('open'); });
+      card.querySelectorAll('.reveal-btn').forEach(function(b){ b.textContent='👁 رؤية الإجابة'; });
+      card.querySelectorAll('textarea').forEach(function(t){ t.value=''; });
+    });
+    document.getElementById('score').textContent = '٠ / ٠';
+  }
+</script>
+</body>
+</html>
