@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيكشن الأول — هيجل والدولة القومية (النسخة المحسّنة)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 16px; line-height: 1.8; padding: 1.5rem 1rem 5rem; max-width: 720px; margin: 0 auto; }
+  .part-badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 16px; border-radius: 20px; background: #CECBF6; color: #26215C; margin-bottom: .5rem; }
+  .version-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; background: #1D9E75; color: #fff; margin-bottom: 1rem; margin-right: .5rem; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+  .section { margin-bottom: 2rem; }
+  .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #26215C; padding: .35rem .9rem; border-radius: 6px; margin-bottom: 1rem; }
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+  button.toggle-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.2rem; cursor: pointer; text-align: right; gap: .75rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.toggle-btn:active { background: #f5f3ef; }
+  .btn-title { font-size: 16px; font-weight: 700; color: #26215C; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #534AB7; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+  .collapsible ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .collapsible li { margin-bottom: .35rem; }
+  .hl { color: #26215C; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-green { color: #0F6E56; font-weight: 700; }
+  .quote-box { background: #EEEDFE; border-right: 4px solid #534AB7; border-radius: 0 10px 10px 0; padding: .85rem 1.1rem; margin: .75rem 0; font-size: 14px; color: #26215C; line-height: 1.8; font-style: italic; }
+  .quote-source { font-size: 12px; font-weight: 700; color: #534AB7; margin-top: .35rem; font-style: normal; }
+  button.explain-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: .9rem; padding: 8px 18px; font-size: 14px; font-weight: 700; color: #fff; background: #1D9E75; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.explain-btn:active { background: #0F6E56; }
+  .explain-box { display: none; margin-top: .85rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 12px; padding: .9rem 1.1rem; font-size: 15px; color: #04342C; line-height: 1.85; }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .85rem 1.2rem; cursor: pointer; text-align: right; gap: .5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.term-btn:active { background: #f5f3ef; }
+  .term-name { font-size: 15px; font-weight: 700; color: #185FA5; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #E6F1FB44; }
+  .term-body.open { display: block; }
+  .q-card { border-right: 4px solid #534AB7; background: #fff; border-radius: 0 14px 14px 0; border-top: 1.5px solid #c8c6be; border-bottom: 1.5px solid #c8c6be; border-left: 1.5px solid #c8c6be; margin-bottom: .9rem; overflow: hidden; }
+  button.q-btn { width: 100%; background: transparent; border: none; padding: .9rem 1.2rem; cursor: pointer; text-align: right; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.q-btn:active { background: #f5f3ef; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #534AB7; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #CECBF6; background: #EEEDFE44; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #534AB7; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.expand-all:active { background: #3C3489; }
+</style>
+</head>
+<body>
+
+<span class="part-badge">السيكشن الأول</span>
+<span class="version-badge">✦ النسخة المحسّنة</span>
+<h1>هيجل والدولة القومية</h1>
+<p class="subtitle">الفكرة المحورية: الصهيونية محاولة هيجلية لتثبيت الهوية اليهودية عبر الأرض — بويرين يكشف هذه الصلة وينتقدها من منظور الشتات كنموذج بديل</p>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- القسم 1 -->
+<div class="section">
+  <div class="section-label">أولاً — بويرين: من هو وما موقفه؟</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">بويرين — الأنثروبولوجي المناهض للصهيونية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يتناول <span class="hl">جوناثان آرون بويرين</span> في هذا المقال العلاقة بين فلسفة هيجل والصهيونية، ساعياً إلى الكشف عن الصلات المحتملة بين الفكر الهيجلي والحركة الصهيونية. وهو أنثروبولوجي مناهض للحركة الصهيونية، يُطالب بـ<span class="hl">"أمة الشتات"</span>.<br><br>
+      <span class="hl-red">موقفه الجوهري:</span> الصهيونية استوعبت أفكار هيجل حول الدولة مما قاد إلى تصوّر مشوّه للوجود اليهودي — فيستخدم تحليله لهيجل للبحث عن طرق بديلة لفهم الذاكرة والهوية اليهودية بعيداً عن القيود المرتبطة بالدولة الحديثة.
+      <div class="quote-box">
+        "الصهيونية قد اعتبرت وجود اليهود في الشتات حالة مرضية أو نفياً يجب التغلب عليه من خلال إقامة دولة خاصة بهم."
+        <div class="quote-source">— من نص المقال (ص٢)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين يهودي أمريكي بيقول: "الصهيونية مش استمرار طبيعي لليهودية — هي مشروع قومي أوروبي استعار أفكار هيجل". هو مناهض للصهيونية وبيرى إن اليهود يمكنهم الحفاظ على هويتهم في الشتات من غير ما يحتاجوا لدولة. موقفه مش موقف عداء لليهود — هو موقف نقد فلسفي لفكرة الدولة القومية.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">أمة الشتات — البديل الذي يطرحه بويرين</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">أمة الشتات</span>: جماعة بشرية تمتلك هوية قومية أو ثقافية مشتركة، لكنها غير متمركزة في إقليم واحد، بل موزّعة عبر بلدان عدة — <span class="hl">يغيب الإقليم دون أن تغيب الأمة.</span><br><br>
+      يرفض بويرين في كتابه <span class="hl">"قوى الشتات"</span> تصوّر الصهيونية ويؤكد أن:
+      <ul>
+        <li>الشتات <span class="hl-green">ليس عيباً</span>، بل مصدر قوة إبداعية ووسيلة بديلة للوجود اليهودي</li>
+        <li>اليهود حافظوا على هويتهم وثقافتهم عبر القرون <span class="hl-green">دون الحاجة إلى سلطة سياسية على أرض معينة</span></li>
+        <li>هذا يعارض المبدأ الهيجلي القائل بضرورة الدولة القومية</li>
+        <li>بديله: <span class="hl">يهودية ثقافية منتشرة في الشتات</span> — لا دولة قومية ذات سيادة إقليمية</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        تخيّل ناس من نفس الأصل منتشرين في أمريكا وفرنسا وروسيا، بيتكلموا نفس اللغة، بيحسوا إنهم أمة واحدة — من غير ما يبقى فيه بلد اسمه "بلدهم". ده اللي حصل مع اليهود لآلاف السنين. بويرين بيقول ده مش عيب — ده قوة. الهوية ممكن تعيش بدون أرض.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 2 -->
+<div class="section">
+  <div class="section-label">ثانياً — التثبيت الجغرافي: المحاولة الهيجلية</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">لماذا يُعدّ التثبيت الجغرافي محاولة هيجلية؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يزعم بويرين أن التثبيت الجغرافي هو محاولة ذات طابع هيجلي للصهيونية — ويعتمد في ذلك على عدة عناصر في فلسفة هيجل:<br><br>
+      <span class="hl">١- هيجل والهوية:</span> لا توجد هوية حقيقية دون تجسّد سياسي جغرافي — الروح لا تتحقق إلا عبر الدولة، والدولة لا تكون واقعية إلا عبر جغرافيا وسيادة. ومن دون هذا يكون الشعب <span class="hl-red">"غير مكتمل أو خارج التاريخ".</span><br><br>
+      <span class="hl">٢- الحداثة عند هيجل:</span> سيرورة بلا جذور ثابتة — مما دفع الصهيونية إلى البحث عن مستقر للذات اليهودية بعد أن فقدت النصوص والتقاليد قوتها. وكانت الإجابة الهيجلية: أن تستقر في الأرض.<br><br>
+      <span class="hl">٣- نموذج الشعوب الجرمانية:</span> وجدت وطنها داخل التاريخ بتأسيس الدولة القومية الحديثة — ومن ثم استعارت الصهيونية نفس المنطق.
+      <div class="quote-box">
+        "إن الصهيونية تمثل محاولة حداثية بالكامل ذات طابع هيجلي لتثبيت الهوية اليهودية تثبيتاً أبدياً من خلال ربطها بالأرض."
+        <div class="quote-source">— من نص المقال (ص٢٢)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول: أي شعب من غير أرض ودولة هو شعب "ناقص وخارج التاريخ". الصهيونية سمعت الكلام ده وقالت: "احنا يهود ومالناش أرض — يبقى لازم نعمل دولة". ده اللي بيسميه بويرين "المحاولة الهيجلية" — إنهم استعاروا منطق هيجل حتى لو ما قرأوهوش.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الصهيونية ليست استمراراً لليهودية — دليل أوغندا وهرتزل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يرى بويرين أن الصهيونية مشروع قومي حديث استعار أدوات القومية الأوروبية — وليست استمراراً طبيعياً لليهودية.<br><br>
+      <span class="hl">الدليل الأول — أوغندا:</span> عزم هرتزل في البداية تأسيس الدولة اليهودية في <span class="hl">أوغندا</span> (مستعمرة بريطانية في أفريقيا) بعد عرض بريطاني، ثم استقرت الرغبة على فلسطين للارتباط بالماضي. الهدف الأصلي لم يكن دينياً بل أرضاً تجمع الشتات فحسب.<br><br>
+      <span class="hl">الدليل الثاني — الحاخامات:</span> تعرّضت الصهيونية في بدايتها لهجوم من حاخامات في أوروبا لأن العودة كانت ممنوعة دينياً إلا مع ظهور المسيح.<br><br>
+      <span class="hl">الدليل الثالث — فاغنر:</span> كتب هرتزل كتابه "الدولة اليهودية" وهو يستمع لموسيقى فاغنر الألمانية.
+      <div class="quote-box">
+        "لم يكن لي من تسلية سوى الاستماع إلى موسيقى فاغنر في المساء، ولا سيما تانهاوزر... ولم يكن يساورني الشك في صحة أفكاري إلا في الأمسيات التي لم تكن فيها أوبرا."
+        <div class="quote-source">— هرتزل، من نص المقال (ص١٧)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هرتزل نفسه اعترف إن إلهامه القومي مكانش يهودياً — كان موسيقى فاغنر الألماني! وكان يفكر في أوغندا قبل فلسطين. ده أوضح دليل إن الصهيونية مشروع أوروبي علماني — مش مشروع ديني يهودي.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 3 -->
+<div class="section">
+  <div class="section-label">ثالثاً — مقالة "صهيونية هيجل؟" والأطروحات الأربع</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">لماذا هيجل تحديداً؟ — خصوصيته الفكرية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يعتبر هيجل شخصية هامة لأنه <span class="hl">صاغ مبدأ الدولة القومية بحد ذاته</span>، ويشكّل حلقة وصل حيوية بين <span class="hl">التقدمية التنويرية</span> والقومية الرومانسية.<br><br>
+      تركيبة فلسفة التاريخ عنده كانت متاحة لأي عدد من المشاريع القومية — من اليمين ومن اليسار — بما في ذلك مشاريع القوميين المؤيدين لدولة يهودية.<br><br>
+      ما يجعل الصلة بين هيجل والصهيونية مهمة على نحو خاص هو <span class="hl">اشتراكهما في تصوّر إقليمي ودولاتي للهوية القومية</span> — إضافةً إلى الرؤية الاستبدالية للتاريخ.
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل مهم لأنه ربط فكرة "التقدم العقلاني" بفكرة "الدولة القومية". وفكره كان مرناً — اليمين والشمال استخدموه. الصهيونية استخدمته عشان تقول "اليهود لازم يبقى ليهم دولة عشان يدخلوا في مسيرة التاريخ".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الأطروحات الأربع — قلب المقال</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يتضمن عمل بويرين أطروحات أربع:
+      <ul>
+        <li><span class="hl">١-</span> هيجل يُصدر التاريخ بوصفه التجلّي المتدرج للروح في الدولة</li>
+        <li><span class="hl">٢-</span> النموذج الهيجلي يلغي إمكانية <span class="hl">"اللازمنية"</span> — أي القدرة على التماهي مع الأجيال السابقة كأساس للهوية الجماعية اليهودية</li>
+        <li><span class="hl">٣-</span> الصهيونية هي محاولة للعمل وفق المثال الهيجلي التقدمي للدولة — وبشكل مفارق تستخدم التفكير الهيجلي نفسه</li>
+        <li><span class="hl">٤-</span> الهيجلية تختلط بتناقض بنيوي: نموذج الدولة الليبرالية (مسيحي على نحو مضمر) لا يناسب "الدولة اليهودية الليبرالية"</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين بيقول: هيجل عمل نظام بيقول إن التاريخ بيسير لهدف وأعلى تجليه هو الدولة. ده النظام بيلغي طريقة اليهود في فهم هويتهم (اللازمنية — إنهم بيحسوا إنهم عايشوا مع كل الأجيال السابقة). والصهيونية لجأت لنفس النظام عشان تحل أزمة هويتها. بس فيه تناقض: النموذج ده أصلاً مسيحي الجوهر.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">موقف بويرين من هيجل — أيُّ المواقف الأربعة يتبنى؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      هناك أربعة مواقف ممكنة من هيجل في نقد الصهيونية:
+      <ul>
+        <li>اعتباره <span class="hl">مبشراً</span> فكرياً أو نبياً سبق زمانه</li>
+        <li>اعتباره <span class="hl">سلفاً فكرياً</span> غير معترف به للصهيونية</li>
+        <li>اعتباره <span class="hl">كبش فداء</span> — مصدر كل الشرور</li>
+        <li>التعرّض لفكره بوصفه <span class="hl">مثالاً استثنائياً في وضوح الصياغة</span> لبنية شعورية محددة — دون ادعاء استمرارية مباشرة</li>
+      </ul>
+      <span class="hl-green">بويرين يتبنى الموقف الرابع</span> — يستخدم هيجل كنموذج تحليلي كاشف لا مصدراً مباشراً للصهيونية.
+      <div class="quote-box">
+        "علامة الاستفهام في عنوان المقال توحي بأن الصلة ليست حصرية ولا نابعة من علاقة وراثية مباشرة."
+        <div class="quote-source">— من نص المقال (ص٧)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        بويرين مش بيقول "هيجل هو الجاني" ولا "هيجل نبي عظيم". هو بيقول: هيجل عبّر بوضوح عن نمط تفكير كان سايداً في أوروبا — وهذا النمط بالذات تبنّته الصهيونية. علامة الاستفهام في العنوان دليل على إن بويرين نفسه مش قاطع في الموضوع.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 4 -->
+<div class="section">
+  <div class="section-label">رابعاً — هيجل: التاريخ والدولة</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الدولة كحاملة التاريخ — الفكرة الجوهرية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      التذكارات العائلية والتقاليد الأبوية لا يكون لها معنى إلا داخل الأسرة أو القبيلة نفسها. أما <span class="hl">الدولة فهي التي تُقدّم للمرة الأولى محتوى يُسهم فعلياً في إنتاج التاريخ</span> — فهي تخلق:
+      <ul>
+        <li>سجلاً لتطورها الخاص</li>
+        <li>اهتماماً بالأفعال والأحداث المفهومة والمحددة</li>
+        <li>ذاكرة دائمة تحفظ التاريخ وتجعله قابلاً للرواية</li>
+      </ul>
+      <span class="hl-red">النتيجة المنطقية:</span> ما لا تصنعه الدولة لا يُعدّ تاريخاً حقيقياً في هذا النظام.
+      <div class="quote-box">
+        "فبالنسبة لهيجل بمجرد أن تنجز أمة ما دورها التاريخي العالمي، لا تعود لها أهمية إلا في العملية الحاسمة لإعادة البناء المتأن للتاريخ العالمي."
+        <div class="quote-source">— من نص المقال (ص١٢)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول: حكايات العيلة والقبيلة مش "تاريخ حقيقي" — التاريخ الحقيقي بيصنعه الدولة بس. وأي أمة خلّصت دورها التاريخي — خلاص بقت "بقايا". اليهود في نظره خلّصوا دورهم في العصور القديمة. ده اللي خلّى الصهيونية تقول "لازم نرجع للتاريخ بإقامة دولة".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">حوار سارتر وبيني ليفي — شاهد حي على الصلة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      يستشهد بويرين بحوار متأخر بين سارتر ومحاوره بيني ليفي — وهو حوار عميق التأثير لأنه يأتي من مفكر كان يؤيد الصهيونية في شبابه:
+      <div class="quote-box">
+        سارتر: "عندما قلت أنه لا يوجد تاريخ يهودي، كنت أفكر في التاريخ بصورته المحددة جيداً: تاريخ ألمانيا، تاريخ أمريكا... أي تاريخ واقع سياسي ذو سيادة، له وطن."<br><br>
+        ليفي: "بمعنى آخر أن التاريخ الذي رسمه هيجل أراد التخلص من اليهود."<br><br>
+        سارتر: "تماماً."
+        <div class="quote-source">— حوار سارتر وبيني ليفي (١٩٨٠)، من نص المقال (ص١١)</div>
+      </div>
+      <span class="hl-green">الدلالة:</span> سارتر أدرك في آخر حياته أن النموذج الهيجلي للتاريخ يُقصي اليهود ويجبرهم على إقامة دولة "للعودة إليه".
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        سارتر كان فيلسوف فرنسي كبير ومؤيد للصهيونية في شبابه. بس في آخر حياته غيّر رأيه واعترف إن المنطق الهيجلي هو اللي "طرد" اليهود من التاريخ وخلّى الصهيونية تيجي كحل. بويرين بيستخدم الاقتباس ده لأنه دليل من "داخل" الفكر الغربي نفسه.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 5 -->
+<div class="section">
+  <div class="section-label">خامساً — الصهيونية والدولة: التيارات والإشكاليات</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">نوردو — يكره هيجل لكن يفكر مثله</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      ماكس نوردو — أحد أبرز مؤسسي الصهيونية — رفض هيجل صراحةً:
+      <div class="quote-box">
+        "هذيانات ربما صدرت عن راهب مضطرب، عقله ممتلئ بكتابات الدومينيكان. إن هيجل بلا شك واحد من أكثر الشخصيات فظاعة في تاريخ الفكر البشري."
+        <div class="quote-source">— ماكس نوردو، من نص المقال (ص١٥)</div>
+      </div>
+      <span class="hl-red">لكن!</span> ما يشترك فيه نوردو مع هيجل رغم رفضه له:
+      <div class="quote-box">
+        "لقد أيقظت الصهيونية الشعب اليهودي على حياة جديدة، أخلاقياً من خلال المثل الوطنية العليا، ومادياً من خلال التأكيد على الحدود المادية. غير أن الصهيونية تفرض أيضاً فصلاً صارماً بين الأحياء والأموات."
+        <div class="quote-source">— نوردو، من نص المقال (ص١٥)</div>
+      </div>
+      <span class="hl">الدلالة عند بويرين:</span> نوردو يفترض ضمنياً أن اليهود في الشتات كانوا في حالة "موت" أو سبات — وهو بالضبط المنطق الهيجلي الذي يقول إن الشعب بلا دولة "خارج التاريخ"!
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        نوردو بيكره هيجل بالكلام — بس بيفكر زيه في الجوهر! لما بيقول الصهيونية "أيقظت اليهود على حياة جديدة" — ده معناه إنهم كانوا "نايمين أو ميتين". وده نفس بالظبط المنطق الهيجلي. بويرين بيقول: مش لازم تقرأ هيجل عشان تفكر زيه — المناخ الأوروبي كله كان مشبّع بهذا المنطق.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المشكلات الثلاث في تطبيق النموذج الهيجلي على الصهيونية</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <span class="hl">المشكلة الأولى — غياب الأرض غير المتنازع عليها:</span><br>
+      النموذج الهيجلي قام في الدول الأوروبية على أرض يسكنها أهلها أصلاً. أما الصهيونية فاحتاجت إلى استبعاد السكان العرب الأصليين — <span class="hl-red">استبعاداً بدا أيديولوجياً ثم تحوّل إلى استبعاد مادي.</span><br><br>
+      <span class="hl">المشكلة الثانية — غياب ما يوازي البروتستانتية:</span><br>
+      البروتستانتية دعمت القومية الألمانية — أما اليهودية الإصلاحية (أقرب نظير) فكانت معادية للصهيونية. فلجأت الصهيونية لرموز القومية الأوروبية لا التراث اليهودي.<br><br>
+      <span class="hl">المشكلة الثالثة — التناقض البنيوي:</span><br>
+      النموذج الهيجلي للدولة الليبرالية مبني ضمنياً على أسس مسيحية — وهذا ما يُنتج تناقضاً لا حل له كما يظهر في إشكالية مشاركة العرب في الهوية الوطنية الإسرائيلية.
+      <div class="quote-box">
+        "إن الصعوبة التي تواجه العرب في المشاركة في غناء نشيد الأمل لا تنبع أساساً من كون الحنين له جذور دينية، بل من أن صياغة هذا الحنين تعبّر عن طموح يهودي قومي محدد تتعارض مع مصالحهم."
+        <div class="quote-source">— من نص المقال (ص١٧-١٨)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الصهيونية واجهت تحديات ما واجهتهاش القوميات الأوروبية: ١) الأرض كانت فيها ناس تانية. ٢) الدين اليهودي نفسه كان ضد الصهيونية في الأول. ٣) النموذج الليبرالي الأوروبي مسيحي في جوهره — ما ينفعش لدولة يهودية. والنتيجة: المواطن العربي في إسرائيل مطالب يغني نشيد وطني عن "حلم اليهودي في أرض إسرائيل"!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- القسم 6 -->
+<div class="section">
+  <div class="section-label">سادساً — وضع اليهود في الحداثة الأوروبية</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">اليهود في التنوير — فقدان الوطن الرمزي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      الحداثة قامت بتفكيك شامل للذاكرة الجمعية اليهودية الممتدة عبر القرون. ليجد اليهود أنفسهم أمام:
+      <ul>
+        <li>تفكيك مصادر هويتهم الجماعية المستقرة (الطائفة، المؤسسات الدينية)</li>
+        <li>اغتراب اليهود العلمانيين عن نصوصهم الدينية التي كانت تحمل هويتهم</li>
+        <li>العيش كمواطنين في دولة أوروبية بثمن التهميش الاجتماعي والروحي</li>
+      </ul>
+      هذان العاملان يجعلان الحاجة إلى "وطن جغرافي" نوعاً من التعويض:
+      <div class="quote-box">
+        "فقدان الوطن الرمزي يولّد الحاجة إلى وطن جغرافي. والأرض تصبح بديلاً عن الذاكرة وبديلاً عن النص وبديلاً عن التقليد."
+        <div class="quote-source">— من نص المقال (ص٢٣)</div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        اليهودي التقليدي كانت هويته محمولة في الكتاب المقدس والتقاليد والجماعة. الحداثة الأوروبية جت وفككت كل ده. اليهودي العلماني في القرن التاسع عشر وجد نفسه بلا "وطن رمزي". فالصهيونية قالت: "الحل بسيط — نعمل وطناً جغرافياً حقيقياً". الأرض بقت بديل عن التوراة.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">أمة الشتات (الدياسبورا)</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">جماعة ذات هوية مشتركة موزعة عبر بلدان عدة بلا إقليم مركزي واحد. الهوية تُنتج من خلال التوزع ذاته لا رغماً عنه. بويرين يراها نموذجاً قابلاً للحياة لا نقيصة — واليهود أثبتوا فاعليتها لآلاف السنين.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">اللازمنية</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">القدرة على التماهي مع الأجيال السابقة كأساس للهوية الجماعية، بطريقة تتجاوز حدود الزمن. في اليهودية التقليدية: اليهودي يحس أنه شخصياً شارك في الخروج من مصر وتلقّي التوراة. النموذج الهيجلي يُلغي هذه اللازمنية بفرضه تاريخاً خطياً تقدمياً.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">التثبيت الجغرافي</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">المحاولة الصهيونية ذات الطابع الهيجلي لربط الهوية اليهودية بأرض وسيادة سياسية. بويرين يرى أن هذا الربط ليس حتمياً بل هو اختيار حداثي أوروبي فُرض على اليهودية من الخارج.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الوطن الرمزي</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">النصوص الدينية والذاكرة الجماعية بوصفها "وطناً محمولاً" يحمله اليهود معهم أينما ذهبوا. اليهود فقدوا هذا الوطن الرمزي حين تأثروا بالحداثة الأوروبية — فراحوا يبحثون عن وطن جغرافي مادي بديل. الأرض أصبحت بديلاً عن النص والذاكرة والتقليد.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">شوفينية الحاضر</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">مصطلح بويرين لوصف جانب خطير في هيجل: اعتبار الماضي — مهما كانت عظمته — مجرد مرحلة انتهت وألقيت في "سلة مهملات التاريخ". يهدد الهوية اليهودية المبنية أساساً على الماضي والذاكرة.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">اليهودية الإصلاحية</span>
+        <span class="chevron" style="color:#185FA5">+</span>
+      </button>
+      <div class="term-body">أحد أفرع اليهودية الحديثة. كانت معادية للصهيونية في البداية لأنها ترى اليهودية ديناً لا قومية — مما أفقد الصهيونية "نظير البروتستانتية" اللازم لاكتمال النموذج الهيجلي.</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تعريف — محتمل جداً</div>
+      <div class="q-text">ما المقصود بـ"أمة الشتات" عند بويرين؟ وكيف تختلف عن مفهوم الدولة القومية الهيجلية؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">أمة الشتات عند بويرين هي جماعة تمتلك هوية ثقافية وقومية مشتركة دون الاستناد إلى إقليم جغرافي واحد، وتستمر في إنتاج المعنى الجماعي من خلال التوزع ذاته — إذ يغيب الإقليم دون أن تغيب الأمة. وتختلف عن الدولة القومية الهيجلية في أن الأخيرة تشترط أرضاً وسيادة وحدوداً كشرط للوجود الحقيقي، بينما تثبت أمة الشتات أن الهوية ممكنة بدون هذه المكونات. اليهود نموذجاً: حافظوا على هويتهم قروناً بلا دولة ولا أرض.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقالي — محتمل جداً</div>
+      <div class="q-text">كيف يرى بويرين العلاقة بين الصهيونية والفكر الهيجلي؟ وما الأدلة التي يسوقها؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">يرى بويرين أن الصهيونية، وإن لم تكن نتاجاً مباشراً لفلسفة هيجل، تبنّت نفس منطقه القائل بأن الهوية لا تكتمل دون تجسد سياسي جغرافي. ويستدل على ذلك بأدلة متعددة: أولاً أن هرتزل فكّر في أوغندا قبل فلسطين — مما يثبت علمانية الصهيونية الأصلية. ثانياً أن هرتزل كتب "الدولة اليهودية" مستمعاً لموسيقى فاغنر الألمانية. ثالثاً أن نوردو كان يكره هيجل لكن يفكر بمنطقه حين قال إن الصهيونية "أيقظت اليهود على حياة جديدة". رابعاً حوار سارتر وبيني ليفي الذي أثبت أن المنطق الهيجلي يُقصي اليهود من التاريخ.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">ما المشكلات الثلاث التي واجهت الصهيونية في تطبيق النموذج الهيجلي للدولة القومية؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">أولاً: غياب الأرض غير المتنازع عليها — القوميات الأوروبية قامت على أراضٍ يسكنها أهلها أصلاً، أما الصهيونية فاحتاجت إلى استبعاد السكان الفلسطينيين الأصليين أيديولوجياً ثم فعلياً. ثانياً: غياب ما يوازي البروتستانتية — البروتستانتية دعمت القومية الألمانية، أما اليهودية الإصلاحية فكانت معادية للصهيونية، فاضطرت لاستعارة رموز أوروبية بدلاً من التراث اليهودي. ثالثاً: التناقض البنيوي — نموذج الدولة الليبرالية الهيجلي مسيحي ضمنياً، مما أنتج إشكاليات لا حل لها كإشكالية مشاركة العرب في الهوية الوطنية الإسرائيلية.</div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال شامل — للامتحان النهائي</div>
+      <div class="q-text">اكتب مقالاً موجزاً يشرح الفكرة المحورية لمقال بويرين "صهيونية هيجل؟" من البداية للنهاية. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية الشاملة</div>
+      <div class="q-ans-text">
+        يسعى بويرين في مقاله إلى الكشف عن الصلة البنيوية بين فلسفة هيجل والمشروع الصهيوني، دون ادعاء علاقة سببية مباشرة — وهو ما توحي به علامة الاستفهام في العنوان.<br><br>
+        يبدأ بعرض فلسفة هيجل التي تجعل الدولة الحامل الأعلى للتاريخ — فبلا دولة يكون الشعب "خارج التاريخ". وهذا النموذج يلغي اللازمنية — أي الهوية اليهودية التقليدية القائمة على الذاكرة والتماهي مع الأجيال السابقة.<br><br>
+        ثم يوضح كيف أن الحداثة الأوروبية فككت "الوطن الرمزي" اليهودي (النصوص والتقاليد)، مما دفع الصهيونية إلى "الحل الهيجلي": استبدال الوطن الرمزي بوطن جغرافي مادي. والأدلة على ذلك: هرتزل ومشروع أوغندا وموسيقى فاغنر، ونوردو الذي كره هيجل لكن فكّر بمنطقه.<br><br>
+        غير أن هذا الحل أنتج إشكاليات جديدة: استبعاد الفلسطينيين الأصليين، وغياب نظير البروتستانتية، والتناقض البنيوي بين الدولة اليهودية والنموذج الليبرالي المسيحي الجوهر.<br><br>
+        بديل بويرين: يهودية ثقافية في الشتات تحتفظ بالهوية دون دولة — استناداً إلى ألفي عام من التجربة اليهودية التي أثبتت ذلك.
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه مهم:</strong> بويرين لا يدّعي أن الصهاينة قرأوا هيجل وتأثروا به — الصلة هي اشتراك في بنية تفكير نشأت في نفس المناخ الأوروبي. وهو لا يرفض حق اليهود في الوجود — هو يرفض ربط الهوية اليهودية حصراً بنموذج الدولة القومية.
+  </div>
+</div>
+
+<script>
+  function toggle(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleTerm(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleQ(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleExplain(btn) { var b=btn.nextElementSibling,o=b.classList.contains('open'); b.classList.toggle('open',!o); btn.textContent=o?'💬 اشرحلي بالعامية':'💬 إخفاء الشرح'; }
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.term-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.q-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+  }
+</script>
+</body>
+</html>
