@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيكشن الثالث — هيجل وفيورباخ: الطبيعة والدين</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: #f0eeea; color: #1a1a18; font-size: 16px; line-height: 1.8; padding: 1.5rem 1rem 5rem; max-width: 720px; margin: 0 auto; }
+
+  .part-badge { display: inline-block; font-size: 13px; font-weight: 700; padding: 5px 16px; border-radius: 20px; background: #D5F5E3; color: #1E8449; margin-bottom: 1rem; }
+  h1 { font-size: 24px; font-weight: 700; color: #1a1a18; margin-bottom: .5rem; line-height: 1.4; }
+  .subtitle { font-size: 15px; color: #3d3d3a; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 2px solid #c8c6be; }
+
+  .section { margin-bottom: 2rem; }
+  .section-label { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #1E8449; padding: .35rem .9rem; border-radius: 6px; margin-bottom: 1rem; }
+
+  .card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; margin-bottom: .85rem; overflow: hidden; }
+  button.toggle-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .95rem 1.2rem; cursor: pointer; text-align: right; gap: .75rem; font-family: inherit; -webkit-tap-highlight-color: transparent; }
+  button.toggle-btn:active { background: #f5f3ef; }
+  .btn-title { font-size: 16px; font-weight: 700; color: #1E8449; flex: 1; text-align: right; }
+  .chevron { font-size: 22px; font-weight: 700; color: #27AE60; flex-shrink: 0; transition: transform .25s; display: inline-block; }
+  .chevron.open { transform: rotate(45deg); }
+  .collapsible { display: none; padding: .85rem 1.2rem 1rem; border-top: 1.5px solid #e0dfd8; font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .collapsible.open { display: block; }
+
+  /* النقاط */
+  .points { list-style: none; padding: 0; margin: 0; }
+  .points li { padding: .45rem 0; border-bottom: 1px solid #f0eeea; display: flex; align-items: flex-start; gap: .6rem; font-size: 15px; line-height: 1.75; }
+  .points li:last-child { border-bottom: none; }
+  .points li::before { content: '◆'; color: #27AE60; font-size: 9px; flex-shrink: 0; margin-top: .45rem; }
+
+  .hl { color: #1E8449; font-weight: 700; }
+  .hl-red { color: #712B13; font-weight: 700; }
+  .hl-blue { color: #1A5276; font-weight: 700; }
+  .hl-orange { color: #784212; font-weight: 700; }
+
+  button.explain-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: .9rem; padding: 8px 18px; font-size: 14px; font-weight: 700; color: #fff; background: #1D9E75; border: none; border-radius: 8px; cursor: pointer; font-family: inherit; }
+  button.explain-btn:active { background: #0F6E56; }
+  .explain-box { display: none; margin-top: .85rem; background: #E1F5EE; border: 1.5px solid #5DCAA5; border-radius: 12px; padding: .9rem 1.1rem; font-size: 15px; color: #04342C; line-height: 1.85; }
+  .explain-box.open { display: block; }
+  .explain-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .5rem; }
+
+  /* جداول المقارنة */
+  .cmp-table { width: 100%; border-collapse: collapse; margin: .75rem 0; font-size: 14px; }
+  .cmp-table th { padding: .6rem .9rem; text-align: center; font-weight: 700; font-size: 13px; border: 1.5px solid #A9DFBF; }
+  .cmp-table th.th-green { background: #1E8449; color: #fff; }
+  .cmp-table th.th-orange { background: #E67E22; color: #fff; }
+  .cmp-table th.th-blue { background: #1A5276; color: #fff; }
+  .cmp-table th.th-label { background: #f0eeea; color: #3d3d3a; font-weight: 700; }
+  .cmp-table td { padding: .55rem .9rem; border: 1.5px solid #c8c6be; color: #1a1a18; line-height: 1.7; vertical-align: top; }
+  .cmp-table td.td-label { background: #f7f6f3; font-weight: 700; color: #1E8449; font-size: 13px; text-align: center; white-space: nowrap; }
+  .cmp-table tr:nth-child(even) td:not(.td-label) { background: #fafaf8; }
+
+  /* المراحل */
+  .stages { display: flex; flex-direction: column; gap: .6rem; margin: .75rem 0; }
+  .stage { border-radius: 10px; padding: .75rem 1rem; display: flex; gap: .75rem; align-items: flex-start; }
+  .stage-1 { background: #D6EAF8; }
+  .stage-2 { background: #D5F5E3; }
+  .stage-3 { background: #FAEEDA; }
+  .stage-4 { background: #FAECE7; }
+  .stage-num { font-size: 12px; font-weight: 700; min-width: 90px; flex-shrink: 0; margin-top: .1rem; }
+  .stage-1 .stage-num { color: #1A5276; }
+  .stage-2 .stage-num { color: #1E8449; }
+  .stage-3 .stage-num { color: #784212; }
+  .stage-4 .stage-num { color: #712B13; }
+  .stage-content { font-size: 14px; color: #1a1a18; line-height: 1.7; }
+  .stage-content strong { display: block; margin-bottom: .2rem; }
+
+  .quote-box { background: #D5F5E3; border-right: 4px solid #1E8449; border-radius: 0 10px 10px 0; padding: .85rem 1.1rem; margin: .75rem 0; font-size: 15px; color: #145A32; line-height: 1.8; font-style: italic; font-weight: 700; }
+
+  .alert { background: #FAEEDA; border: 1.5px solid #EF9F27; border-radius: 10px; padding: .9rem 1.15rem; font-size: 15px; color: #412402; line-height: 1.8; margin-top: .75rem; }
+  .alert strong { color: #633806; }
+
+  /* المصطلحات */
+  .terms-card { background: #fff; border: 1.5px solid #c8c6be; border-radius: 14px; overflow: hidden; }
+  .term-row { border-bottom: 1.5px solid #e8e6e0; overflow: hidden; }
+  .term-row:last-child { border-bottom: none; }
+  button.term-btn { width: 100%; background: #fff; border: none; display: flex; justify-content: space-between; align-items: center; padding: .85rem 1.2rem; cursor: pointer; text-align: right; gap: .5rem; font-family: inherit; }
+  .term-name { font-size: 15px; font-weight: 700; color: #1E8449; text-align: right; flex: 1; }
+  .term-body { display: none; padding: .6rem 1.2rem .9rem; font-size: 15px; color: #1a1a18; line-height: 1.8; border-top: 1px solid #e0dfd8; background: #D5F5E344; }
+  .term-body.open { display: block; }
+
+  /* الأسئلة */
+  .q-card { border-right: 4px solid #1E8449; background: #fff; border-radius: 0 14px 14px 0; border-top: 1.5px solid #c8c6be; border-bottom: 1.5px solid #c8c6be; border-left: 1.5px solid #c8c6be; margin-bottom: .9rem; overflow: hidden; }
+  button.q-btn { width: 100%; background: transparent; border: none; padding: .9rem 1.2rem; cursor: pointer; text-align: right; font-family: inherit; }
+  .q-meta { font-size: 12px; font-weight: 700; color: #1E8449; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
+  .q-text { font-size: 16px; font-weight: 700; color: #1a1a18; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
+  .q-body { display: none; padding: .8rem 1.2rem 1rem; border-top: 1.5px solid #A9DFBF; background: #D5F5E344; }
+  .q-body.open { display: block; }
+  .q-ans-label { font-size: 12px; font-weight: 700; color: #0F6E56; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+  .q-ans-text { font-size: 15px; color: #1a1a18; line-height: 1.85; }
+  .q-ans-text ul { margin: .5rem 0 .4rem 1.4rem; list-style: disc; }
+  .q-ans-text li { margin-bottom: .35rem; }
+
+  button.expand-all { display: inline-block; font-size: 13px; font-weight: 700; padding: 8px 20px; border-radius: 8px; background: #1E8449; color: #fff; cursor: pointer; border: none; margin-bottom: 1.5rem; font-family: inherit; }
+
+  @media (max-width: 480px) {
+    .cmp-table { font-size: 13px; }
+    .cmp-table th, .cmp-table td { padding: .45rem .6rem; }
+    .stage-num { min-width: 70px; }
+  }
+</style>
+</head>
+<body>
+
+<span class="part-badge">السيكشن الثالث</span>
+<h1>هيجل وفيورباخ: الطبيعة والدين</h1>
+<p class="subtitle">الفكرة المحورية: فيورباخ يعكس هيجل — بدلاً من "الروح تنتج الطبيعة" يقول "الطبيعة تنتج الفكر" — والدين عنده انعكاس لجوهر الإنسان في مرآة الخيال</p>
+
+<button class="expand-all" onclick="expandAll()">فتح كل الأقسام</button>
+
+<!-- ===== القسم 1: الطبيعة ===== -->
+<div class="section">
+  <div class="section-label">أولاً — الطبيعة عند هيجل وفيورباخ</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">مقدمة — هدف فيورباخ الفلسفي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فيورباخ يهدف إلى <span class="hl">فلسفة جديدة تهتم بالوجود الإنساني</span> في المقام الأول</li>
+        <li>يوضح هدفه في كتاب <span class="hl">"ضرورة إصلاح الفلسفة"</span> — البحث عن فلسفة تتميز جوهرياً عن الفلسفة القديمة</li>
+        <li>ينتقد فلسفة هيجل لأنها <span class="hl-red">لا تهتم بالوجود المادي العيني</span> بل بالوجود المجرد</li>
+        <li>الطبيعة عنده <span class="hl">أساس الإنسان</span> — يهتم بها من أجل الإنسان لا لذاتها</li>
+        <li>تشعّبت من فيورباخ في دراسة الإنسان <span class="hl">تياران</span>:</li>
+      </ul>
+      <table class="cmp-table" style="margin-top:.5rem">
+        <tr>
+          <th class="th-green">التيار الأول — الوجودي</th>
+          <th class="th-blue">التيار الثاني — الاجتماعي</th>
+        </tr>
+        <tr>
+          <td>اهتم بدراسة الإنسان من الداخل (الفرد)</td>
+          <td>اهتم بدراسة الإنسان من الخارج (المجتمع)</td>
+        </tr>
+      </table>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: الفلسفة الصح لازم تبدأ من الإنسان الحقيقي الملموس — مش من أفكار مجردة زي "الروح المطلق". وأفكاره أثّرت في اتجاهين: واحد اهتم بالإنسان من جوّه (وجوديون)، والتاني اهتم بعلاقاته الاجتماعية (ماركس وغيره).
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الطبيعة عند هيجل</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>الطبيعة عند هيجل هي <span class="hl">"ضد الفكرة"</span> — أي الفكرة التي خرجت من ذاتها إلى الآخر</li>
+        <li>لأن الفكرة هي الأصل: <span class="hl">الطبيعة = اللاعقل</span> أو ضد العقل</li>
+        <li>الفكرة أرادت أن تتجلى فتحولت من ذاتها إلى <span class="hl">الآخر = الطبيعة</span></li>
+        <li>الطبيعة عند هيجل وفقاً للجدل: خرجت من المبادئ العامة للفكرة</li>
+        <li><span class="hl-red">الطبيعة ثانوية</span> — والفكر المطلق هو الأصل</li>
+        <li>يعتبر هيجل كلاً من <span class="hl">المنطق والطبيعة</span> استمراراً للأفكار</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيقول: "الفكرة" (الروح المطلق) هي الأصل — وهي اللي "تحولت" وأصبحت طبيعة. يعني الطبيعة نتيجة لفكرة، مش الفكرة نتيجة للطبيعة. الطبيعة عنده زي الظل — والفكر هو الشيء الحقيقي.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">اعتراض ولتر ستيبس على هيجل في الطبيعة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>ستيبس يعترض على <span class="hl">انتقال الفكرة إلى الطبيعة</span> عند هيجل</li>
+        <li>يرى أن هذا الانتقال <span class="hl-red">وهم وجنون</span> — قفزة مستحيلة</li>
+        <li>السبب: <span class="hl">لأننا لا نستطيع أن نستنبط من الفكر سوى فكر</span> — المنطق لا يستنبط إلا مقولاته</li>
+        <li>لا يمكن أن تُستنبط الطبيعة المادية من الفكر المجرد فقط</li>
+        <li>هذا يكشف <span class="hl">نقطة ضعف حرجة</span> في فلسفة هيجل</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        ستيبس بيقول: إزاي فكرة مجردة تتحول لأشياء مادية حقيقية؟ ده مش منطقي! المنطق ينتج أفكار — مش شجر ونهر وجبال. ده زي ما تقول "التفكير في التفاحة خلق التفاحة" — مستحيل.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">ضعف فلسفة هيجل في الطبيعة — وموقف فيورباخ منه</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فلسفة هيجل <span class="hl">لا تدرس سوى الأفكار</span> — عاجزة عن شرح الموضوعات الفردية المحسوسة</li>
+        <li>السبب في هذا الإخفاق: هيجل يرى أن الطبيعة <span class="hl-red">غير متكافئة مع الفكرة</span> — فجعلها ثانوية</li>
+        <li>هيجل أخطأ عندما ظن أنه يستطيع استنباط كل ما هو موجود في العالم الخارجي من الفكرة الخالصة</li>
+        <li>والدليل على ضعفه: هجوم <span class="hl">كروتس</span> عليه بأن "هناك مسائل لا تُستنبط قلماً"</li>
+        <li>فيورباخ: <span class="hl">لا يمكن الانتقال من الفكرة إلى الطبيعة</span> — المنطق لا يدرك سوى مقولاته</li>
+        <li>سوف يُجر أن الانتقال من المنطق إلى الطبيعة "الشبه" <span class="hl">يمثل نقطة حرجة في فلسفة هيجل</span></li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        المشكلة الكبيرة في هيجل إنه بيشرح الطبيعة بالمنطق والأفكار المجردة، لكن ما بيقدرش يشرح الأشياء الملموسة المحددة. فيورباخ شايف إن ده الجانب الأضعف في هيجل — ومنه بيبدأ نقده.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الطبيعة عند فيورباخ — التصور الأنثروبولوجي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فيورباخ يقدم <span class="hl">التصور الأنثروبولوجي للطبيعة</span> — أي التصور الإنساني</li>
+        <li>الطبيعة عنده ليست موضوعاً تدرسه الفلسفة — بل <span class="hl">ما تتحكم في الوجود الإنساني</span></li>
+        <li>الطبيعة هي <span class="hl">الأساس الأول في الزمان</span> — الموجود الأول قبل أي فكر</li>
+        <li><span class="hl-red">لا وجود بدون:</span> أرض — هواء — ماء — ضوء — طعام</li>
+        <li>الإنسان = وجود واعٍ، الطبيعة = وجود بلا وعي — <span class="hl">لكن كلاهما طبيعة</span></li>
+        <li>الطبيعة: الوجود الحسي الفيزيائي — القوى والكائنات المحسوسة: الضوء، الكهرباء، المغناطيس، الهواء، النار، الأرض، الحيوان، النبات</li>
+        <li>العلاقة بين الإنسان والطبيعة <span class="hl">وثيقة جداً</span> — فيورباخ يرى أنهما شيء واحد</li>
+      </ul>
+      <div class="quote-box">"تأملوا الطبيعة تتأملوا الإنسان."<br><small style="font-size:13px;font-weight:400">— فيورباخ</small></div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: الطبيعة هي الموجود الأول والأصل. الإنسان جزء من الطبيعة — مش شيء منفصل عنها. لو فهمت الطبيعة هتفهم الإنسان. الاتنين مترابطين بشكل عميق.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المقارنة الكبرى — الطبيعة عند هيجل وفيورباخ</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <table class="cmp-table">
+        <tr>
+          <th class="th-label">وجه المقارنة</th>
+          <th class="th-blue">هيجل</th>
+          <th class="th-green">فيورباخ</th>
+        </tr>
+        <tr>
+          <td class="td-label">الأصل</td>
+          <td>الروح المطلق / الفكرة</td>
+          <td>الطبيعة المادية</td>
+        </tr>
+        <tr>
+          <td class="td-label">الطبيعة</td>
+          <td>الفكرة التي خرجت من ذاتها — ثانوية</td>
+          <td>الأساس الأول في الزمان — أصلية</td>
+        </tr>
+        <tr>
+          <td class="td-label">العلاقة</td>
+          <td>الروح تنتج الطبيعة</td>
+          <td>الطبيعة تنتج الفكر والوعي</td>
+        </tr>
+        <tr>
+          <td class="td-label">الإنسان</td>
+          <td>تجلّي الروح المطلق</td>
+          <td>جزء من الطبيعة — طبيعة واعية</td>
+        </tr>
+        <tr>
+          <td class="td-label">المشكلة</td>
+          <td>عاجز عن شرح الأشياء الملموسة المحددة</td>
+          <td>—</td>
+        </tr>
+      </table>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الفرق الجوهري: هيجل بيبدأ من الفكر وينتهي للطبيعة. فيورباخ عكس الاتجاه — بيبدأ من الطبيعة وينتهي للفكر. زي ما كوبرنيكوس قال الأرض تدور حول الشمس مش العكس — فيورباخ قلب مركز الفلسفة من الروح للطبيعة.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">نقد ماركس لفيورباخ في الطبيعة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>ماركس يرى أن فيورباخ ركّز على <span class="hl">علاقة الإنسان بالطبيعة بشكل أنثروبولوجي</span> — لا اجتماعي</li>
+        <li>تصوره للطبيعة كان <span class="hl-red">معطىً ثابتاً</span> ولا دور للمجتمع فيه</li>
+        <li>هذا جعله <span class="hl">عاجزاً عن تصور صحيح للمسائل الاجتماعية والسياسية</span></li>
+        <li>ماركس: <span class="hl">الطبيعة التي يعيش فيها الإنسان تتشكّل عبر العمل والصناعة والعلاقات الاجتماعية</span> عبر التاريخ</li>
+        <li>العالم الحسي ليس موضوعاً معطىً من الأزل — بل هو <span class="hl">نتاج عمل الأجيال المتعاقبة</span></li>
+        <li>ماركس يؤكد على <span class="hl">دور العمل</span>: لو توقف البشر عن العمل سنة واحدة ستتغير الطبيعة كلياً</li>
+      </ul>
+      <div class="alert">
+        <strong>لكن:</strong> يمكن القول أن انتقادات ماركس لفيورباخ ليست مبررة تماماً — لأن فلسفة الطبيعة عند فيورباخ بمعناها الأعمق لا تتعارض مع المعنى الاجتماعي للطبيعة الذي يقصده ماركس.
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        ماركس بيقول لفيورباخ: إنت بتتكلم عن علاقة الإنسان بالطبيعة بشكل مجرد — بس ما بتاخدش في الاعتبار إن الطبيعة بتتغير بسبب العمل والصناعة. فيورباخ شايف الطبيعة ثابتة — ماركس بيقول: لأ، الإنسان بيغيرها باستمرار بشغله.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">فيورباخ وإيمان الشعوب القديمة بالطبيعة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فيورباخ يرى أن <span class="hl">إيمان الشعوب القديمة بالطبيعة يعزز فلسفته</span></li>
+        <li>الشعوب القديمة كانت تعبد الشمس والنيل والنار — أدركت أن <span class="hl">الطبيعة هي مصدر الحياة</span></li>
+        <li>السؤال الصحيح ليس: "كيف تنتج المادة من الروح؟" — بل: <span class="hl">"كيف ينتج الروح من المادة؟"</span></li>
+        <li>فيورباخ جاء بالبداية الصحيحة: <span class="hl">المادة والطبيعة هي البداية</span> — لا الروح</li>
+        <li><span class="hl-red">ملاحظة مهمة:</span> فيورباخ لا يقول بتأليه الطبيعة — هو يرفض الخرافات والخوارق</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: الشعوب القديمة اللي كانت بتعبد الشمس والأرض والنيل — دي في الواقع أدركت حاجة صح! إن الطبيعة هي مصدر الحياة. بس مش معنى كده إنه بيعبد الطبيعة — هو بس بيقول إنها الأساس الحقيقي للوجود.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">هل يعترف فيورباخ بالمعجزات؟</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فيورباخ وإسبينوزا: <span class="hl">لا يعترفان بالمعجزة</span></li>
+        <li>السبب: المعجزة تناقض الطبيعة — و<span class="hl">لا يحدث شيء خارج قوانين الطبيعة</span></li>
+        <li>إسبينوزا: قوانين الطبيعة لها نظام ثابت — لا قانون يعلو على الطبيعة</li>
+        <li>المعجزة عندهما = <span class="hl-red">خرق للقانون الطبيعي بسبب جهل القانون</span> — لا تدل على قدرة الله</li>
+        <li>إذن: نفي المعجزة = نفي العناية الإلهية التي تسير خارج قوانين الطبيعة</li>
+        <li>الطبيعة عند فيورباخ: <span class="hl">كائن كلي</span> وغير قابل للتغيير من الخارج</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: المعجزات مش موجودة — لأن الطبيعة بتسير بقوانين ثابتة لا تتغير. لو حصل حاجة مش بنفهمها — ده مش معناه معجزة، ده معناه إننا مش عارفين القانون الطبيعي اللي بيحكمها.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== القسم 2: الطبيعة والدين ===== -->
+<div class="section">
+  <div class="section-label">ثانياً — الطبيعة والدين عند فيورباخ</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">الجذور الهيجلية للدين الإنساني عند فيورباخ</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>فيورباخ اهتم بالدين واللاهوت <span class="hl">أكثر من غالبية معاصريه</span></li>
+        <li>يؤكد أن فلسفته كلها دين — بالمعنى العام: <span class="hl">الاهتمام بالمصير الإنساني</span></li>
+        <li>فلسفته <span class="hl-red">لا تهدف إلى محو الدين والقضاء عليه</span> — بل إلى الوصول إلى حالة الاتكمال</li>
+        <li>الفلسفة نفسها يجب أن <span class="hl">تدخل الدين وتجعله محوراً</span> وتحقق جوهر الإنسان وحقيقته</li>
+        <li>الجوهر الإنساني = <span class="hl">الدين</span> — ومقره "القلب"</li>
+        <li>الدين بهذا المعنى <span class="hl">ليس خارج الإنسان</span> — وليس لاهوتاً جامداً</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ مش بيقول "الدين غلط وبنشيله" — هو بيقول: الدين في جوهره هو تعبير الإنسان عن نفسه. المشكلة مش في الدين كتجربة إنسانية — المشكلة في اللاهوت الجامد اللي بيحوله لعقائد ميتة.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">هيجل والدين — الموضوعي والذاتي</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>هيجل يميّز بين نوعين من الدين — وهذا هو المفهوم الذي انطلق منه فيورباخ</li>
+      </ul>
+      <table class="cmp-table" style="margin-top:.5rem">
+        <tr>
+          <th class="th-label">وجه المقارنة</th>
+          <th class="th-blue">الدين الموضوعي</th>
+          <th class="th-green">الدين الذاتي</th>
+        </tr>
+        <tr>
+          <td class="td-label">ما هو؟</td>
+          <td>اللاهوت والكتب والمذاهب</td>
+          <td>الإيمان الداخلي والمشاعر والروح</td>
+        </tr>
+        <tr>
+          <td class="td-label">طبيعته</td>
+          <td>مجرد "حرف ميت" — جامد</td>
+          <td>حيّ — يتحول لأفعال وأعمال</td>
+        </tr>
+        <tr>
+          <td class="td-label">قيمته عند هيجل</td>
+          <td>أدنى</td>
+          <td>أعلى — هو الدين الحقيقي</td>
+        </tr>
+      </table>
+      <ul class="points" style="margin-top:.5rem">
+        <li>الدين عند هيجل: <span class="hl">أعلى صورة من صور الوعي بالذات</span></li>
+        <li>لكنه يرى أن الدين (اللاهوت الجامد) يحوّل بصر الإنسان من <span class="hl-red">الأرض إلى السماء</span></li>
+        <li>وبذلك يصبح الدين من <span class="hl-red">عوامل اغتراب الإنسان</span></li>
+        <li>د. زكريا إبراهيم: يرى ثباتاً بين نصوص هيجل — الطبيعة البشرية لا تُعلي من فكرة الإنسان عن الله بل تعطينا فكرته عن نفسه</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        هيجل بيفرق بين الدين كمؤسسة (كتب، شعائر، لاهوت) والدين كتجربة داخلية (إيمان، شعور، قلب). فيورباخ بيمشي على نفس الخط بس بيذهب أبعد ويقول: حتى تجربة الإيمان الداخلية دي هي في الحقيقة الإنسان بيتحدث عن نفسه.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== القسم 3: مراحل فيورباخ ===== -->
+<div class="section">
+  <div class="section-label">ثالثاً — مراحل تفكير فيورباخ في الدين الأربعة</div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">نظرة عامة على المراحل الأربعة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <div class="stages">
+        <div class="stage stage-1">
+          <span class="stage-num">المرحلة الأولى</span>
+          <div class="stage-content"><strong>ماهية المسيحية (1841)</strong>الله مرآة الإنسان — الإنسان يُسقط جوهره الأفضل على كيان خيالي</div>
+        </div>
+        <div class="stage stage-2">
+          <span class="stage-num">المرحلة الثانية</span>
+          <div class="stage-content"><strong>ماهية الإيمان</strong>الانتقال من تحليل المسيحية إلى تحليل الدين نفسياً — مأخوذة من كتابات مارتن لوثر</div>
+        </div>
+        <div class="stage stage-3">
+          <span class="stage-num">المرحلة الثالثة</span>
+          <div class="stage-content"><strong>ماهية الدين</strong>الطبيعة هي الموضوع الأصلي للدين — الأديان الطبيعية القديمة سابقة للمسيحية</div>
+        </div>
+        <div class="stage stage-4">
+          <span class="stage-num">المرحلة الرابعة</span>
+          <div class="stage-content"><strong>الثيوجونيا</strong>نشأة الآلهة — ربط الدين بالأخلاق والضعف الإنساني أمام الطبيعة</div>
+        </div>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ مش كتب كتاب واحد عن الدين — كتب أربعة كتب كل واحد بيكمل التاني. بدأ بالمسيحية، بعدين وسّع نظرته للأديان عموماً، وأخيراً ربط الدين بالضعف الإنساني.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المرحلة الأولى — ماهية المسيحية (مرحلة المرآة)</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>تُسمى <span class="hl">"مرحلة المرآة"</span> — الإنسان ينظر فيها إلى الله كمرآة لنفسه</li>
+        <li>فيورباخ يرى الله على أنه <span class="hl">نتيجة لتمجيد الإنسان لسماته الجوهرية</span></li>
+        <li>الإنسان محدود القوة → يتخيل إلهاً <span class="hl">كلي القدرة</span></li>
+        <li>الإنسان فانٍ → يتخيل إلهاً <span class="hl">خالداً</span></li>
+        <li>الإنسان ناقص → يتخيل إلهاً <span class="hl">كاملاً</span></li>
+        <li>هذا لا يهدف إلى إنكار الله — بل <span class="hl">يوضح أن هناك توافقاً واكتمالاً بين الله والإنسان</span></li>
+        <li><span class="hl">الاغتراب الديني:</span> الإنسان الفعلي يواجه وجوداً مفارقاً (الله) يحمل صفاته الجوهرية هو</li>
+        <li>عملية إسقاط الصفات الإنسانية على الله = <span class="hl-red">الاغتراب الديني</span> بأوسع معانيه</li>
+        <li>الاعتقاد في الله: يرجع إلى فكرة الإنسان العامة عن الكائنات الأخرى — يبحث عن الكمال في عالم مثالي</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        فيورباخ بيقول: الإنسان لما بيتخيل الله — في الواقع بيتخيل نفسه بس بشكل أكمل وأقوى. الإنسان عنده قوة محدودة فبيتخيل إله عنده قوة لا محدودة. ببساطة: "الله هو الإنسان ينظر لنفسه في مرآة الخيال".
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المرحلة الثانية — ماهية الإيمان</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>ماهية الإيمان خُذت من كتاب <span class="hl">مارتن لوثر</span></li>
+        <li>محاولة لوضع الأفكار الرئيسية للإيمان <span class="hl">في شكل أكثر تماسكاً</span></li>
+        <li>الانتقال من ماهية المسيحية (اللاهوتية المسيحية) إلى <span class="hl">لاهوتية الدين عموماً</span></li>
+        <li>نجد أن الإنسان <span class="hl">حين يجسّد صفاته البشرية في صورة آلهة</span>: إنه ينكر على نفسه الإشباع الحقيقي وينغمس في إشباع خيالي</li>
+        <li>الاعتقاد في الآخرة: يرجع إلى فكرة الإنسان العامة عن الكائنات الأخرى — يبحث عن الكمال الذي لم يجده هنا</li>
+        <li>فيورباخ وفرويد: <span class="hl">تشابها في المنهج النفسي</span> لتفسير الدين — لكن فرويد جاء بعده، والتشابه في المنهج لا في التأثير المباشر</li>
+        <li>كلاهما يقول: <span class="hl">الدين يعمل على تقديم تعويض خيالي</span> — لكن لن يكون تحريراً للناس إذا خضعوا لصوت العقل</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        في هذه المرحلة فيورباخ بيقول: الإنسان لما بيؤمن بالجنة والآخرة — ده لأنه مش قادر يحقق كل آماله هنا في الدنيا، فبيخلق عالم خيالي أفضل. الدين عنده نوع من التعويض النفسي عن نقص الإنسان.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المرحلة الثالثة — ماهية الدين</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>ركّز فيورباخ في هذه المرحلة على <span class="hl">العالم الطبيعي</span></li>
+        <li>الطبيعة هي <span class="hl">الموضوع الأصلي والأساسي للدين</span></li>
+        <li>رأى أن المسيحية قد سبقتها <span class="hl">ديانات طبيعية أخرى</span> — وهو في هذه المرحلة يركز على العالم الطبيعي</li>
+        <li>الدين نشأ لأن الإنسان <span class="hl">يدرك بالتبعية أنه لا يستطيع الوجود بدون كائن آخر</span></li>
+        <li>الدين هو <span class="hl">إظهار الإنسان لنفسه</span> — اعتماده على الطبيعة هو اعتماد غير واعٍ</li>
+        <li>والدين هو <span class="hl-red">الطبيعة هنا ليست بالمعنى المجازي — لكن بالمعنى الحقيقي</span></li>
+        <li>الدين فطري بالمعنى الطبيعي — لأن الإنسان لا يستطيع الحياة دون ضوء، ماء، هواء</li>
+        <li>القول بأن الدين فطري في الإنسان = <span class="hl">قول زائف</span> عند فيورباخ</li>
+      </ul>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        في هذا الكتاب فيورباخ بيقول: الأديان الطبيعية القديمة (عبادة الشمس والنيل والنار) أقرب للحقيقة لأنها تعبّر عن علاقة الإنسان الحقيقية بالطبيعة اللي بيعتمد عليها. الدين نشأ لأن الإنسان أحس إنه محتاج الطبيعة ومش قادر يعيش بدونها.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">المرحلة الرابعة — الثيوجونيا (نشأة الآلهة)</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <ul class="points">
+        <li>هي <span class="hl">المرحلة الأخيرة</span> في تفكير فيورباخ الديني</li>
+        <li>ظهرت حين <span class="hl">تطورت الفنون المتحضرة وقلّت ضغوط الطبيعة على الإنسان</span></li>
+        <li>ربط فيها بين <span class="hl">الدين والأخلاق</span></li>
+        <li>كتاب الثيوجونيا <span class="hl-red">لم يحقق أي نجاح</span> — لأن السرد الوصفي الطويل يُشعر القارئ بالملل</li>
+        <li>لكنه من وجهة نظر فيورباخ: <span class="hl">أبسط كتبه وأكثرها اكتمالاً ونضجاً</span></li>
+        <li>عرض فيه القضايا <span class="hl">بشكل مباشر</span> — لا بأسلوب جدلي كما في كتبه السابقة</li>
+      </ul>
+      <div class="quote-box">
+        تعريف فيورباخ للدين في الثيوجونيا:<br>
+        الدين = <span style="font-style:normal">التبعية — الخضوع — الاعتماد — التسليم</span><br>
+        <small style="font-size:13px;font-weight:400">الإنسان لا يستطيع مواجهة الطبيعة والصعاب بمفرده — فيلجأ لقوة مطلقة يحقق بها أمانيه</small>
+      </div>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        الثيوجونيا = نشأة الآلهة. فيورباخ بيقول: الدين نشأ من إحساس الإنسان بالضعف أمام الطبيعة وحاجته لقوة أكبر منه. التعريف النهائي: الإنسان يشعر إنه محتاج وضعيف ومعتمد على حاجة أكبر منه — فيخلق فكرة الله عشان يتعامل مع ضعفه وحاجاته.
+      </div>
+    </div>
+  </div>
+
+  <!-- جدول مقارنة المراحل الأربعة -->
+  <div class="card">
+    <button class="toggle-btn" onclick="toggle(this)">
+      <span class="btn-title">جدول مقارنة المراحل الأربعة</span>
+      <span class="chevron">+</span>
+    </button>
+    <div class="collapsible">
+      <table class="cmp-table">
+        <tr>
+          <th class="th-label">المرحلة</th>
+          <th class="th-label">الكتاب</th>
+          <th class="th-label">الفكرة الأساسية</th>
+          <th class="th-label">محور الدين</th>
+        </tr>
+        <tr>
+          <td class="td-label">الأولى</td>
+          <td>ماهية المسيحية</td>
+          <td>الله مرآة الإنسان</td>
+          <td>الإنسان يُسقط صفاته على الله</td>
+        </tr>
+        <tr>
+          <td class="td-label">الثانية</td>
+          <td>ماهية الإيمان</td>
+          <td>الدين تعويض نفسي</td>
+          <td>الإنسان يبحث عن الكمال في الخيال</td>
+        </tr>
+        <tr>
+          <td class="td-label">الثالثة</td>
+          <td>ماهية الدين</td>
+          <td>الطبيعة أصل الدين</td>
+          <td>الإنسان يعتمد على الطبيعة فيقدسها</td>
+        </tr>
+        <tr>
+          <td class="td-label">الرابعة</td>
+          <td>الثيوجونيا</td>
+          <td>الضعف يُنتج الدين</td>
+          <td>التبعية والخضوع والاعتماد</td>
+        </tr>
+      </table>
+      <button class="explain-btn" onclick="toggleExplain(this)">💬 اشرحلي بالعامية</button>
+      <div class="explain-box">
+        <div class="explain-label">الشرح بالعامية</div>
+        كل مرحلة بتضيف بُعد جديد لفهم الدين: الأولى بتقول "الإنسان بيشوف نفسه في الله". الثانية بتقول "الإنسان بيعوّض نقصه بالدين". الثالثة بتقول "الطبيعة هي أصل كل دين". الرابعة بتقول "الضعف والاحتياج هو اللي بيخلق الدين".
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- المصطلحات -->
+<div class="section">
+  <div class="section-label">مصطلحات يجب حفظها</div>
+  <div class="terms-card">
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الطبيعة عند هيجل</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">الفكرة التي ابتعدت عن ذاتها — اللاعقل الذي صوّبته الفكرة المطلقة. الطبيعة ثانوية عند هيجل لأن الروح المطلق هو الأصل، والطبيعة مجرد مرحلة في تجلّي الروح.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الطبيعة عند فيورباخ</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">الأساس الأول والبداية الحقيقية — الموجود الأول في الزمان. الإنسان جزء منها ولا وجود له بدون أرض وهواء وماء وضوء. الطبيعة هي الأصل والفكر نتيجة لها لا العكس.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الثورة الكوبرنيكية (فيورباخ)</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">عكس فيورباخ المعادلة الهيجلية: بدلاً من "الروح تنتج الطبيعة" قال "الطبيعة تنتج الفكر والروح". كما قلب كوبرنيكوس مركز الكون، قلب فيورباخ مركز الفلسفة من الروح المطلق إلى الطبيعة والإنسان.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الاغتراب الديني</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">مفهوم فيورباخي — الإنسان يُسقط صفاته الجوهرية الأفضل على كيان خيالي (الله)، ويصبح ذلك الكيان غريباً عنه ومتعالياً عليه. الله عند فيورباخ هو الإنسان ينظر لنفسه في مرآة الخيال.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الدين الموضوعي / الذاتي (هيجل)</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">الدين الموضوعي: اللاهوت والكتب والمذاهب — مجرد "حرف ميت". الدين الذاتي: الإيمان الداخلي والمشاعر والروح — هو ما يتحول لأفعال حقيقية. هيجل يرى الدين الذاتي أعلى وأهم.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">ماهية المسيحية</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">أشهر كتب فيورباخ (1841) — يقول فيه إن الله ليس موجوداً مستقلاً بل هو انعكاس لجوهر الإنسان في الخيال. الله هو الإنسان ينظر لنفسه في مرآة — يرى نفسه كاملاً غير محدود.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">الثيوجونيا</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">آخر مراحل تفكير فيورباخ الديني — "نشأة الآلهة". ربط فيه بين الدين والأخلاق. الدين = التبعية والخضوع والاعتماد والتسليم. نشأ لأن الإنسان أحس بضعفه وحاجته لقوة أكبر منه تحقق أمانيه. الكتاب لم يحقق نجاحاً لكنه الأنضج فكرياً.</div>
+    </div>
+    <div class="term-row">
+      <button class="term-btn" onclick="toggleTerm(this)">
+        <span class="term-name">التصور الأنثروبولوجي للطبيعة</span>
+        <span class="chevron" style="color:#27AE60">+</span>
+      </button>
+      <div class="term-body">تصور فيورباخ للطبيعة من منظور إنساني — الطبيعة ليست موضوعاً مستقلاً بل هي ما يتحكم في الوجود الإنساني. الإنسان يمتزج بالطبيعة وهي تشكل جزءاً من ماهيته. يختلف عن تصور هيجل (مثالي) وتصور ماركس (اجتماعي).</div>
+    </div>
+  </div>
+</div>
+
+<!-- الأسئلة -->
+<div class="section">
+  <div class="section-label">أسئلة متوقعة في الامتحان</div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقارنة — محتمل جداً</div>
+      <div class="q-text">ما الفرق الجوهري بين تصوّر هيجل وفيورباخ للطبيعة؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">
+        <table class="cmp-table">
+          <tr>
+            <th class="th-label">وجه المقارنة</th>
+            <th class="th-blue">هيجل</th>
+            <th class="th-green">فيورباخ</th>
+          </tr>
+          <tr>
+            <td class="td-label">الأصل</td>
+            <td>الروح المطلق / الفكرة</td>
+            <td>الطبيعة المادية</td>
+          </tr>
+          <tr>
+            <td class="td-label">الطبيعة</td>
+            <td>الفكرة التي خرجت من ذاتها — ثانوية</td>
+            <td>الأساس الأول في الزمان — أصلية</td>
+          </tr>
+          <tr>
+            <td class="td-label">المعادلة</td>
+            <td>الروح تنتج الطبيعة</td>
+            <td>الطبيعة تنتج الفكر والوعي</td>
+          </tr>
+          <tr>
+            <td class="td-label">الإنسان</td>
+            <td>تجلّي الروح المطلق</td>
+            <td>جزء من الطبيعة — طبيعة واعية</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال تحليل — محتمل جداً</div>
+      <div class="q-text">كيف يفسر فيورباخ نشأة الدين في المرحلة الأولى "ماهية المسيحية"؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">
+        <ul>
+          <li>الإنسان حين يتصور الله إنما يُسقط جوهره الأفضل وصفاته المثالية على كيان خيالي</li>
+          <li>الإنسان محدود القوة → يتخيل إلهاً كلي القدرة</li>
+          <li>الإنسان فانٍ → يتخيل إلهاً خالداً</li>
+          <li>الإنسان ناقص → يتخيل إلهاً كاملاً</li>
+          <li>الله ليس موجوداً مستقلاً — بل هو <strong>انعكاس لجوهر الإنسان في مرآة الخيال</strong></li>
+          <li>هذا هو الاغتراب الديني: الإنسان ينفصل عن صفاته الجوهرية ويعزوها لكيان خارجي</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال مقارنة</div>
+      <div class="q-text">قارن بين المراحل الأربعة لتفكير فيورباخ في الدين. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">
+        <table class="cmp-table">
+          <tr>
+            <th class="th-label">المرحلة</th>
+            <th class="th-label">الكتاب</th>
+            <th class="th-label">الفكرة الأساسية</th>
+          </tr>
+          <tr>
+            <td class="td-label">الأولى</td>
+            <td>ماهية المسيحية</td>
+            <td>الله مرآة الإنسان — يُسقط صفاته الأفضل على الله</td>
+          </tr>
+          <tr>
+            <td class="td-label">الثانية</td>
+            <td>ماهية الإيمان (من لوثر)</td>
+            <td>الدين تعويض نفسي — الإنسان يبحث عن الكمال في الخيال</td>
+          </tr>
+          <tr>
+            <td class="td-label">الثالثة</td>
+            <td>ماهية الدين</td>
+            <td>الطبيعة هي الموضوع الأصلي للدين — الأديان الطبيعية سابقة</td>
+          </tr>
+          <tr>
+            <td class="td-label">الرابعة</td>
+            <td>الثيوجونيا</td>
+            <td>الدين = الضعف والتبعية والاعتماد على قوة مطلقة</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال نقدي</div>
+      <div class="q-text">ما نقد ماركس لتصوّر فيورباخ للطبيعة؟ وهل هو نقد مبرر؟ <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية</div>
+      <div class="q-ans-text">
+        <ul>
+          <li>ماركس: فيورباخ ركّز على علاقة الإنسان بالطبيعة بشكل أنثروبولوجي مجرد — لا اجتماعي</li>
+          <li>فيورباخ يرى الطبيعة كأنها <strong>ثابتة معطاة</strong> — لا دور للمجتمع في تشكيلها</li>
+          <li>ماركس: الطبيعة التي يعيش فيها الإنسان تتشكّل عبر العمل والصناعة والعلاقات الاجتماعية التاريخية</li>
+          <li><strong>لكن:</strong> بعض الباحثين يرون أن نقد ماركس ليس مبرراً تماماً — لأن فلسفة الطبيعة عند فيورباخ بمعناها الأعمق لا تتعارض مع المعنى الاجتماعي الذي يقصده ماركس</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-card">
+    <button class="q-btn" onclick="toggleQ(this)">
+      <div class="q-meta">سؤال شامل</div>
+      <div class="q-text">اشرح في مقال موجز كيف يعكس فيورباخ المعادلة الهيجلية في الطبيعة والدين. <span class="chevron" style="flex-shrink:0">+</span></div>
+    </button>
+    <div class="q-body">
+      <div class="q-ans-label">الإجابة النموذجية الشاملة</div>
+      <div class="q-ans-text">
+        <ul>
+          <li><strong>في الطبيعة:</strong> هيجل يبدأ من الروح المطلق وينتهي إلى الطبيعة كمرحلة ثانوية. فيورباخ يعكس هذا: الطبيعة هي الأصل والبداية، والفكر والروح نتيجة لها. الجملة المحورية: "لا وجود بدون أرض وهواء وماء وضوء وطعام"</li>
+          <li><strong>في الدين:</strong> هيجل يرى الدين تجلياً للروح المطلق في وعي الإنسان. فيورباخ يعكس: الإنسان هو من يُنتج الله في خياله — الله مرآة الإنسان</li>
+          <li><strong>التطور عبر المراحل الأربع:</strong> من تحليل المسيحية كمرآة → إلى تحليل الدين نفسياً → إلى الأديان الطبيعية → إلى تفسير الدين بالضعف الإنساني أمام الطبيعة</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert">
+    <strong>تنبيه مهم:</strong> فيورباخ لا يقول إن الطبيعة "إلهية" — هو يرفض تأليه الطبيعة والخرافات. هو فقط يقول إنها الأساس المادي للوجود الإنساني. والفرق بينه وبين إسبينوزا: إسبينوزا يرى الله والطبيعة شيئاً واحداً، أما فيورباخ فيُبقي الإنسان مركزاً لا الله ولا الطبيعة كذاتٍ إلهية.
+  </div>
+</div>
+
+<script>
+  function toggle(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleTerm(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleQ(btn) { var b=btn.nextElementSibling,i=btn.querySelector('.chevron'),o=b.classList.contains('open'); b.classList.toggle('open',!o); i.classList.toggle('open',!o); i.textContent=o?'+':'×'; }
+  function toggleExplain(btn) { var b=btn.nextElementSibling,o=b.classList.contains('open'); b.classList.toggle('open',!o); btn.textContent=o?'💬 اشرحلي بالعامية':'💬 إخفاء الشرح'; }
+  function expandAll() {
+    document.querySelectorAll('.collapsible').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.toggle-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.term-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.term-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+    document.querySelectorAll('.q-body').forEach(function(b){b.classList.add('open')});
+    document.querySelectorAll('.q-btn .chevron').forEach(function(i){i.classList.add('open');i.textContent='×'});
+  }
+</script>
+</body>
+</html>
