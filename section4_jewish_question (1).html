@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المسألة اليهودية — باور، هيجل، ماركس</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --surface: #1a1814;
+    --card: #211f1b;
+    --border: #2e2b24;
+    --accent: #c9a84c;
+    --accent2: #7b9e87;
+    --accent3: #b05c4a;
+    --text: #e8e0d0;
+    --muted: #8a8070;
+    --highlight: rgba(201,168,76,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 17px;
+    line-height: 1.9;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .page-header {
+    background: linear-gradient(135deg, #1a1814 0%, #0f0e0c 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+  }
+  .page-title {
+    font-family: 'Amiri', serif;
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .page-subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  /* Nav pills */
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 20px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Cairo', sans-serif;
+    text-decoration: none;
+  }
+  .nav-pill:hover, .nav-pill.active {
+    background: var(--accent);
+    color: #0f0e0c;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Main */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* Chapter heading */
+  .chapter {
+    margin-bottom: 40px;
+  }
+  .chapter-title {
+    font-family: 'Amiri', serif;
+    font-size: 24px;
+    color: var(--accent);
+    border-right: 3px solid var(--accent);
+    padding-right: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* Card toggle */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: rgba(201,168,76,0.3); }
+  .card.open { border-color: rgba(201,168,76,0.4); }
+
+  .toggle-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    padding: 16px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .toggle-btn:hover { background: rgba(255,255,255,0.03); }
+  .card.open .toggle-btn { background: rgba(201,168,76,0.05); }
+
+  .chevron {
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: 300;
+    flex-shrink: 0;
+    transition: transform 0.3s;
+    line-height: 1;
+  }
+  .card.open .chevron { transform: rotate(45deg); }
+
+  .collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+  .card.open .collapsible { max-height: 1200px; }
+
+  .card-body {
+    padding: 0 18px 18px;
+    color: #c8bfaf;
+    font-size: 15.5px;
+    line-height: 2;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  /* Highlight */
+  .hl {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .hl2 { color: var(--accent2); font-weight: 600; }
+  .hl3 { color: var(--accent3); font-weight: 600; }
+
+  /* Explain button */
+  .explain-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    background: rgba(123,158,135,0.12);
+    border: 1px solid rgba(123,158,135,0.3);
+    color: var(--accent2);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s;
+  }
+  .explain-btn:hover { background: rgba(123,158,135,0.22); }
+
+  .explain-box {
+    display: none;
+    margin-top: 12px;
+    background: rgba(123,158,135,0.07);
+    border: 1px solid rgba(123,158,135,0.2);
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: #b5cabb;
+    font-size: 14.5px;
+    line-height: 1.9;
+  }
+  .explain-box.show { display: block; }
+  .explain-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  /* Quote box */
+  .quote-box {
+    background: rgba(201,168,76,0.06);
+    border-right: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-family: 'Amiri', serif;
+    font-size: 17px;
+    color: #ddd0b0;
+    font-style: italic;
+  }
+
+  /* Compare table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 14px;
+  }
+  .compare-table th {
+    background: rgba(201,168,76,0.1);
+    color: var(--accent);
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .compare-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: #c0b8a8;
+    vertical-align: top;
+    line-height: 1.8;
+  }
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  /* Info badge */
+  .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--accent);
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  /* Summary box */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(123,158,135,0.06));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 32px 0;
+  }
+  .summary-box h3 {
+    color: var(--accent);
+    font-family: 'Amiri', serif;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .summary-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .summary-box ul li {
+    padding: 6px 0 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: #c8bfaf;
+    font-size: 15px;
+    padding-right: 20px;
+    position: relative;
+  }
+  .summary-box ul li::before {
+    content: '◆';
+    color: var(--accent);
+    font-size: 8px;
+    position: absolute;
+    right: 0;
+    top: 12px;
+  }
+
+  /* Quiz */
+  .quiz-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 40px;
+  }
+  .quiz-title {
+    font-family: 'Amiri', serif;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .question {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .question:last-child { border-bottom: none; margin-bottom: 0; }
+  .question p {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--muted);
+    transition: all 0.2s;
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+  }
+  .option:hover { border-color: var(--accent); color: var(--text); }
+  .option.correct { background: rgba(123,158,135,0.15); border-color: var(--accent2); color: var(--accent2); }
+  .option.wrong { background: rgba(176,92,74,0.15); border-color: var(--accent3); color: var(--accent3); }
+
+  .score-box {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background: rgba(201,168,76,0.08);
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .score-box.show { display: block; }
+  .score-num { font-size: 42px; font-weight: 700; color: var(--accent); }
+  .score-label { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  .check-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    background: var(--accent);
+    color: #0f0e0c;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .check-btn:hover { opacity: 0.88; }
+
+  @media (max-width: 600px) {
+    .page-header { padding: 32px 16px 24px; }
+    .main { padding: 20px 14px 60px; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="section-label">السيكشن الرابع</div>
+  <h1 class="page-title">المسألة اليهودية<br>بين باور وهيجل وماركس</h1>
+  <p class="page-subtitle">نقد الدين — التحرر السياسي — الوعي الذاتي</p>
+</div>
+
+<div class="nav-pills">
+  <a href="#bauer" class="nav-pill active">باور واليهودية</a>
+  <a href="#hegel" class="nav-pill">هيجل والانفصال</a>
+  <a href="#marx" class="nav-pill">ماركس والرد</a>
+  <a href="#bruno" class="nav-pill">الوعي الذاتي والنقد</a>
+  <a href="#quiz" class="nav-pill">🎯 امتحان</a>
+</div>
+
+<div class="main">
+
+  <!-- ======= CHAPTER 1: BAUER ======= -->
+  <div class="chapter" id="bauer">
+    <h2 class="chapter-title">أولاً — باور والمسألة اليهودية</h2>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ما هي "المسألة اليهودية" عند باور؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          كتاب <span class="hl">"المسألة اليهودية"</span> لباور يدخل في صميم <span class="hl">نقد اللاهوت</span>، ويؤكد أن المسألة اليهودية هي <span class="hl2">مسألة عصرنا</span> وأنها ذات طابع كلي عام — أي لا تخص اليهود وحدهم بل تخص المجتمع كله.
+          <br><br>
+          في ألمانيا القرن الـ19، كانت "المسألة اليهودية" تعني تحديداً: <span class="hl">مسألة "الحريات" المدنية لليهود</span> — هل يجب منحهم حقوقاً مدنية كاملة أم لا؟ الكتاب أثار جدلاً واسعاً جداً في عصره.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيقول: موضوع اليهود مش موضوع ديني بحت — ده موضوع بيخص المجتمع كله. وفي ألمانيا وقته كان الناس بتتجادل: هل نديلهم حقوق مدنية زي باقي المواطنين ولا لأ؟ وباور جاء يقول رأيه في الموضوع ده من زاوية فلسفية.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>كيف ينظر باور لليهود كشعب؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يرى باور أن اليهود <span class="hl">شعب متميز</span>، وأصحاب دم مختلف — ويجب أن يحافظوا على النقاء العرقي. هذه النظرة جعلت الحكومات تتخذ موقفاً عدائياً من اليهود، رغم أنهم هم الذين يملكون سوق المال والأعمال ويستطيعون إقراض الحكام.
+          <br><br>
+          <span class="hl3">لكن باور يحاول التأكيد</span> على أن ما يدّعيه اليهود عن أنفسهم — بأن <span class="hl">"جوهر اليهودية" هو التحرر (الحرية)</span> — هذا غير صحيح. فجوهر اليهودية عنده ليس هو الدين الحقيقي للروح، بل هو:
+          <br><br>
+          <div class="quote-box">
+            "المادي" أو "المال" — الدين الذي يدين به اليهود للعالد المادي والمنفعة العملية التي يجدونها في التجارة.
+          </div>
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيقول: اليهود بيقولوا عن نفسهم إنهم شعب بيطلب الحرية والتحرر. ده كلام غلط عنده. الحقيقة إن ما بيحكمهم مش الدين الروحاني — اللي بيحكمهم هو المال والمصلحة المادية. يعني دينهم الحقيقي هو "المال".
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ليه باور يرى أن اليهود سبب اضطهادهم بأنفسهم؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          عند باور، اليهود كانوا <span class="hl">يسببون اضطهادهم</span> من خلال تمسكهم بشريعتهم التي تؤكد على تميزهم؛ كما كانوا يتمسكون بقوميتهم بشرسة ويردون سلباً على حركات التاريخ وتغيراته.
+          <br><br>
+          <span class="hl">فإن ما يؤسس الطابع التاريخي لهذا الشعب هو شريعتهم</span> — التي وضعتهم كما يقولون في مأمن من تأثيرات التاريخ وتغيراته. <span class="hl3">إنهم ضد التاريخ والقيم وبالتالي ضد كل البشرية.</span>
+          <br><br>
+          ويصف باور موقفهم وتصورهم عن الشعوب الأخرى بأنه <span class="hl">"عنصريتهم ونظريتهم الدائمة عن نقائهم وغيرهم"</span> — فهم الشعب الوحيد الذي يجب أن يستبعد كل الشعوب الأخرى.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيقول: اليهود بيتمسكوا بشريعتهم وبفكرة إنهم "شعب مختار" — وده بالضبط اللي خلى الناس تكرههم وتضطهدهم. هم مش ضحايا ظروف خارجية بس — هم بأفكارهم وموقفهم من الشعوب التانية كانوا بيضيقوا المسافة بينهم وبين باقي البشر.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ما شرط باور لحصول اليهودي على حقوقه؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يرى باور أن اليهودي قادر على نيل حقوق الإنسان ومنحها للآخرين — <span class="hl">لكن بشرط</span>: أن <span class="hl2">ينفصل عن دينه ويهجر هويته اليهودية.</span>
+          <br><br>
+          <div class="quote-box">
+            "اليهودي سوف تضطره عاداته ودينه إلى الانفصال الأبدي، لأن هذا الانفصال هو جوهره."
+          </div>
+          يعني: "جوهره" كيهودي — لا يجعله إنساناً، بل يجعله يهودياً فقط. واليهودي الذي يربطه إنسانيًا بالبشر هو الجوهر الإنساني — وهذا ينتصر عنده دائماً على الجوهر اليهودي.
+          <br><br>
+          <span class="hl">ويرى باور</span> أن اليهودي الذي يعيش في إطاعة الشريعة، هو في الواقع لا ينفذ تلك الشريعة ولا يستطيع تنفيذها — لأن الموسوية أصبحت مستحيلة تماماً.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيقول: اليهودي عايز حقوق؟ كويس. بس الأول يتخلى عن يهوديته. طالما هو متمسك بدينه وهويته اليهودية — مش ممكن يبقى مواطن عادي. لازم يختار: إما إنسان وإما يهودي.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>باور يرفض فكرة "تميز اليهود وتفوقهم" — كيف؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يرفض باور فكرة <span class="hl">تمايز اليهود واستبعادهم لباقي الشعوب الأخرى</span>، ويوضح ذلك الادعاء موضحاً كذبه — وزيف أسطورة "قوة وشجاعة اليهود". وكل ما يؤكده اليهود هو مجرد <span class="hl3">وهم وخيال.</span>
+          <br><br>
+          ويقول ماركس لاحقاً إن باور لم يتناول المسألة اليهودية بشكل صحيح — لأن <span class="hl2">طبيعة اليهود الثابتة وجوهرهم اللي وصفه باور وماركس لازال نفس الجوهر</span> — لم تتغير بعد أكثر من قرن ونصف.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيفند فكرة إن اليهود شعب استثنائي متفوق — ويقول ده كله كلام فارغ وأساطير. وماركس بعدين بيقول: حتى تحليل باور نفسه فيه مشاكل، لأنه ما اتعمقش في السبب الحقيقي للمسألة.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======= CHAPTER 2: HEGEL ======= -->
+  <div class="chapter" id="hegel">
+    <h2 class="chapter-title">ثانياً — هيجل والانفصال في اليهودية</h2>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>كيف فهم هيجل الدين في إطار مفهومَي "الاتصال" و"الانفصال"؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          عند هيجل، لفهم الدين لابد من العودة لمقولتين أساسيتين:
+          <br><br>
+          <table class="compare-table">
+            <tr>
+              <th>١ — الاتصال أو الاتحاد</th>
+              <th>٢ — الانفصال</th>
+            </tr>
+            <tr>
+              <td>هو الاتصال بين الله والبشر. يتجلى عند المسيحية — فنجد أن هناك ذاتين <span class="hl">الإلهية والإنسانية</span> كما أن هناك اتصالاً آخر في المسيحية بين الله والإنسان في <span class="hl">(الحلول)</span>، أي في "صورة المسيح".</td>
+              <td>نفي اليهودية بأن العلاقة بين الله والبشر هي علاقة <span class="hl">"انفصال"</span> بين موضوع وموضوع — وليس بين ذات وذات.</td>
+            </tr>
+          </table>
+          <br>
+          أما حديثه عن اليهودية فالعكس — فالعلاقة بالمقولة الثانية (الانفصال).
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            هيجل بيقول: في المسيحية، الله والإنسان بيتوحدوا — ده "اتصال". زي في فكرة المسيح اللي فيه الإله اتجسد في إنسان. أما في اليهودية، الله بعيد تماماً عن الإنسان — علاقة بين شيء وشيء مش بين أنا وأنت. ده هو "الانفصال".
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ما معنى "الانفصال" في اليهودية عند هيجل بالتفصيل؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          <span class="hl">الانفصال</span> عند هيجل في اليهودية يعني: أن العلاقة بين الله والبشر عند اليهودية هي علاقة <span class="hl">"انفصال" بين موضوع وموضوع</span> — وليس بين ذات وذات.
+          <br><br>
+          أي أن <span class="hl3">اليهودي يستعمل الإله كموضوع</span> لكي يوظفه لمصالحه — فالإله هنا خاص بهم فقط، ولا يعمل من أجل البشر — بل من أجل اليهود فقط.
+          <br><br>
+          ولذلك <span class="hl">فاليهودي يُبعد الإله عنه</span>، حيث أن العلاقة بينهما ليست علاقة حب، وإنما <span class="hl2">علاقة رهبة ومصلحة.</span>
+          <br><br>
+          كذلك اليهودي بالنسبة للإله هو مجرد <span class="hl">موضوع يُحتك بالطبيعة.</span>
+          <br><br>
+          <div class="quote-box">
+            وهنا نجد أن ما قاله هيجل في جدل السيد والعبد ينطبق على هذا الموضوع.
+          </div>
+          ومن كل ما سبق نجد ارتباط رؤية هيجل لليهودية برؤية باور لها.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            هيجل بيقول: اليهودي مش بيحب ربنا — بيخافه وبيستخدمه. الإله عنده أداة لمصلحته هو. مش علاقة حب وانتماء — علاقة مصلحة ورهبة. وده زي علاقة السيد والعبد اللي هيجل اتكلم عنها في فلسفته — السيد بيتعامل مع العبد كأداة مش كإنسان.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======= CHAPTER 3: MARX ======= -->
+  <div class="chapter" id="marx">
+    <h2 class="chapter-title">ثالثاً — ماركس والرد على باور</h2>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ما الفرق الجوهري بين موقف ماركس وموقف باور؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يقول ماركس إن باور يطلب من اليهود التحرر — <span class="hl">لكن أي تحرر؟ التحرر الديني السياسي.</span>
+          <br><br>
+          عند باور: <span class="hl2">لا يمكن أن يحرر أحد اليهود من غير محرر</span> سياسياً في ألمانيا؛ اليهود يطلبون تحرراً لأنهم يطلبون منهم تحرراً خاصاً — كألمان كاملين يعملون على تحرر ألمانيا السياسية.
+          <br><br>
+          <span class="hl">يرى ماركس أن المسألة اليهودية عند باور لها دلالة عامة</span> — أنها مستقلة عن الشروط الدينية والألمانية الدولية. <span class="hl2">أنها علاقات الدين والدولة</span> — إذا كان باور يشترط أن يتخلى اليهودي عن اليهودية والإنسان عن الدين كي يعتقا مدنياً ووطنياً.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور بيقول: اليهودي يتحرر بإنه يتخلى عن دينه. ماركس بيرد: ده تحرر سياسي بس — مش تحرر حقيقي. التحرر الحقيقي هو التحرر الإنساني الكامل — مش بس تغيير علاقة الفرد بالدولة.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>ماذا يريد ماركس أن "نؤكد عليه"؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يقول ماركس: <span class="hl">لا نبحث عن سر اليهودي في دينه</span> — بل لنبحث عن سر الدين في اليهودي الواقعي.
+          <br><br>
+          ما هو الأساس الدنيوي لليهودية؟ <span class="hl2">ما هي عبادة اليهودي الدنيوية؟ المتاجرة.</span>
+          <br><br>
+          ما هو إلهه الدنيوي؟ <span class="hl">المال.</span>
+          <br><br>
+          المال إذن هو تحرره من المتاجرة — ومن المال والتالي من اليهودية. وسوف يحرر نفسه بنفسه.
+          <br><br>
+          إن مسألة التحرر السياسي والدين تصبح عند ماركس مسألة علاقات التحرر السياسي والتحرر الإنساني. أي أن <span class="hl">التحرر السياسي لليهودي هو تحرر البشرية من اليهودية</span> — ويعطي ماركس التناقض بين الدولة والدين معيناً يجعله تناقضاً إنسانياً بين الدولة وعناصر دنيوية معينة.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            ماركس بيقول: مش المهم إيه اليهودي بيؤمن بيه — المهم إيه اللي بيعمله في الواقع. واللي بيعمله هو التجارة والمال. ده هو "دينه الحقيقي". فالتحرر الحقيقي مش في إنه يغير دينه — لكن في إن المجتمع كله يتحرر من منطق المال والتجارة.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>الخلاصة الكبرى عند ماركس في آخر دلالاته</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          يقول ماركس في آخر دلالاته:
+          <div class="quote-box">
+            "إن التحرر اليهودي هو تحرر البشرية من اليهودية."
+          </div>
+          يعطي ماركس <span class="hl">التناقض بين الدولة والدين</span> معيناً يجعله تناقضاً إنسانياً — بين الدولة وعناصر دنيوية معينة. أي أن <span class="hl2">التحرر السياسي للرجل الديني</span> — سواء من اليهودية أو المسيحية — هو تحرر الدولة من الدين وجوهه عام.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            ماركس بيقول: تحرير اليهودي مش هدف في حد ذاته — ده جزء من هدف أكبر وهو تحرير البشرية كلها من منطق المال والدين اللي بيستعبد الناس. التحرر الحقيقي = تحرر المجتمع من الرأسمالية والمصلحة المادية.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======= CHAPTER 4: BRUNO BAUER SELF-CONSCIOUSNESS ======= -->
+  <div class="chapter" id="bruno">
+    <h2 class="chapter-title">رابعاً — الوعي الذاتي والنقد عند برونو باور</h2>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>كيف تشكلت فلسفة برونو باور من خلال الوعي الذاتي والنقد؟</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          سيولد في هذا العالم الجديد — <span class="hl">الذي بات قدومه وشيكاً بدون أن ينير له نار النقد</span> — شيء فاعلية وتأثير. كتب باور عام 1843 كتابه <span class="hl">"كشف المسيحية"</span> أو "المسيحية المكشوفة" — نقداً مبسطاً للمسيحية، لكنه بدأ بتأكيد ضرورة إخضاع اليهود لقضية تحرر الجنس البشري.
+          <br><br>
+          <span class="hl3">أوقفت الرقابة نشره ولم يظهر إلا عام 1927.</span>
+          <br><br>
+          يرى باور أن إخضاع الجوهر الخاص باليهودية للنقد = <span class="hl2">"خيانة للجنس البشري"</span> — الذين يرون ويعتبرونه ضرورياً من المدافعين عن تحرر اليهود؛ بل أن بعضهم يدينون من يضع اليهودية إمتياز اليهودية للنقد، ويناضلون ضد الامتيازات.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور كتب كتاب ينتقد فيه المسيحية واليهودية معاً — الكتاب اتمنع من النشر وما ظهرش غير بعد 84 سنة! وكان بيقول: لازم نخضع الدين للنقد العقلاني — حتى لو الناس اعتبرت ده "خيانة".
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>الخلاف بين باور وحلقة "الأخوة Freien"</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          <span class="hl">النقد هو النشاط الذي يتحول به الوقائع إلى موضوعات للوعي الذاتي</span> — الوعي الكلي. ومهمته استبعاد الحواجز التي تعيق تقدم التاريخ — وهو لا يكون دائماً سلباً.
+          <br><br>
+          وبسبب النقد الشديد <span class="hl2">زاد الاختلاف بين باور وبين حلقة الأخوة Freien</span> وابتعد عن أرنولد روجيه وجريدته الهيجلية وعن كل الجماعات. أوضح باور 1843 ضرورة أن يعمل مستقلاً (14) — أن يكون <span class="hl">وحيداً بعيداً عن أي جماعة ولا ينتمي لأي حزب.</span>
+          <br><br>
+          هذا الموقف كان قريباً من موقف شتراوس — وكان هذا الحل الذي اختاره.
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور اختلف مع كل الجماعات الفكرية حواليه — الهيجليين اليساريين وغيرهم. وقرر يشتغل لوحده بدون انتماء لأي تيار أو حزب. شايف إن الفيلسوف الحقيقي لازم يكون مستقل عن أي مجموعة ضغط.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <button class="toggle-btn">
+        <span>إصرار باور على تحويل القضايا السياسية لقضايا دينية — وموقفه من ثورة 1848</span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="collapsible">
+        <div class="card-body">
+          <span class="hl">تتضح نزعة باور على تحويل كل القضايا السياسية إلى قضايا دينية.</span> بينما أراد زملاؤه عملاً سياسياً، كان يبدو التنافس بينهم واضحاً وازداداً الخلاف بينهم.
+          <br><br>
+          ويرجع ذلك إلى أنهم كانوا <span class="hl2">يشجعون فصل الكنيسة عن الدولة</span>، وبينما أخذ زملاؤه يتجهون للجمهور واهتموا بأحوالهم ونادوا ببعض الحقوق السياسية؛ فإن باور لم يعر الأغلبية أي اهتمام — فالعامة بالنسبة له كانت تعنى المادية الجهل ونهاية الثقافة ونهاية النقد.
+          <br><br>
+          <span class="hl">بينما كان الآخرين يفضلون الإصلاحات الاجتماعية والسياسية</span>، كان باور يؤمن بالنقد النظري الخالص. كان يعتقد في الطبيعة الروحية للدولة وفقاً لتصور هيجل — وحين هبت ثورة 1848 وقف باور منها موقف المشاهد منتقداً الحركة الثورية ساخراً منها باعتبارها وهماً وخداعاً، وفشل لا يكن جنبه.
+          <br><br>
+          <div class="quote-box">
+            "الثورة كلها كانت خداع."
+            <br><small>— برونو باور عن ثورة 1848</small>
+          </div>
+          <button class="explain-btn" onclick="toggleExplain(event, this)">💬 اشرحلي بالعامية</button>
+          <div class="explain-box">
+            <div class="explain-label">الشرح بالعامية</div>
+            باور كان شايف إن الشغل الحقيقي هو الفكر والنقد الفلسفي — مش السياسة ولا الثورات. لما جات ثورة 1848 وقف يتفرج ويقول "ده كله كلام فارغ وخداع". زملاؤه نزلوا يتظاهروا ويطالبوا بحقوق — هو فضل في مكتبه بيكتب نقداً فلسفياً.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-box">
+    <h3>📌 ملخص السيكشن الرابع</h3>
+    <ul>
+      <li>باور: المسألة اليهودية = مسألة نقد لاهوتي عصرية — جوهر اليهودية هو المال لا الحرية</li>
+      <li>باور: اليهودي لن ينال حقوقه إلا بالتخلي عن دينه وهويته اليهودية</li>
+      <li>هيجل: اليهودية = انفصال (موضوع وموضوع) لا اتصال — علاقة رهبة ومصلحة لا حب</li>
+      <li>جدل السيد والعبد عند هيجل ينطبق على العلاقة بين اليهودي وإلهه</li>
+      <li>ماركس: الدين الحقيقي لليهودي = المال والتجارة — التحرر الحقيقي = تحرر البشرية من منطق المال</li>
+      <li>باور: النقد هو الوعي الذاتي الكلي — رفض الثورة ووصفها بـ"الخداع"</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ======= QUIZ ======= -->
+  <div class="quiz-section" id="quiz">
+    <div class="quiz-title">🎯 امتحان مقالي</div>
+    <p style="text-align:center;color:var(--muted);font-size:14px;margin-bottom:28px;">اكتب إجابتك في المربع — ثم اضغط "عرض الإجابة النموذجية" لتقارن بنفسك</p>
+
+    <!-- Q1 -->
+    <div class="essay-q" id="eq1">
+      <div class="essay-num">السؤال الأول</div>
+      <p class="essay-text">ما الفرق بين موقف <strong>باور</strong> وموقف <strong>ماركس</strong> من مسألة تحرر اليهود؟ وما أوجه الاتفاق والاختلاف بينهما؟</p>
+      <textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea>
+      <button class="show-answer-btn" onclick="toggleAnswer('a1')">📖 عرض الإجابة النموذجية</button>
+      <div class="answer-box" id="a1">
+        <div class="answer-label">الإجابة النموذجية</div>
+        <strong>أوجه الاتفاق:</strong> كلاهما يرى أن جوهر اليهودية هو المال والمصلحة المادية لا الدين الروحاني.
+        <br><br>
+        <strong>أوجه الاختلاف:</strong>
+        <br>• <span class="hl">باور</span> يرى أن التحرر = تحرر ديني سياسي — أي على اليهودي أن يتخلى عن دينه وهويته للحصول على حقوقه المدنية.
+        <br>• <span class="hl2">ماركس</span> يرى أن هذا تحرر ناقص وسطحي. التحرر الحقيقي ليس في تغيير علاقة الفرد بالدين، بل في تحرر المجتمع كله من منطق المال والتجارة. خلاصته: "التحرر اليهودي هو تحرر البشرية من اليهودية" — أي من الرأسمالية والمصلحة المادية.
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="essay-q" id="eq2">
+      <div class="essay-num">السؤال الثاني</div>
+      <p class="essay-text">اشرح مفهوم <strong>"الانفصال"</strong> في اليهودية عند هيجل، وكيف يختلف عن مفهوم <strong>"الاتصال"</strong> في المسيحية؟</p>
+      <textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea>
+      <button class="show-answer-btn" onclick="toggleAnswer('a2')">📖 عرض الإجابة النموذجية</button>
+      <div class="answer-box" id="a2">
+        <div class="answer-label">الإجابة النموذجية</div>
+        <strong>الاتصال في المسيحية:</strong> العلاقة بين الله والإنسان هي علاقة ذات وذات — علاقة حب واتحاد، تتجلى في فكرة الحلول (المسيح = الله في صورة إنسان).
+        <br><br>
+        <strong>الانفصال في اليهودية:</strong> العلاقة بين الله والإنسان عند هيجل هي علاقة موضوع وموضوع — لا ذات وذات. اليهودي يستعمل الإله كأداة لمصلحته الخاصة، فالإله عنده خاص باليهود فقط ولا يعمل من أجل البشر كلهم. لذلك العلاقة ليست علاقة حب بل علاقة <span class="hl">رهبة ومصلحة</span>. وينطبق على هذا جدل السيد والعبد عند هيجل.
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="essay-q" id="eq3">
+      <div class="essay-num">السؤال الثالث</div>
+      <p class="essay-text">لماذا رفض <strong>برونو باور</strong> ثورة 1848 واعتبرها "خداعاً"؟ وكيف يعكس هذا الموقف فلسفته في "النقد" و"الوعي الذاتي"؟</p>
+      <textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea>
+      <button class="show-answer-btn" onclick="toggleAnswer('a3')">📖 عرض الإجابة النموذجية</button>
+      <div class="answer-box" id="a3">
+        <div class="answer-label">الإجابة النموذجية</div>
+        رفض باور الثورة لأنه كان يؤمن بأن التغيير الحقيقي لا يأتي من الفعل السياسي والشارع، بل من <span class="hl">النقد النظري الخالص</span> — الذي هو عنده "النشاط الذي يتحول به الوقائع إلى موضوعات للوعي الذاتي".
+        <br><br>
+        كان يعتقد في الطبيعة الروحية للدولة وفقاً لتصور هيجل، ويرى أن العامة (الجمهور) = الجهل ونهاية الثقافة ونهاية النقد. لذلك وقف موقف المشاهد الساخر من الثورة ووصفها بـ"الخداع".
+        <br><br>
+        هذا الموقف يعكس فلسفته مباشرة: الفيلسوف عنده يجب أن يبقى مستقلاً عن أي جماعة أو حزب أو حركة، ويعمل على مستوى الفكر لا على مستوى الشارع.
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="essay-q" id="eq4">
+      <div class="essay-num">السؤال الرابع</div>
+      <p class="essay-text">يقول ماركس: <em>"لا نبحث عن سر اليهودي في دينه، بل لنبحث عن سر الدين في اليهودي الواقعي."</em> — اشرح هذه الجملة وما تعنيه فلسفياً.</p>
+      <textarea class="essay-input" placeholder="اكتب إجابتك هنا..."></textarea>
+      <button class="show-answer-btn" onclick="toggleAnswer('a4')">📖 عرض الإجابة النموذجية</button>
+      <div class="answer-box" id="a4">
+        <div class="answer-label">الإجابة النموذجية</div>
+        ماركس بهذه الجملة يقلب المنهج التقليدي رأساً على عقب. بدلاً من أن ندرس <span class="hl">الدين لنفهم سلوك اليهودي</span>، ماركس يقول: انظر إلى ما يفعله اليهودي في الواقع الحياتي — ستفهم من خلاله طبيعة دينه.
+        <br><br>
+        وحين نفعل ذلك نجد أن: الأساس الدنيوي لليهودية = <span class="hl2">التجارة والمال</span>. إذن الدين هنا انعكاس للواقع المادي لا العكس. وهذا هو المنهج المادي التاريخي عند ماركس: الاقتصاد والحياة المادية هي التي تشكّل الأفكار والدين — لا الدين هو الذي يشكّل الحياة.
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+  .essay-q {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .essay-q:hover { border-color: rgba(201,168,76,0.3); }
+  .essay-num {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .essay-text {
+    color: var(--text);
+    font-size: 15.5px;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .essay-text strong { color: var(--accent); }
+  .essay-text em { color: #c0b090; font-style: italic; }
+  .essay-input {
+    width: 100%;
+    min-height: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    padding: 12px 14px;
+    resize: vertical;
+    direction: rtl;
+    line-height: 1.8;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+  .essay-input:focus {
+    outline: none;
+    border-color: rgba(201,168,76,0.4);
+    background: rgba(201,168,76,0.03);
+  }
+  .essay-input::placeholder { color: var(--muted); }
+  .show-answer-btn {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--accent);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s;
+  }
+  .show-answer-btn:hover { background: rgba(201,168,76,0.16); }
+  .answer-box {
+    display: none;
+    margin-top: 14px;
+    background: rgba(123,158,135,0.06);
+    border: 1px solid rgba(123,158,135,0.2);
+    border-radius: 8px;
+    padding: 16px 18px;
+    color: #b5cabb;
+    font-size: 14.5px;
+    line-height: 1.9;
+  }
+  .answer-box.show { display: block; }
+  .answer-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+function toggleExplain(e, btn) {
+  e.stopPropagation();
+  const box = btn.nextElementSibling;
+  box.classList.toggle('show');
+  btn.textContent = box.classList.contains('show') ? '✕ إخفاء الشرح' : '💬 اشرحلي بالعامية';
+}
+
+function toggleAnswer(id) {
+  const box = document.getElementById(id);
+  box.classList.toggle('show');
+  const btn = box.previousElementSibling;
+  btn.textContent = box.classList.contains('show') ? '✕ إخفاء الإجابة' : '📖 عرض الإجابة النموذجية';
+}
+
+document.querySelectorAll('.nav-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
